@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/activity_login_background"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <TextView
@@ -37,7 +37,7 @@
         android:layout_width="380dp"
         android:layout_height="50dp"
         android:layout_marginTop="108dp"
-        android:background="@drawable/activity_login_input_email_background"
+        android:background="@drawable/drawable_login_email_field"
         android:hint="@string/activity_login_inputEmail_Text"
         android:paddingStart="12dp"
         android:paddingTop="12dp"

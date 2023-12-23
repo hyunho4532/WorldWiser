@@ -20,17 +20,17 @@
 
     <style name="Theme.WorldWiser.LoginActivity_HelloWorld_Wiser" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textSize">34sp</item>
-        <item name="android:textColor">#CCFFFFFF</item>
+        <item name="android:textColor">#CC000000</item>
     </style>
 
     <style name="Theme.WorldWiser.LoginActivity_Login_SimpleLogin_Needed" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#CCFFFFFF</item>
+        <item name="android:textColor">#CC000000</item>
     </style>
 
     <style name="Theme.WorldWiser.LoginActivity_Login_InputEmail_EditText" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
 
