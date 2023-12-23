@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Worldwiser</string>
+    <string name="activity_login_hello_world_wiser">안녕하세요. \n월드와이저입니다.</string>
+    <string name="activity_login_simple_login_needed">월드와이저를 이용하기 위해서 간단한 로그인이 필요합니다.</string>
+    <string name="activity_login_inputEmail_Text">이메일을 입력해주세요.</string>
+
+    <!-- 인트로(스플래시 화면에서) 구름의 역할이 무엇인가? -->
+    <string name="iv_intro_cloud_large_todo">사이즈가 제일로 큰 구름</string>
+    <string name="iv_intro_cloud_medium_todo">사이즈가 적당한 구름</string>
+    <string name="iv_intro_cloud_small_todo">사이즈가 제일로 작은 구름</string>
+    <string name="iv_intro_airplane">3D 비행기</string>
+</resources>

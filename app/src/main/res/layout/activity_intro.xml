@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#67A5EF">
+
+
+    <ImageView
+        android:id="@+id/iv_intro_cloud_small_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_intro_airplane"
+        app:srcCompat="@drawable/drawable_intro_cloud_small"
+        android:contentDescription="@string/iv_intro_cloud_small_todo" />
+
+    <ImageView
+        android:id="@+id/iv_intro_cloud_small_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/drawable_intro_cloud_small"
+        android:contentDescription="@string/iv_intro_cloud_small_todo" />
+
+    <ImageView
+        android:id="@+id/iv_intro_cloud_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/drawable_intro_cloud_medium"
+        android:contentDescription="@string/iv_intro_cloud_medium_todo" />
+
+    <ImageView
+        android:id="@+id/iv_intro_cloud_large"
+        android:layout_width="500px"
+        android:layout_height="400px"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_intro_airplane"
+        app:srcCompat="@drawable/drawable_intro_cloud_medium"
+        android:contentDescription="@string/iv_intro_cloud_large_todo" />
+
+    <ImageView
+        android:id="@+id/iv_intro_airplane"
+        android:layout_width="800px"
+        android:layout_height="600px"
+        android:layout_marginTop="184dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/airplane"
+        android:contentDescription="@string/iv_intro_airplane" />
+
+    <TextView
+        android:id="@+id/tv_intro_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_intro_cloud_large" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
