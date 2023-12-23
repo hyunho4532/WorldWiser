@@ -9,4 +9,6 @@
     <string name="iv_intro_cloud_medium_todo">사이즈가 적당한 구름</string>
     <string name="iv_intro_cloud_small_todo">사이즈가 제일로 작은 구름</string>
     <string name="iv_intro_airplane">3D 비행기</string>
+
+    <string name="activity_login_forget_password_text">비밀번호를 잊어버리셨나요?</string>
 </resources>

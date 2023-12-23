@@ -5,14 +5,17 @@
       <map>
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/activity_login_input_email_background.xml" value="0.261" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/activity_login_main_image.xml" value="0.261" />
+        <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/drawable_activity_line.xml" value="0.1945" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/drawable_activity_login_welcome.xml" value="0.1955" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/drawable_intro_airplane.xml" value="0.1955" />
+        <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/drawable_login_button.xml" value="0.1955" />
+        <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/drawable_login_email_and_password_field.xml" value="0.1955" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/ic_drawable_login_welcome.xml" value="0.1955" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1955" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/some_id.xml" value="0.261" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/font/sejong_font.xml" value="0.3953125" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_intro.xml" value="0.5" />
-        <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_login.xml" value="0.67" />
+        <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_main.xml" value="0.38697916666666665" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_onboarding.xml" value="0.274609375" />
       </map>
