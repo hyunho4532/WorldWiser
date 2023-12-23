@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:textSize="20sp"
+            android:fontFamily="@font/sejong_font"
             app:layout_constraintEnd_toEndOf="@+id/iv_intro_airplane"
             app:layout_constraintStart_toStartOf="@+id/iv_intro_airplane"
             app:layout_constraintTop_toBottomOf="@+id/iv_intro_airplane" />
@@ -29,8 +30,8 @@
         <ProgressBar
             android:id="@+id/progressBar2"
             style="?android:attr/progressBarStyle"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginTop="48dp"
             app:layout_constraintEnd_toEndOf="@+id/tv_intro_status"
             app:layout_constraintStart_toStartOf="@+id/tv_intro_status"

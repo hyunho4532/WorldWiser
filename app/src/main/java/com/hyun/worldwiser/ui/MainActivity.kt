@@ -1,7 +1,8 @@
-package com.hyun.worldwiser
+package com.hyun.worldwiser.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.hyun.worldwiser.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
