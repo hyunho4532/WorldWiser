@@ -7,10 +7,10 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/dogBreedTv"
+        android:id="@+id/country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Breed"
+        android:text="대한민국"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
