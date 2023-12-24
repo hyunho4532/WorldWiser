@@ -32,8 +32,11 @@ class LoginActivity : AppCompatActivity() {
         loginBinding.btnLoginInsert.setOnClickListener { view ->
             auth.createUserWithEmailAndPassword(loginBinding.etEmailFormField.text.toString(), loginBinding.etPasswordFormField.text.toString())
                 .addOnSuccessListener {
-                    snackBarFilter.getSnackBar(view)
+                    snackBarFilter.getEmailInsertSnackBar(view)
                     intentFilter.getIntent(context, verificationActivity)
+                }
+                .addOnFailureListener {
+                    snackBarFilter.getEmailNotInsertSnackBar(view)
                 }
         }
     }
