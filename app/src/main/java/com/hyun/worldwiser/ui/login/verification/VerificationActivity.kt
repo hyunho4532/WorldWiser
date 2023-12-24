@@ -41,6 +41,12 @@ class VerificationActivity : AppCompatActivity() {
             countryList.add(Country(countryName))
 
             countryAdapter.notifyItemInserted(countryList.size - 1)
+
+            loadRandomImage()
         }
+    }
+
+    private fun loadRandomImage() {
+        val randomImageUrl = "https://source.unsplash.com/random"
     }
 }
