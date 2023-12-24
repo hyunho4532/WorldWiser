@@ -40,6 +40,8 @@ class IntroActivity : AppCompatActivity() {
 
                     intentFilter.getIntent(startContext, loginActivity)
 
+                    finish()
+
                 } else {
                     activityIntroBinding.tvIntroStatus.text = "사용자 계정 불러오는 중"
                 }

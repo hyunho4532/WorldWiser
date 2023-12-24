@@ -4,6 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.login.verification.VerificationActivity">
+
+    <TextView
+        android:id="@+id/banner_logi"
+        android:layout_width="260dp"
+        android:layout_height="90dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="36dp"
+        android:gravity="top"
+        android:text="@string/activity_login_hello_world_wiser"
+        android:fontFamily="@font/taebeak_bold"
+        android:textAppearance="@style/Theme.WorldWiser.VerificationActivity_Verification_Phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="348dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/activity_login_simple_login_detail_needed"
+        android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_SimpleLogin_Needed"
+        android:fontFamily="@font/dnf_medium"
+        app:layout_constraintStart_toStartOf="@+id/banner_logi"
+        app:layout_constraintTop_toBottomOf="@+id/banner_logi" />
+
+    <EditText
+        android:id="@+id/et_email_form_field"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_margin="60dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/drawable_login_email_field"
+        android:hint="@string/activity_verification_country_Text"
+        android:paddingStart="12dp"
+        android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_InputEmail_EditText"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.82"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login_insert"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/drawable_login_button5"
+        android:color="@color/white"
+        android:gravity="center"
+        android:paddingBottom="6dp"
+        android:text="등록"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_email_form_field"
+        app:layout_constraintStart_toEndOf="@+id/et_email_form_field"
+        app:layout_constraintTop_toTopOf="@+id/et_email_form_field"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="395dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/et_email_form_field"
+        app:layout_constraintTop_toBottomOf="@+id/et_email_form_field" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
