@@ -50,20 +50,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <EditText
-        android:id="@+id/et_country_text_form_field4"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_margin="60dp"
-        android:background="@drawable/drawable_login_email_field"
-        android:hint="@string/activity_verification_nickname_Text"
-        android:paddingStart="12dp"
-        android:textAppearance="@style/Theme.WorldWiser.VerificationActivity_NickName_EditText"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.82"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_country_insert"
         android:layout_width="80dp"
@@ -92,4 +78,18 @@
         app:layout_constraintStart_toStartOf="@+id/et_country_text_form_field"
         app:layout_constraintTop_toBottomOf="@+id/et_country_text_form_field" />
 
+    <com.skydoves.powerspinner.PowerSpinnerView
+        android:id="@+id/powerSpinnerView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:hint="여행 취향을 선택해주세요!"
+        app:spinner_item_array="@array/travel_preferences"
+        app:spinner_popup_animation="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+    
 </androidx.constraintlayout.widget.ConstraintLayout>

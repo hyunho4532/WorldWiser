@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="travel_preferences">
+        <item>동물</item>
+        <item>책</item>
+        <item>집</item>
+    </string-array>
+</resources>
