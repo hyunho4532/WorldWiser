@@ -2,10 +2,12 @@ package com.hyun.worldwiser.ui.login.verification
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryAdapter
 import com.hyun.worldwiser.model.Country
@@ -21,6 +23,7 @@ class VerificationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vertification)
 
+
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
         val etCountryTextFormField = findViewById<EditText>(R.id.et_country_text_form_field)
@@ -35,18 +38,12 @@ class VerificationActivity : AppCompatActivity() {
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.setHasFixedSize(true)
 
-        btnCountryInsert.setOnClickListener {
+        btnCountryInsert.setOnClickListener { view ->
             val countryName = etCountryTextFormField.text.toString()
 
             countryList.add(Country(countryName))
 
             countryAdapter.notifyItemInserted(countryList.size - 1)
-
-            loadRandomImage()
         }
-    }
-
-    private fun loadRandomImage() {
-        val randomImageUrl = "https://source.unsplash.com/random"
     }
 }
