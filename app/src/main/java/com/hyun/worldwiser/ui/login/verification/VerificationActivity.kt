@@ -18,11 +18,17 @@ class VerificationActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
+        var countryList = arrayListOf (
+            Country("일본"),
+            Country("대한민국")
+        )
+
         val countryAdapter = CountryAdapter(this, countryList)
 
         recyclerView.adapter = countryAdapter
 
-        val linearLayoutManager = LinearLayoutManager(this)
+        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.setHasFixedSize(true)
     }
