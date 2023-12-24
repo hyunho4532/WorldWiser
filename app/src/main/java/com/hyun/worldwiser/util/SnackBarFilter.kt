@@ -9,4 +9,10 @@ class SnackBarFilter {
 
         snackBar.show()
     }
+
+    fun getCountryEmptySnackBar(view: View) {
+        val snackBar = Snackbar.make(view, "좋아하는 나라를 입력해주세요.", Snackbar.LENGTH_SHORT)
+
+        snackBar.show()
+    }
 }
