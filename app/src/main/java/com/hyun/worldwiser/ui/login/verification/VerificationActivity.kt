@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -12,6 +13,7 @@ import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryAdapter
 import com.hyun.worldwiser.model.Country
 import com.hyun.worldwiser.util.SnackBarFilter
+import com.skydoves.powerspinner.PowerSpinnerView
 
 class VerificationActivity : AppCompatActivity() {
 
@@ -28,6 +30,8 @@ class VerificationActivity : AppCompatActivity() {
 
         val etCountryTextFormField = findViewById<EditText>(R.id.et_country_text_form_field)
         val btnCountryInsert = findViewById<Button>(R.id.btn_country_insert)
+
+        val powerSpinnerView = findViewById<PowerSpinnerView>(R.id.powerSpinnerView)
 
         val countryAdapter = CountryAdapter(this, countryList)
 

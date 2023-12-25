@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- powerSpinner PopUp BackgroundColor 설정 -->
+    <color name="powerSpinnerBackgroundColor">#F8F8F8</color>
+
+    <color name="powerSpinnerDividerColor">#000000</color>
 </resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="travel_preferences">
+        <item>사람들도 많고, 뷰가 좋은 도시 여행</item>
+        <item>공기도 맑고, 상쾌한 자연 여행</item>
+        <item>낭만있고, 조용한 시골 여행</item>
+    </string-array>
+    
+    <string-array name="transportation_preferences">
+        <item>기차, 지하철</item>
+        <item>버스</item>
+    </string-array>
+</resources>
