@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                       return true
                   }
                   R.id.profile -> {
-                      supportFragmentManager.beginTransaction().replace(R.id.profile, profileFragment).commit()
+                      supportFragmentManager.beginTransaction().replace(R.id.container, profileFragment).commit()
                       return true
                   }
                 }
