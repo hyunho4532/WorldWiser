@@ -11,8 +11,20 @@ class SnackBarFilter {
         snackBar.show()
     }
 
+    fun getVerificationInsertSnackBar(view: View) {
+        val snackBar = Snackbar.make(view, "정보가 정상적으로 등록되었습니다.", Snackbar.LENGTH_SHORT)
+
+        snackBar.show()
+    }
+
     fun getEmailNotInsertSnackBar(view: View) {
         val snackBar = Snackbar.make(view, "이미 존재하는 계정입니다.", Snackbar.LENGTH_SHORT)
+
+        snackBar.show()
+    }
+
+    fun getVerificationFailureSnackBar(view: View) {
+        val snackBar = Snackbar.make(view, "정보를 받아오는 중 에러가 발생하였습니다.", Snackbar.LENGTH_SHORT)
 
         snackBar.show()
     }
