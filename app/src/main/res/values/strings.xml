@@ -5,6 +5,7 @@
 
     <string name="activity_login_inputEmail_Text">이메일을 입력해주세요.</string>
     <string name="activity_login_inputPassword_Text">비밀번호를 입력해주세요.</string>
+
     <string name="activity_verification_country_Text">좋아하는 나라를 입력해주세요.</string>
     <string name="activity_verification_nickname_Text">닉네임을 입력해주세요.</string>
 

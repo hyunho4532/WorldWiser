@@ -7,96 +7,203 @@
     android:background="@color/white"
     tools:context=".ui.login.verification.VerificationActivity">
 
-    <TextView
-        android:id="@+id/banner_logi"
-        android:layout_width="260dp"
-        android:layout_height="90dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="36dp"
-        android:gravity="top"
-        android:text="@string/activity_login_hello_world_wiser"
-        android:fontFamily="@font/taebeak_bold"
-        android:textAppearance="@style/Theme.WorldWiser.VerificationActivity_Verification_Phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="348dp"
-        android:layout_height="19dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/activity_login_simple_login_detail_needed"
-        android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_SimpleLogin_Needed"
-        android:fontFamily="@font/dnf_medium"
-        app:layout_constraintStart_toStartOf="@+id/banner_logi"
-        app:layout_constraintTop_toBottomOf="@+id/banner_logi" />
-
-    <EditText
-        android:id="@+id/et_country_text_form_field"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_margin="60dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/drawable_login_email_field"
-        android:hint="@string/activity_verification_country_Text"
-        android:paddingStart="12dp"
-        android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_InputEmail_EditText"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.82"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_country_insert"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/drawable_login_button5"
-        android:color="@color/white"
-        android:gravity="center"
-        android:paddingBottom="6dp"
-        android:text="등록"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/et_country_text_form_field"
-        app:layout_constraintStart_toEndOf="@+id/et_country_text_form_field"
-        app:layout_constraintTop_toTopOf="@+id/et_country_text_form_field"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="395dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/et_country_text_form_field"
-        app:layout_constraintTop_toBottomOf="@+id/et_country_text_form_field" />
-
-    <com.skydoves.powerspinner.PowerSpinnerView
-        android:id="@+id/powerSpinnerView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="16dp"
-        android:paddingTop="8dp"
-        android:gravity="start"
-        android:hint="여행 취향을 선택해주세요!"
-        app:spinner_item_array="@array/travel_preferences"
-        app:spinner_item_height="46dp"
-        app:spinner_popup_background="@color/powerSpinnerBackgroundColor"
-        app:spinner_popup_elevation="14dp"
-        app:spinner_divider_color="@color/powerSpinnerDividerColor"
-        app:spinner_divider_show="true"
-        app:spinner_divider_size="0.4dp"
-        app:spinner_popup_animation="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
-    
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/banner_logi"
+                android:layout_width="260dp"
+                android:layout_height="90dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="36dp"
+                android:gravity="top"
+                android:text="@string/activity_login_hello_world_wiser"
+                android:fontFamily="@font/taebeak_bold"
+                android:textAppearance="@style/Theme.WorldWiser.VerificationActivity_Verification_Phone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.126"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="348dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/activity_login_simple_login_detail_needed"
+                android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_SimpleLogin_Needed"
+                android:fontFamily="@font/dnf_medium"
+                app:layout_constraintStart_toStartOf="@+id/banner_logi"
+                app:layout_constraintTop_toBottomOf="@+id/banner_logi" />
+
+            <EditText
+                android:id="@+id/et_country_text_form_field"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_margin="60dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/drawable_login_email_field"
+                android:hint="@string/activity_verification_country_Text"
+                android:paddingStart="12dp"
+                android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_InputEmail_EditText"
+                app:layout_constraintEnd_toEndOf="@+id/textView"
+                app:layout_constraintHorizontal_bias="0.82"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_country_insert"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/drawable_login_button5"
+                android:color="@color/white"
+                android:gravity="center"
+                android:paddingBottom="6dp"
+                android:text="등록"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/et_country_text_form_field"
+                app:layout_constraintStart_toEndOf="@+id/et_country_text_form_field"
+                app:layout_constraintTop_toTopOf="@+id/et_country_text_form_field"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="395dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/et_country_text_form_field"
+                app:layout_constraintTop_toBottomOf="@+id/et_country_text_form_field" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="여행 취향 선택"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/powerSpinnerView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="16dp"
+                android:gravity="start"
+                android:hint="선호하는 여행 취향을 선택해주세요!"
+                android:paddingStart="8dp"
+                android:paddingTop="12dp"
+                android:textAppearance="@style/Theme.WorldWiser.VerificationActivity_PowerSpinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:spinner_divider_color="@color/powerSpinnerDividerColor"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/travel_preferences"
+                app:spinner_item_height="46dp"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_background="@color/powerSpinnerBackgroundColor"
+                app:spinner_popup_elevation="14dp" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="교통 수단 선택"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/powerSpinnerView"
+                app:layout_constraintTop_toBottomOf="@+id/powerSpinnerView" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="마지막으로 별명을 입력해주세요!"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/textView5"
+                app:layout_constraintTop_toBottomOf="@+id/powerSpinnerView2" />
+
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/powerSpinnerView2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="16dp"
+                android:gravity="start"
+                android:hint="선호하는 교통 수단을 선택해주세요!"
+                android:paddingStart="8dp"
+                android:paddingTop="12dp"
+                android:textAppearance="@style/Theme.WorldWiser.VerificationActivity_PowerSpinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView5"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                app:spinner_divider_color="@color/powerSpinnerDividerColor"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/transportation_preferences"
+                app:spinner_item_height="46dp"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_background="@color/powerSpinnerBackgroundColor"
+                app:spinner_popup_elevation="14dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button"
+                android:layout_width="390dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:text="등록 완료"
+                android:background="@drawable/drawable_login_button5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.49"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="월드와이저에서는 별명을 가지고 말해요."
+                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                android:textAppearance="@style/Theme.WorldWiser.VerificationActivity_NickName_EditText"
+                android:hint="@string/activity_verification_nickname_Text"
+                android:background="@drawable/drawable_login_email_field"
+                app:layout_constraintStart_toStartOf="@+id/textView7"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

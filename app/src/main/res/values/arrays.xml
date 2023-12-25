@@ -5,4 +5,9 @@
         <item>공기도 맑고, 상쾌한 자연 여행</item>
         <item>낭만있고, 조용한 시골 여행</item>
     </string-array>
+    
+    <string-array name="transportation_preferences">
+        <item>기차, 지하철</item>
+        <item>버스</item>
+    </string-array>
 </resources>
