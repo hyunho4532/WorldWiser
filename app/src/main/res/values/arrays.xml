@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="travel_preferences">
-        <item>동물</item>
-        <item>책</item>
-        <item>집</item>
+        <item>사람들도 많고, 뷰가 좋은 도시 여행</item>
+        <item>공기도 맑고, 상쾌한 자연 여행</item>
+        <item>낭만있고, 조용한 시골 여행</item>
     </string-array>
 </resources>
