@@ -56,8 +56,15 @@ class IntroActivity : AppCompatActivity() {
         delayAndMoveToActivity(loginActivity)
     }
 
-    private fun loadingToAccount() {
+    private suspend fun loadingToAccount() {
         activityIntroBinding.tvIntroStatus.text = "사용자 계정 불러오는 중"
+        delay(1000L)
+
+        moveToMain()
+    }
+
+    private fun moveToMain() {
+        activityIntroBinding.tvIntroStatus.text = "메인 페이지로 이동 중"
         delayAndMoveToActivity(mainActivity)
     }
 
