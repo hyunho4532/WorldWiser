@@ -1,10 +1,12 @@
 package com.hyun.worldwiser.ui
 
+import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
+import com.google.firebase.auth.FirebaseAuth
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.databinding.ActivityIntroBinding
 import com.hyun.worldwiser.type.AuthType
@@ -19,8 +21,12 @@ class IntroActivity : AppCompatActivity() {
     private var authType = AuthType.UnAuthStatus
     private var intentFilter: IntentFilter = IntentFilter()
 
+    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+
     private lateinit var startContext: Context
+
     private val loginActivity: LoginActivity = LoginActivity()
+    private val mainActivity: MainActivity = MainActivity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,18 +40,39 @@ class IntroActivity : AppCompatActivity() {
             delay(2000L)
 
             withContext(Dispatchers.Main) {
-                if (authType == AuthType.UnAuthStatus) {
-                    activityIntroBinding.tvIntroStatus.text = "로그인 페이지로 이동 중"
-                    delay(1000L)
+                val currentUser = firebaseAuth.currentUser
 
-                    intentFilter.getIntent(startContext, loginActivity)
-
-                    finish()
-
+                if (currentUser == null) {
+                    moveToLogin()
                 } else {
-                    activityIntroBinding.tvIntroStatus.text = "사용자 계정 불러오는 중"
+                    loadingToAccount()
                 }
             }
+        }
+    }
+
+    private fun moveToLogin() {
+        activityIntroBinding.tvIntroStatus.text = "로그인 페이지로 이동 중"
+        delayAndMoveToActivity(loginActivity)
+    }
+
+    private suspend fun loadingToAccount() {
+        activityIntroBinding.tvIntroStatus.text = "사용자 계정 불러오는 중"
+        delay(1000L)
+
+        moveToMain()
+    }
+
+    private fun moveToMain() {
+        activityIntroBinding.tvIntroStatus.text = "메인 페이지로 이동 중"
+        delayAndMoveToActivity(mainActivity)
+    }
+
+    private fun delayAndMoveToActivity(activity: Activity) {
+        GlobalScope.launch {
+            delay(1000L)
+            intentFilter.getIntent(startContext, activity)
+            finish()
         }
     }
 
