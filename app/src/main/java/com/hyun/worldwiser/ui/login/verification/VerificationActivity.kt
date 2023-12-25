@@ -2,36 +2,33 @@ package com.hyun.worldwiser.ui.login.verification
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryAdapter
+import com.hyun.worldwiser.databinding.ActivityVerificationBinding
 import com.hyun.worldwiser.model.Country
+import com.hyun.worldwiser.util.HashMapOfFilter
 import com.hyun.worldwiser.util.SnackBarFilter
-import com.skydoves.powerspinner.PowerSpinnerView
 
 class VerificationActivity : AppCompatActivity() {
 
     private var countryList = arrayListOf<Country>()
+    private lateinit var activityVerificationBinding: ActivityVerificationBinding
 
     private val snackBarFilter: SnackBarFilter = SnackBarFilter()
+    private val hashMapOf: HashMapOfFilter = HashMapOfFilter()
+
+    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_vertification)
+        activityVerificationBinding = DataBindingUtil.setContentView(this, R.layout.activity_verification)
 
-
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-
-        val etCountryTextFormField = findViewById<EditText>(R.id.et_country_text_form_field)
-        val btnCountryInsert = findViewById<Button>(R.id.btn_country_insert)
-
-        val powerSpinnerView = findViewById<PowerSpinnerView>(R.id.powerSpinnerView)
+        val recyclerView = activityVerificationBinding.recyclerView
 
         val countryAdapter = CountryAdapter(this, countryList)
 
@@ -42,12 +39,30 @@ class VerificationActivity : AppCompatActivity() {
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.setHasFixedSize(true)
 
-        btnCountryInsert.setOnClickListener { view ->
-            val countryName = etCountryTextFormField.text.toString()
+        activityVerificationBinding.btnCountryInsert.setOnClickListener {
+            val countryName = activityVerificationBinding.etCountryTextFormField.text.toString()
 
             countryList.add(Country(countryName))
 
             countryAdapter.notifyItemInserted(countryList.size - 1)
+        }
+
+        activityVerificationBinding.btnVerificationInsert.setOnClickListener { view ->
+
+            val verification = hashMapOf.insertVerificationDataFromMap (
+                countryList.toString(),
+                activityVerificationBinding.powerSpinnerView.text.toString(),
+                activityVerificationBinding.powerSpinnerView2.text.toString(),
+                activityVerificationBinding.etNicknameTextFormField.text.toString()
+            )
+
+            db.collection("verifications").document(auth.currentUser!!.uid).set(verification)
+                .addOnSuccessListener {
+                    snackBarFilter.getVerificationInsertSnackBar(view)
+                }
+                .addOnFailureListener {
+                    snackBarFilter.getVerificationFailureSnackBar(view)
+                }
         }
     }
 }
