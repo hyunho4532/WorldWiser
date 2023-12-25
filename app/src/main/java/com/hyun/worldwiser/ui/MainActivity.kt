@@ -26,9 +26,18 @@ class MainActivity : AppCompatActivity() {
         navigationBarView.setOnItemSelectedListener(object: NavigationBarView.OnItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
                 when(item.itemId){
-                  R.id.home -> supportFragmentManager.beginTransaction().replace(R.id.container, homeFragment)
-                  R.id.travel -> supportFragmentManager.beginTransaction().replace(R.id.container, travelFragment)
-                  R.id.profile -> supportFragmentManager.beginTransaction().replace(R.id.profile, profileFragment)
+                  R.id.home -> {
+                      supportFragmentManager.beginTransaction().replace(R.id.container, homeFragment).commit()
+                      return true
+                  }
+                  R.id.travel -> {
+                      supportFragmentManager.beginTransaction().replace(R.id.container, travelFragment).commit()
+                      return true
+                  }
+                  R.id.profile -> {
+                      supportFragmentManager.beginTransaction().replace(R.id.profile, profileFragment).commit()
+                      return true
+                  }
                 }
 
                 return false
