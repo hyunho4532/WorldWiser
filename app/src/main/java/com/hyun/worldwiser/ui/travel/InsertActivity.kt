@@ -25,18 +25,24 @@ class InsertActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insert)
 
+        val tvNicknameAuthWhoTravel: TextView = findViewById(R.id.tv_nickname_auth_who_travel)
+        val btnTravelCountryInsert: AppCompatButton = findViewById(R.id.btn_travel_country_insert)
+
         val bottomSheetView = layoutInflater.inflate(R.layout.dialog_bottom_sheet_travel_country_insert, null)
         val bottomSheetDialog = BottomSheetDialog(this)
 
-        bottomSheetDialog.setContentView(bottomSheetView)
-
         val recyclerView: RecyclerView = bottomSheetView.findViewById(R.id.country_travel_recyclerview)
+
+        bottomSheetDialog.setContentView(bottomSheetView)
 
         db.collection("verifications").document(auth.currentUser!!.uid).get()
             .addOnSuccessListener { document ->
                 val countryFavorite = document["country_favorite"].toString()
+                val countryFavoriteItems = countryFavorite.split(", ")
 
-                countryTravelList.add(CountryTravel(countryFavorite))
+                for (item in countryFavoriteItems) {
+                    countryTravelList.add(CountryTravel(item.trim()))
+                }
             }
             .addOnFailureListener {
 
@@ -50,9 +56,6 @@ class InsertActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.setHasFixedSize(true)
-
-        val tvNicknameAuthWhoTravel: TextView = findViewById(R.id.tv_nickname_auth_who_travel)
-        val btnTravelCountryInsert: AppCompatButton = findViewById(R.id.btn_travel_country_insert)
 
         db.collection("verifications").document(auth.currentUser!!.uid).get()
             .addOnSuccessListener { document ->
