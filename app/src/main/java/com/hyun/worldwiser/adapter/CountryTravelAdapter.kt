@@ -20,9 +20,6 @@ class CountryTravelAdapter(
     private val itemClickListener: (String) -> Unit
 ) : RecyclerView.Adapter<CountryTravelAdapter.ViewHolder>() {
 
-    private val intentFilter = IntentFilter()
-    private val insertActivity: InsertActivity = InsertActivity()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_travel_favorite_list, parent, false)
         return ViewHolder(view)
