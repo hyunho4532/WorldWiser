@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,7 @@ class InsertActivity : AppCompatActivity() {
 
         val tvNicknameAuthWhoTravel: TextView = findViewById(R.id.tv_nickname_auth_who_travel)
         val btnTravelCountryInsert: AppCompatButton = findViewById(R.id.btn_travel_country_insert)
+        val etCountryTravel: EditText = findViewById(R.id.et_country_travel)
 
         val bottomSheetView = layoutInflater.inflate(R.layout.dialog_bottom_sheet_travel_country_insert, null)
         val bottomSheetDialog = BottomSheetDialog(this)
@@ -48,7 +50,9 @@ class InsertActivity : AppCompatActivity() {
 
             }
 
-        val countryTravelAdapter = CountryTravelAdapter(this, countryTravelList)
+        val countryTravelAdapter = CountryTravelAdapter(this, countryTravelList, bottomSheetDialog) { clickedItem ->
+            etCountryTravel.setText(clickedItem)
+        }
 
         recyclerView.adapter = countryTravelAdapter
 
