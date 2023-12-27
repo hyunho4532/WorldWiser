@@ -12,4 +12,12 @@
     <color name="powerSpinnerBackgroundColor">#F8F8F8</color>
 
     <color name="powerSpinnerDividerColor">#000000</color>
+
+    <color name="text100">#656464</color>
+
+    <color name="transparent">@color/black</color>
+
+    <color name="gray200">#3D3C3C</color>
+    <color name="gray0">#FFFFFF</color>
+
 </resources>

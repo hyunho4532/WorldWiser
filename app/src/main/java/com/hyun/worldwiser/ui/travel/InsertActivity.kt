@@ -1,5 +1,6 @@
 package com.hyun.worldwiser.ui.travel
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -9,7 +10,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryTravelAdapter
 import com.hyun.worldwiser.databinding.ActivityInsertBinding
-import com.hyun.worldwiser.decorator.CalendarDecorator
+import com.hyun.worldwiser.decorator.DayDecorator
+import com.hyun.worldwiser.decorator.TodayDecorator
 import com.hyun.worldwiser.model.CountryTravel
 import com.hyun.worldwiser.viewmodel.VerificationSelectViewModel
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -20,7 +22,11 @@ class InsertActivity : AppCompatActivity() {
     private var countryTravelList = arrayListOf<CountryTravel>()
 
     private val verificationSelectViewModel: VerificationSelectViewModel = VerificationSelectViewModel()
-    private val calendarDecorator: CalendarDecorator = CalendarDecorator()
+
+    private lateinit var context: Context
+
+    private lateinit var todayDecorator: TodayDecorator
+    private lateinit var dayDecorator: DayDecorator
 
     private lateinit var activityInsertBinding: ActivityInsertBinding
 
@@ -29,6 +35,11 @@ class InsertActivity : AppCompatActivity() {
 
         activityInsertBinding = DataBindingUtil.setContentView(this, R.layout.activity_insert)
 
+        context = applicationContext
+
+        todayDecorator = TodayDecorator(context)
+        dayDecorator = DayDecorator(context)
+
         val bottomSheetTravelCountryView = layoutInflater.inflate(R.layout.dialog_bottom_sheet_travel_country_insert, null)
         val bottomSheetTravelCalendarView = layoutInflater.inflate(R.layout.dialog_bottom_sheet_travel_calendar_insert, null)
 
@@ -36,7 +47,7 @@ class InsertActivity : AppCompatActivity() {
         val bottomSheetTravelCalendarDialog = BottomSheetDialog(this)
 
         val recyclerView: RecyclerView = bottomSheetTravelCountryView.findViewById(R.id.country_travel_recyclerview)
-        val materialCalendarView: MaterialCalendarView = bottomSheetTravelCalendarView.findViewById(R.id.calendar)
+        val materialCalendarView: MaterialCalendarView = bottomSheetTravelCalendarView.findViewById(R.id.calendar_view)
 
         bottomSheetTravelCountryDialog.setContentView(bottomSheetTravelCountryView)
         bottomSheetTravelCalendarDialog.setContentView(bottomSheetTravelCalendarView)
@@ -58,11 +69,17 @@ class InsertActivity : AppCompatActivity() {
             bottomSheetTravelCountryDialog.show()
         }
 
+        materialCalendarView.setHeaderTextAppearance(R.style.CalendarWidgetHeader)
+
         activityInsertBinding.btnTravelCalendarInsert.setOnClickListener {
             bottomSheetTravelCalendarDialog.show()
 
             materialCalendarView.selectedDate = CalendarDay.today()
-            materialCalendarView.addDecorator(calendarDecorator)
+            materialCalendarView.addDecorators(dayDecorator, todayDecorator)
+        }
+
+        materialCalendarView.setOnRangeSelectedListener { widget, dates ->
+
         }
     }
 }
