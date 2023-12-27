@@ -11,6 +11,8 @@ import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryTravelAdapter
 import com.hyun.worldwiser.databinding.ActivityInsertBinding
 import com.hyun.worldwiser.decorator.DayDecorator
+import com.hyun.worldwiser.decorator.SaturdayDecorator
+import com.hyun.worldwiser.decorator.SundayDecorator
 import com.hyun.worldwiser.decorator.TodayDecorator
 import com.hyun.worldwiser.model.CountryTravel
 import com.hyun.worldwiser.viewmodel.VerificationSelectViewModel
@@ -25,8 +27,7 @@ class InsertActivity : AppCompatActivity() {
 
     private lateinit var context: Context
 
-    private lateinit var todayDecorator: TodayDecorator
-    private lateinit var dayDecorator: DayDecorator
+    private lateinit var startDay: String
 
     private lateinit var activityInsertBinding: ActivityInsertBinding
 
@@ -37,8 +38,9 @@ class InsertActivity : AppCompatActivity() {
 
         context = applicationContext
 
-        todayDecorator = TodayDecorator(context)
-        dayDecorator = DayDecorator(context)
+        val dayDecorator = DayDecorator(context)
+        val sunDayDecorator = SundayDecorator()
+        val saturdayDecorator = SaturdayDecorator()
 
         val bottomSheetTravelCountryView = layoutInflater.inflate(R.layout.dialog_bottom_sheet_travel_country_insert, null)
         val bottomSheetTravelCalendarView = layoutInflater.inflate(R.layout.dialog_bottom_sheet_travel_calendar_insert, null)
@@ -74,12 +76,14 @@ class InsertActivity : AppCompatActivity() {
         activityInsertBinding.btnTravelCalendarInsert.setOnClickListener {
             bottomSheetTravelCalendarDialog.show()
 
-            materialCalendarView.selectedDate = CalendarDay.today()
-            materialCalendarView.addDecorators(dayDecorator, todayDecorator)
+            materialCalendarView.addDecorators(dayDecorator, sunDayDecorator, saturdayDecorator)
         }
 
-        materialCalendarView.setOnRangeSelectedListener { widget, dates ->
+        materialCalendarView.setOnRangeSelectedListener { _, dates ->
+            bottomSheetTravelCalendarDialog.dismiss()
 
+            activityInsertBinding.etTravelCalendarStart.setText(dates[0].date.toString())
+            activityInsertBinding.etTravelCalendarEnd.setText(dates[dates.size - 1].date.toString())
         }
     }
 }
