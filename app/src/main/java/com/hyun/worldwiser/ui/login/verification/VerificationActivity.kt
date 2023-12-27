@@ -31,6 +31,7 @@ class VerificationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         activityVerificationBinding = DataBindingUtil.setContentView(this, R.layout.activity_verification)
 
         val recyclerView = activityVerificationBinding.recyclerView
@@ -55,8 +56,10 @@ class VerificationActivity : AppCompatActivity() {
 
         activityVerificationBinding.btnVerificationInsert.setOnClickListener { view ->
 
+            val countriesString = countryList.joinToString(", ") { it.countryFavorite }
+
             val verification = hashMapOf.insertVerificationDataFromMap (
-                countryList.toString(),
+                countriesString,
                 activityVerificationBinding.powerSpinnerView.text.toString(),
                 activityVerificationBinding.powerSpinnerView2.text.toString(),
                 activityVerificationBinding.etNicknameTextFormField.text.toString()
