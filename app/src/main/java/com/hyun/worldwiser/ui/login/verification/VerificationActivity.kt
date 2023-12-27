@@ -55,8 +55,10 @@ class VerificationActivity : AppCompatActivity() {
 
         activityVerificationBinding.btnVerificationInsert.setOnClickListener { view ->
 
+            val countriesString = countryList.joinToString(", ") { it.countryFavorite }
+
             val verification = hashMapOf.insertVerificationDataFromMap (
-                countryList.toString(),
+                countriesString,
                 activityVerificationBinding.powerSpinnerView.text.toString(),
                 activityVerificationBinding.powerSpinnerView2.text.toString(),
                 activityVerificationBinding.etNicknameTextFormField.text.toString()
