@@ -62,4 +62,6 @@ dependencies {
 
     // GitHub PowerSpinner 라이브러리.
     implementation "com.github.skydoves:powerspinner:1.2.7"
+
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 }
