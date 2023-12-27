@@ -31,6 +31,7 @@ class VerificationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         activityVerificationBinding = DataBindingUtil.setContentView(this, R.layout.activity_verification)
 
         val recyclerView = activityVerificationBinding.recyclerView
