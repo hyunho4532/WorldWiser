@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetDashBoardLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:behavior_hideable="true"
+    app:behavior_draggable="true"
+    android:background="@color/white"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendar_view"
+        android:layout_width="400dp"
+        android:layout_height="500dp"
+        android:layout_marginHorizontal="24dp"
+        android:theme="@style/CalenderViewCustom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
+        app:mcv_firstDayOfWeek="sunday"
+        app:mcv_leftArrow="@drawable/ic_arrow_left"
+        app:mcv_rightArrow="@drawable/ic_arrow_right_cal"
+        app:mcv_selectionMode="range"
+        app:mcv_showOtherDates="all"
+        app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
