@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,6 +15,7 @@ import com.hyun.worldwiser.adapter.TravelAdapter
 import com.hyun.worldwiser.databinding.FragmentProfileBinding
 import com.hyun.worldwiser.model.Travel
 import com.hyun.worldwiser.ui.travel.InsertActivity
+import com.hyun.worldwiser.util.AdapterFilter
 import com.hyun.worldwiser.util.IntentFilter
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -27,6 +26,8 @@ class ProfileFragment : Fragment() {
     private lateinit var fragmentProfileBinding: FragmentProfileBinding
     private val intentFilter: IntentFilter = IntentFilter()
     private val insertActivity: InsertActivity = InsertActivity()
+
+    private val adapterFilter: AdapterFilter = AdapterFilter()
 
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
@@ -71,11 +72,9 @@ class ProfileFragment : Fragment() {
                     travelList.add(travel)
                 }
 
-                val adapter = TravelAdapter(requireContext(), travelList)
-                val recyclerView: RecyclerView = requireView().findViewById(R.id.travelRecyclerView)
-                recyclerView.adapter = adapter
-                recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+                val travelAdapter = TravelAdapter(requireContext(), travelList)
+                adapterFilter.getAdapter(recyclerView = requireView().findViewById(R.id.travelRecyclerView), travelAdapter = travelAdapter, context = requireContext())
 
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
