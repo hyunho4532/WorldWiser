@@ -22,6 +22,7 @@ import com.hyun.worldwiser.model.CountryTravel
 import com.hyun.worldwiser.model.UnsplashPhoto
 import com.hyun.worldwiser.service.UnsplashApiService
 import com.hyun.worldwiser.util.SnackBarFilter
+import com.hyun.worldwiser.viewmodel.VerificationInsertViewModel
 import com.hyun.worldwiser.viewmodel.VerificationSelectViewModel
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
@@ -36,6 +37,7 @@ class InsertActivity : AppCompatActivity() {
     private var countryTravelList = arrayListOf<CountryTravel>()
 
     private val verificationSelectViewModel: VerificationSelectViewModel = VerificationSelectViewModel()
+    private val verificationInsertViewModel: VerificationInsertViewModel = VerificationInsertViewModel()
 
     private lateinit var context: Context
 
@@ -96,24 +98,11 @@ class InsertActivity : AppCompatActivity() {
                     imageUrls.add(photo.urls.regular)
                 }
 
-                imageAdapter = ImageAdapter(imageUrls) { imageUrl ->
-                    activityInsertBinding.tvSelectTravelTheme.text = imageUrl
-
-                    val travelInsert = hashMapOf(
-                        "imageUrl" to activityInsertBinding.tvSelectTravelTheme.text
-                    )
-
-                    activityInsertBinding.btnTravelInsert.setOnClickListener { view ->
-                        db.collection("travelInserts").document(auth.currentUser!!.uid).set(travelInsert)
-                            .addOnSuccessListener {
-                                snackBarFilter.getEmailInsertSnackBar(view)
-                            }
-                    }
-
-                    imageAdapter.notifyDataSetChanged()
-                }
+                imageAdapter = ImageAdapter(imageUrls)
 
                 activityInsertBinding.rvTravelTheme.adapter = imageAdapter
+
+                imageAdapter.notifyDataSetChanged()
             }
 
             override fun onFailure(call: Call<List<UnsplashPhoto>>, t: Throwable) {
@@ -154,6 +143,20 @@ class InsertActivity : AppCompatActivity() {
 
             activityInsertBinding.etTravelCalendarStart.setText(dates[0].date.toString())
             activityInsertBinding.etTravelCalendarEnd.setText(dates[dates.size - 1].date.toString())
+        }
+
+        activityInsertBinding.btnTravelInsert.setOnClickListener {
+            verificationInsertViewModel.insertVerificationData()
+            val travelUpdate = hashMapOf(
+                "country" to activityInsertBinding.etCountryTravel.text.toString(),
+                "startDay" to activityInsertBinding.etTravelCalendarStart.text.toString(),
+                "endDay" to activityInsertBinding.etTravelCalendarEnd.text.toString()
+            )
+
+            db.collection("travelInserts").document(auth.currentUser!!.uid).update(travelUpdate as Map<String, Any>)
+                .addOnSuccessListener {
+
+                }
         }
     }
 }

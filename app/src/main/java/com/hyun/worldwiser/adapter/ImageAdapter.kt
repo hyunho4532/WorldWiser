@@ -6,12 +6,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 
 class ImageAdapter (
-    private val imageUrls: List<String>,
-    private val imageUrlListener: (String) -> Unit
+    private val imageUrls: List<String>
     ) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+
+    private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_theme_list, parent, false)
@@ -27,7 +31,15 @@ class ImageAdapter (
             .into(holder.ivCountryTheme)
 
         holder.itemView.setOnClickListener {
-            imageUrlListener.invoke(imageUrl)
+
+            val travelInsert = hashMapOf(
+                "imageUrl" to imageUrl,
+            )
+
+            db.collection("travelInserts").document(auth.currentUser!!.uid).set(travelInsert)
+                .addOnSuccessListener {
+
+                }
         }
     }
 
