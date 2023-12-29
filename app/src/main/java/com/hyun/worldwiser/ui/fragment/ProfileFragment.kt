@@ -14,6 +14,9 @@ import com.hyun.worldwiser.R
 import com.hyun.worldwiser.databinding.FragmentProfileBinding
 import com.hyun.worldwiser.ui.travel.InsertActivity
 import com.hyun.worldwiser.util.IntentFilter
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 class ProfileFragment : Fragment() {
 
@@ -42,9 +45,29 @@ class ProfileFragment : Fragment() {
                 val startDay = document["startDay"].toString()
                 val endDay = document["endDay"].toString()
 
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+                val currentDate = LocalDate.now()
+
+                try {
+                    val day = LocalDate.parse(startDay, formatter)
+
+                    val daysUntilStartDay = ChronoUnit.DAYS.between(currentDate, day)
+
+                    if (daysUntilStartDay > 0) {
+                        fragmentProfileBinding.tvTravelCalendarDay.text = "여행 시작일이 " + daysUntilStartDay.toString() + "일이 남았어요!!"
+                    } else if (daysUntilStartDay == 0L) {
+                        fragmentProfileBinding.tvTravelCalendarDay.text = "여행하고 있어요!"
+                    } else {
+                        fragmentProfileBinding.tvTravelCalendarDay.text = "여행이 끝났어요!"
+                    }
+
+                } catch(e: Exception){
+                    print(e.printStackTrace())
+                }
+
                 Glide.with(requireActivity())
                     .load(imageUrl)
-                    .override(800, 1000)
                     .into(fragmentProfileBinding.imageView)
 
                 fragmentProfileBinding.tvTravelCountry.text = country
@@ -54,6 +77,7 @@ class ProfileFragment : Fragment() {
             .addOnFailureListener {
                 fragmentProfileBinding.tvTravelCountry.text = "새로운 여행을 등록해보세요!!"
             }
+
 
         return fragmentProfileBinding.root
     }
