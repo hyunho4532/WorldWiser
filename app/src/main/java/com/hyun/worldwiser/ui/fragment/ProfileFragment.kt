@@ -27,6 +27,11 @@ class ProfileFragment : Fragment() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
+    private lateinit var country: String
+    private lateinit var imageUrl: String
+    private lateinit var startDay: String
+    private lateinit var endDay: String
+
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,41 +43,46 @@ class ProfileFragment : Fragment() {
             intentFilter.getIntent(requireContext(), insertActivity)
         }
 
-        db.collection("travelInserts").document(auth.currentUser!!.uid).get()
-            .addOnSuccessListener { document ->
-                val country = document["country"].toString()
-                val imageUrl = document["imageUrl"].toString()
-                val startDay = document["startDay"].toString()
-                val endDay = document["endDay"].toString()
+        db.collection("travelInserts").whereEqualTo("authUid", auth.currentUser!!.uid).get()
+            .addOnSuccessListener { querySnapshot  ->
+
+                for (document in querySnapshot.documents) {
+                    country = document["country"].toString()
+                    imageUrl = document["imageUrl"].toString()
+                    startDay = document["startDay"].toString()
+                    endDay = document["endDay"].toString()
+
+                    Glide.with(requireActivity())
+                        .load(imageUrl)
+                        .into(fragmentProfileBinding.imageView)
+
+                    fragmentProfileBinding.tvTravelCountry.text = country
+
+                    fragmentProfileBinding.tvTravelCalendar.text = "$startDay ~ $endDay"
+                }
 
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
                 val currentDate = LocalDate.now()
 
                 try {
-                    val day = LocalDate.parse(startDay, formatter)
+                    val sDay = LocalDate.parse(startDay, formatter)
+                    val eDay = LocalDate.parse(endDay, formatter)
 
-                    val daysUntilStartDay = ChronoUnit.DAYS.between(currentDate, day)
+                    val daysUntilStartDay = ChronoUnit.DAYS.between(currentDate, sDay)
+                    val daysUntilEndDay = ChronoUnit.DAYS.between(currentDate, eDay)
 
                     if (daysUntilStartDay > 0) {
-                        fragmentProfileBinding.tvTravelCalendarDay.text = "여행 시작일이 " + daysUntilStartDay.toString() + "일이 남았어요!!"
+                        fragmentProfileBinding.tvTravelCalendarDay.text = "여행 시작일이 " + daysUntilStartDay.toString() + "일 남았어요!!"
                     } else if (daysUntilStartDay == 0L) {
                         fragmentProfileBinding.tvTravelCalendarDay.text = "여행하고 있어요!"
-                    } else {
+                    } else if (daysUntilEndDay < 0) {
                         fragmentProfileBinding.tvTravelCalendarDay.text = "여행이 끝났어요!"
                     }
 
                 } catch(e: Exception){
                     print(e.printStackTrace())
                 }
-
-                Glide.with(requireActivity())
-                    .load(imageUrl)
-                    .into(fragmentProfileBinding.imageView)
-
-                fragmentProfileBinding.tvTravelCountry.text = country
-
-                fragmentProfileBinding.tvTravelCalendar.text = "$startDay ~ $endDay"
             }
             .addOnFailureListener {
                 fragmentProfileBinding.tvTravelCountry.text = "새로운 여행을 등록해보세요!!"

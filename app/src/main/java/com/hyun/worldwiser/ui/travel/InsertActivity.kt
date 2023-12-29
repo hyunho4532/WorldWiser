@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,6 +52,8 @@ class InsertActivity : AppCompatActivity() {
 
     private lateinit var imageAdapter: ImageAdapter
     private val imageUrls = mutableListOf<String>()
+    private lateinit var imageGetUrl: String
+
     private val UNSPLASH_ACCESS_KEY = "PoIXl8gzJfzjf6uBVST58qmwx74fCQdE-gvu8fnE9uQ"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,7 +101,25 @@ class InsertActivity : AppCompatActivity() {
                     imageUrls.add(photo.urls.regular)
                 }
 
-                imageAdapter = ImageAdapter(imageUrls)
+                imageAdapter = ImageAdapter(imageUrls) { imageUrl ->
+                    imageGetUrl = imageUrl
+
+                    activityInsertBinding.btnTravelInsert.setOnClickListener {
+                        verificationInsertViewModel.insertVerificationData()
+                        val travelUpdate = hashMapOf (
+                            "authUid" to auth.currentUser!!.uid,
+                            "imageUrl" to imageGetUrl,
+                            "country" to activityInsertBinding.etCountryTravel.text.toString(),
+                            "startDay" to activityInsertBinding.etTravelCalendarStart.text.toString(),
+                            "endDay" to activityInsertBinding.etTravelCalendarEnd.text.toString()
+                        )
+
+                        db.collection("travelInserts").add(travelUpdate)
+                            .addOnSuccessListener {
+
+                            }
+                    }
+                }
 
                 activityInsertBinding.rvTravelTheme.adapter = imageAdapter
 
@@ -143,20 +164,6 @@ class InsertActivity : AppCompatActivity() {
 
             activityInsertBinding.etTravelCalendarStart.setText(dates[0].date.toString())
             activityInsertBinding.etTravelCalendarEnd.setText(dates[dates.size - 1].date.toString())
-        }
-
-        activityInsertBinding.btnTravelInsert.setOnClickListener {
-            verificationInsertViewModel.insertVerificationData()
-            val travelUpdate = hashMapOf(
-                "country" to activityInsertBinding.etCountryTravel.text.toString(),
-                "startDay" to activityInsertBinding.etTravelCalendarStart.text.toString(),
-                "endDay" to activityInsertBinding.etTravelCalendarEnd.text.toString()
-            )
-
-            db.collection("travelInserts").document(auth.currentUser!!.uid).update(travelUpdate as Map<String, Any>)
-                .addOnSuccessListener {
-
-                }
         }
     }
 }

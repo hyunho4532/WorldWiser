@@ -11,7 +11,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 
 class ImageAdapter (
-    private val imageUrls: List<String>
+    private val imageUrls: List<String>,
+    private val eventListener: (String) -> Unit
     ) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
     private val db = FirebaseFirestore.getInstance()
@@ -31,15 +32,7 @@ class ImageAdapter (
             .into(holder.ivCountryTheme)
 
         holder.itemView.setOnClickListener {
-
-            val travelInsert = hashMapOf(
-                "imageUrl" to imageUrl,
-            )
-
-            db.collection("travelInserts").document(auth.currentUser!!.uid).set(travelInsert)
-                .addOnSuccessListener {
-
-                }
+            eventListener.invoke(imageUrl)
         }
     }
 
