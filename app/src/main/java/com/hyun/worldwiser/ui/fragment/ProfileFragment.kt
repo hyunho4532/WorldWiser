@@ -7,11 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
+import com.hyun.worldwiser.adapter.TravelAdapter
 import com.hyun.worldwiser.databinding.FragmentProfileBinding
+import com.hyun.worldwiser.model.Travel
 import com.hyun.worldwiser.ui.travel.InsertActivity
 import com.hyun.worldwiser.util.IntentFilter
 import java.time.LocalDate
@@ -37,6 +41,9 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        val travelList = ArrayList<Travel>()
+
         fragmentProfileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
 
         fragmentProfileBinding.btnTravelInsert.setOnClickListener {
@@ -59,7 +66,16 @@ class ProfileFragment : Fragment() {
                     fragmentProfileBinding.tvTravelCountry.text = country
 
                     fragmentProfileBinding.tvTravelCalendar.text = "$startDay ~ $endDay"
+
+                    val travel = Travel(imageUrl)
+                    travelList.add(travel)
                 }
+
+                val adapter = TravelAdapter(requireContext(), travelList)
+                val recyclerView: RecyclerView = requireView().findViewById(R.id.travelRecyclerView)
+                recyclerView.adapter = adapter
+                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
 
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
