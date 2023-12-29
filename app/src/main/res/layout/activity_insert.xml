@@ -2,105 +2,193 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        tools:context=".ui.travel.InsertActivity">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_nickname_auth_who_travel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:text="누구님의 새로운 여행!"
-            android:textSize="28sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            tools:context=".ui.travel.InsertActivity">
 
-        <TextView
-            android:id="@+id/tv_country_plan_insert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:text="여행가는 나라 등록하기!"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tv_nickname_auth_who_travel"
-            app:layout_constraintTop_toBottomOf="@+id/tv_nickname_auth_who_travel" />
+            <TextView
+                android:id="@+id/tv_nickname_auth_who_travel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="누구님의 새로운 여행!"
+                android:textSize="28sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/et_country_travel"
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="24dp"
-            android:inputType="textPersonName"
-            android:background="@drawable/drawable_login_email_field"
-            android:hint="@string/activity_travel_insert_text"
-            android:textSize="14sp"
-            android:paddingStart="12dp"
-            android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_InputEmail_EditText"
-            app:layout_constraintStart_toStartOf="@+id/tv_country_plan_insert"
-            app:layout_constraintTop_toBottomOf="@+id/tv_country_plan_insert" />
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="새로운 여행은 언제나 설레지 않나요?"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_nickname_auth_who_travel"
+                app:layout_constraintTop_toBottomOf="@+id/tv_nickname_auth_who_travel" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_travel_country_insert"
-            android:layout_width="140dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/drawable_travel_insert_button"
-            android:text="좋아하는 나라로 등록하기"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_country_plan_insert"
-            app:layout_constraintStart_toEndOf="@+id/tv_country_plan_insert"
-            app:layout_constraintTop_toTopOf="@+id/tv_country_plan_insert" />
+            <TextView
+                android:id="@+id/tv_country_plan_insert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:text="여행가는 나라 등록하기!"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_nickname_auth_who_travel"
+                app:layout_constraintTop_toBottomOf="@+id/tv_nickname_auth_who_travel" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="90dp"
-            android:text="여행 일정 등록하기!"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/et_country_travel"
-            app:layout_constraintTop_toBottomOf="@+id/et_country_travel" />
+            <EditText
+                android:id="@+id/et_country_travel"
+                android:layout_width="320dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:inputType="textPersonName"
+                android:background="@drawable/drawable_login_email_field"
+                android:hint="@string/activity_travel_insert_text"
+                android:textSize="14sp"
+                android:paddingStart="12dp"
+                android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_InputEmail_EditText"
+                app:layout_constraintStart_toStartOf="@+id/tv_country_plan_insert"
+                app:layout_constraintTop_toBottomOf="@+id/tv_country_plan_insert" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_travel_calendar_insert"
-            android:layout_width="140dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/drawable_travel_insert_button"
-            android:text="날짜 등록하기"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView8"
-            app:layout_constraintStart_toEndOf="@+id/textView8"
-            app:layout_constraintTop_toTopOf="@+id/textView8" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_travel_country_insert"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/drawable_travel_insert_button"
+                android:text="좋아하는 나라로 등록하기"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_country_plan_insert"
+                app:layout_constraintStart_toEndOf="@+id/tv_country_plan_insert"
+                app:layout_constraintTop_toTopOf="@+id/tv_country_plan_insert" />
 
-        <EditText
-            android:id="@+id/et_travel_calendar_start"
-            android:layout_width="140dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/drawable_login_email_field"
-            app:layout_constraintStart_toStartOf="@+id/textView8"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:text="여행 일정 등록하기!"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/et_country_travel"
+                app:layout_constraintTop_toBottomOf="@+id/et_country_travel" />
 
-        <EditText
-            android:id="@+id/et_travel_calendar_end"
-            android:layout_width="140dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:background="@drawable/drawable_login_email_field"
-            app:layout_constraintBottom_toBottomOf="@+id/et_travel_calendar_start"
-            app:layout_constraintStart_toEndOf="@+id/et_travel_calendar_start"
-            app:layout_constraintTop_toTopOf="@+id/et_travel_calendar_start" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_travel_calendar_insert"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/drawable_travel_insert_button"
+                android:text="날짜 등록하기"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                app:layout_constraintStart_toEndOf="@+id/textView8"
+                app:layout_constraintTop_toTopOf="@+id/textView8" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <EditText
+                android:id="@+id/et_travel_calendar_start"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:paddingStart="12dp"
+                android:focusable="false"
+                android:background="@drawable/drawable_login_email_field"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <EditText
+                android:id="@+id/et_travel_calendar_end"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:paddingStart="12dp"
+                android:focusable="false"
+                android:background="@drawable/drawable_login_email_field"
+                app:layout_constraintBottom_toBottomOf="@+id/et_travel_calendar_start"
+                app:layout_constraintStart_toEndOf="@+id/et_travel_calendar_start"
+                app:layout_constraintTop_toTopOf="@+id/et_travel_calendar_start" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:text="혼자 여행을 가시나요?"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/et_travel_calendar_start"
+                app:layout_constraintTop_toBottomOf="@+id/et_travel_calendar_start" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:text="배경을 선택해주세요!"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <com.sigma.niceswitch.NiceSwitch
+                android:id="@+id/switcher"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                app:layout_constraintStart_toEndOf="@+id/textView10"
+                app:layout_constraintTop_toTopOf="@+id/textView10"
+                app:switcher_icon_color="@color/switcher_icon_color"
+                app:switcher_off_color="@color/switcher_off_color"
+                app:switcher_on_color="@color/switcher_on_color" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_travel_theme"
+                android:layout_width="385dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="@+id/textView11"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <TextView
+                android:id="@+id/tv_select_travel_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="TextView"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_travel_insert"
+                android:layout_width="320dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_travel_theme" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </layout>

@@ -20,4 +20,10 @@
     <color name="gray200">#3D3C3C</color>
     <color name="gray0">#FFFFFF</color>
 
+    <!-- NiceSwitch 색상 설정 -->
+    <color name="switcher_on_color">#48ea8b</color>
+    <color name="switcher_off_color">#ff4651</color>
+    <color name="switcher_icon_color">@color/white</color>
+    <bool name="checked">true</bool>
+
 </resources>
