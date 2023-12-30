@@ -42,12 +42,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cv_country_imageUrl" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
         android:layout_width="0dp"
         android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="@+id/cv_country_imageUrl"
@@ -83,5 +85,22 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_schedule_insert"
+        android:layout_width="410dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/drawable_schedule_insert_button"
+        android:text="일정 등록하기 "
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:paddingBottom="6dp"
+        app:layout_constraintEnd_toEndOf="@+id/cardView4"
+        app:layout_constraintStart_toStartOf="@+id/cardView4"
+        app:layout_constraintTop_toBottomOf="@+id/cardView4">
+
+
+    </androidx.appcompat.widget.AppCompatButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
