@@ -11,6 +11,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
+import com.hyun.worldwiser.decorator.DayDecorator
+import com.hyun.worldwiser.decorator.SaturdayDecorator
+import com.hyun.worldwiser.decorator.SundayDecorator
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 
 class ScheduleActivity : AppCompatActivity() {
 
@@ -25,15 +29,22 @@ class ScheduleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
 
-        val travelCountryIntent = intent.getStringExtra("country")
-
         context = applicationContext
 
+        val dayDecorator = DayDecorator(context)
+        val sunDayDecorator = SundayDecorator()
+        val saturdayDecorator = SaturdayDecorator()
+
+        val travelCountryIntent = intent.getStringExtra("country")
+
         val bottomSheetTravelScheduleView = layoutInflater.inflate(R.layout.dialog_bottom_sheet_travel_schedule, null)
+        val bottomSheetTravelScheduleDatePickerView = layoutInflater.inflate(R.layout.dialog_bottom_sheet_travel_schedule_datepicker, null)
 
         val bottomSheetTravelScheduleDialog = BottomSheetDialog(this)
+        val bottomSheetTravelScheduleDatePickerDialog = BottomSheetDialog(this)
 
         bottomSheetTravelScheduleDialog.setContentView(bottomSheetTravelScheduleView)
+        bottomSheetTravelScheduleDatePickerDialog.setContentView(bottomSheetTravelScheduleDatePickerView)
 
         db.collection("travelInserts").whereEqualTo("authUid", auth.currentUser!!.uid).whereEqualTo("country", travelCountryIntent).get()
             .addOnSuccessListener { querySnapshot ->
@@ -62,7 +73,15 @@ class ScheduleActivity : AppCompatActivity() {
                 findViewById<AppCompatButton>(R.id.btn_schedule_insert).setOnClickListener {
                     bottomSheetTravelScheduleDialog.show()
 
-                    bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_nickname_auth_schedule).text = nickname + "님, " + country + "의 일정을 \n작성해주세요"
+                    bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_nickname_auth_schedule).text = nickname + "님! \n" + country + "의 일정을 작성해주세요"
+                    val materialCalendarView: MaterialCalendarView = bottomSheetTravelScheduleView.findViewById(R.id.calendar_view)
+
+
+                    materialCalendarView.addDecorators(dayDecorator, sunDayDecorator, saturdayDecorator)
+
+                    bottomSheetTravelScheduleView.findViewById<AppCompatButton>(R.id.btn_schedule_datePicker_insert).setOnClickListener {
+                        bottomSheetTravelScheduleDatePickerDialog.show()
+                    }
                 }
             }
     }
