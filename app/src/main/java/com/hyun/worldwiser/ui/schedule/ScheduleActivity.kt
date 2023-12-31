@@ -21,6 +21,7 @@ import com.hyun.worldwiser.decorator.DayDecorator
 import com.hyun.worldwiser.decorator.SaturdayDecorator
 import com.hyun.worldwiser.decorator.SundayDecorator
 import com.hyun.worldwiser.model.Schedule
+import com.hyun.worldwiser.util.SnackBarFilter
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import java.lang.NullPointerException
 import java.util.*
@@ -34,6 +35,8 @@ class ScheduleActivity : AppCompatActivity() {
     private lateinit var context: Context
 
     private var scheduleList: ArrayList<Schedule> = ArrayList()
+
+    private val snackBarFilter: SnackBarFilter = SnackBarFilter()
 
     private lateinit var country: String
 
@@ -101,14 +104,16 @@ class ScheduleActivity : AppCompatActivity() {
 
                 val nickname = document["nickname"].toString()
 
-                findViewById<AppCompatButton>(R.id.btn_schedule_insert).setOnClickListener {
+                findViewById<AppCompatButton>(R.id.btn_schedule_insert).setOnClickListener { view ->
 
-                    try {
-                        bottomSheetTravelScheduleDialog.show()
+                    bottomSheetTravelScheduleDialog.show()
 
-                        bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_nickname_auth_schedule).text = nickname + "님! \n" + country + "의 일정을 작성해주세요"
-                        bottomSheetTravelScheduleView.findViewById<AppCompatButton>(R.id.btn_schedule_datePicker_insert).setOnClickListener {
+                    bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_nickname_auth_schedule).text = nickname + "님! \n" + country + "의 일정을 작성해주세요"
+                    bottomSheetTravelScheduleView.findViewById<AppCompatButton>(R.id.btn_schedule_datePicker_insert).setOnClickListener {
 
+                        if (bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString().isEmpty()) {
+                            snackBarFilter.insertTravelScheduleSnackBar(view)
+                        } else {
                             val schedule = hashMapOf(
                                 "authUid" to auth.currentUser!!.uid,
                                 "country" to country,
@@ -123,8 +128,6 @@ class ScheduleActivity : AppCompatActivity() {
 
                                 }
                         }
-                    } catch (e: NullPointerException) {
-                        print(e.printStackTrace())
                     }
                 }
             }
