@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/et_travel_schedule_todo"
         android:layout_width="350dp"
         android:layout_height="40dp"
         android:layout_marginTop="32dp"
@@ -46,9 +46,10 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/et_travel_schedule_todo" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="380dp"
         android:layout_height="200dp"
         android:layout_marginStart="8dp"
