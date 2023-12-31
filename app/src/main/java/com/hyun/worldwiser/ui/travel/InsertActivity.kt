@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,14 +17,12 @@ import com.hyun.worldwiser.databinding.ActivityInsertBinding
 import com.hyun.worldwiser.decorator.DayDecorator
 import com.hyun.worldwiser.decorator.SaturdayDecorator
 import com.hyun.worldwiser.decorator.SundayDecorator
-import com.hyun.worldwiser.decorator.TodayDecorator
 import com.hyun.worldwiser.model.CountryTravel
 import com.hyun.worldwiser.model.UnsplashPhoto
 import com.hyun.worldwiser.service.UnsplashApiService
-import com.hyun.worldwiser.util.SnackBarFilter
+import com.hyun.worldwiser.viewmodel.UnsplashApiInsertViewModel
 import com.hyun.worldwiser.viewmodel.VerificationInsertViewModel
 import com.hyun.worldwiser.viewmodel.VerificationSelectViewModel
-import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,13 +34,11 @@ class InsertActivity : AppCompatActivity() {
 
     private var countryTravelList = arrayListOf<CountryTravel>()
 
+    private val unsplashApiInsertViewModel: UnsplashApiInsertViewModel = UnsplashApiInsertViewModel()
     private val verificationSelectViewModel: VerificationSelectViewModel = VerificationSelectViewModel()
     private val verificationInsertViewModel: VerificationInsertViewModel = VerificationInsertViewModel()
 
     private lateinit var context: Context
-
-    private lateinit var startDay: String
-    private val snackBarFilter: SnackBarFilter = SnackBarFilter()
 
     private lateinit var activityInsertBinding: ActivityInsertBinding
 
@@ -86,50 +81,12 @@ class InsertActivity : AppCompatActivity() {
         val service = retrofit.create(UnsplashApiService::class.java)
 
         val call = service.getRandomPhotos(UNSPLASH_ACCESS_KEY, 10)
-        call.enqueue(object : Callback<List<UnsplashPhoto>> {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(
-                call: Call<List<UnsplashPhoto>>,
-                response: Response<List<UnsplashPhoto>>
-            ) {
-                if (!response.isSuccessful) {
-                    return
-                }
 
-                val photos = response.body()
-                photos?.forEach { photo ->
-                    imageUrls.add(photo.urls.regular)
-                }
+        unsplashApiInsertViewModel.loadUnsplashAPIEnqueue(call, activityInsertBinding, imageUrls, verificationInsertViewModel) { imageAdapter ->
+            activityInsertBinding.rvTravelTheme.adapter = imageAdapter
 
-                imageAdapter = ImageAdapter(imageUrls) { imageUrl ->
-                    imageGetUrl = imageUrl
-
-                    activityInsertBinding.btnTravelInsert.setOnClickListener {
-                        verificationInsertViewModel.insertVerificationData()
-                        val travelUpdate = hashMapOf (
-                            "authUid" to auth.currentUser!!.uid,
-                            "imageUrl" to imageGetUrl,
-                            "country" to activityInsertBinding.etCountryTravel.text.toString(),
-                            "startDay" to activityInsertBinding.etTravelCalendarStart.text.toString(),
-                            "endDay" to activityInsertBinding.etTravelCalendarEnd.text.toString()
-                        )
-
-                        db.collection("travelInserts").add(travelUpdate)
-                            .addOnSuccessListener {
-
-                            }
-                    }
-                }
-
-                activityInsertBinding.rvTravelTheme.adapter = imageAdapter
-
-                imageAdapter.notifyDataSetChanged()
-            }
-
-            override fun onFailure(call: Call<List<UnsplashPhoto>>, t: Throwable) {
-
-            }
-        })
+            imageAdapter.notifyDataSetChanged()
+        }
 
         bottomSheetTravelCountryDialog.setContentView(bottomSheetTravelCountryView)
         bottomSheetTravelCalendarDialog.setContentView(bottomSheetTravelCalendarView)

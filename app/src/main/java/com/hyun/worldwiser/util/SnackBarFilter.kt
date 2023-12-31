@@ -40,4 +40,10 @@ class SnackBarFilter {
 
         snackBar.show()
     }
+
+    fun getTravelSnackBar(view: View) {
+        val snackBar = Snackbar.make(view, "여행 일정을 조회하는 데 문제가 발생하였습니다.", Snackbar.LENGTH_SHORT)
+
+        snackBar.show()
+    }
 }

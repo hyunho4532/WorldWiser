@@ -1,5 +1,6 @@
 package com.hyun.worldwiser.model
 
 data class Travel(
-    val imageUrl: String
+    val imageUrl: String,
+    val country: String
 )
