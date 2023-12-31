@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.DatePicker
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import com.bumptech.glide.Glide
@@ -15,6 +16,8 @@ import com.hyun.worldwiser.decorator.DayDecorator
 import com.hyun.worldwiser.decorator.SaturdayDecorator
 import com.hyun.worldwiser.decorator.SundayDecorator
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import java.util.*
+import java.util.Calendar.getInstance
 
 class ScheduleActivity : AppCompatActivity() {
 
@@ -74,12 +77,20 @@ class ScheduleActivity : AppCompatActivity() {
                     bottomSheetTravelScheduleDialog.show()
 
                     bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_nickname_auth_schedule).text = nickname + "님! \n" + country + "의 일정을 작성해주세요"
-                    val materialCalendarView: MaterialCalendarView = bottomSheetTravelScheduleView.findViewById(R.id.calendar_view)
-
-
-                    materialCalendarView.addDecorators(dayDecorator, sunDayDecorator, saturdayDecorator)
 
                     bottomSheetTravelScheduleView.findViewById<AppCompatButton>(R.id.btn_schedule_datePicker_insert).setOnClickListener {
+
+                        // 달력 인스턴스 생성
+                        val calendar: Calendar = getInstance()
+
+                        // 년도, 월, 일 가져오기
+                        var sYear = calendar.get(Calendar.YEAR)
+                        var sMonth = calendar.get(Calendar.MONTH)
+                        var sDay = calendar.get(Calendar.DAY_OF_MONTH)
+
+                        val travelScheduleDate = bottomSheetTravelScheduleDatePickerView.findViewById<DatePicker>(R.id.datePicker)
+
+
                         bottomSheetTravelScheduleDatePickerDialog.show()
                     }
                 }

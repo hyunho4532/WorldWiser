@@ -48,22 +48,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/calendar_view"
-        android:layout_width="400dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="160dp"
-        android:gravity="left"
-        android:theme="@style/CalenderViewCustom"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
-        app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
-        app:mcv_firstDayOfWeek="sunday"
-        app:mcv_leftArrow="@drawable/drawable_arrow_left"
-        app:mcv_rightArrow="@drawable/drawable_arrow_right"
-        app:mcv_selectionMode="range"
-        app:mcv_showOtherDates="all"
-        app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="380dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_schedule_datePicker_insert" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
