@@ -43,6 +43,7 @@ class TravelAdapter(val context: Context, private val travelList: ArrayList<Trav
             val imageUrl = travel.imageUrl
             val country = travel.country
             val startDay = travel.startDay
+            val endDay = travel.endDay
 
             itemView.findViewById<TextView>(R.id.tv_travel_country).text = country
             itemView.findViewById<TextView>(R.id.tv_travel_status).text = startDay
@@ -56,9 +57,14 @@ class TravelAdapter(val context: Context, private val travelList: ArrayList<Trav
 
             val todayDate = LocalDate.parse(todayDateText, DateTimeFormatter.ISO_DATE)
             val startDate = LocalDate.parse(startDay, DateTimeFormatter.ISO_DATE)
+            val endDate = LocalDate.parse(endDay, DateTimeFormatter.ISO_DATE)
 
-            if (startDate.isBefore(todayDate)) {
+            if (startDate.isAfter(todayDate)) {
+                itemView.findViewById<TextView>(R.id.tv_travel_status).text = "여행 예정"
+            } else if (todayDate.isEqual(startDate) || (todayDate.isAfter(startDate) && todayDate.isBefore(endDate))) {
                 itemView.findViewById<TextView>(R.id.tv_travel_status).text = "현재 여행 중"
+            } else if (todayDate.isEqual(endDate) || todayDate.isAfter(endDate)) {
+                itemView.findViewById<TextView>(R.id.tv_travel_status).text = "여행 종료"
             }
 
             Glide.with(context)
