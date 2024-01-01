@@ -46,4 +46,10 @@ class SnackBarFilter {
 
         snackBar.show()
     }
+
+    fun insertTravelScheduleSnackBar(view: View) {
+        val snackBar = Snackbar.make(view, "스케줄 일정을 등록해주세요.", Snackbar.LENGTH_SHORT)
+
+        snackBar.show()
+    }
 }

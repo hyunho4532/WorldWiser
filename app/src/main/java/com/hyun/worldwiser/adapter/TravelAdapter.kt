@@ -11,6 +11,10 @@ import com.bumptech.glide.Glide
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.model.Travel
 import com.hyun.worldwiser.ui.schedule.ScheduleActivity
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TravelAdapter(val context: Context, private val travelList: ArrayList<Travel>) : RecyclerView.Adapter<TravelAdapter.ViewHolder>() {
 
@@ -38,8 +42,30 @@ class TravelAdapter(val context: Context, private val travelList: ArrayList<Trav
 
             val imageUrl = travel.imageUrl
             val country = travel.country
+            val startDay = travel.startDay
+            val endDay = travel.endDay
 
             itemView.findViewById<TextView>(R.id.tv_travel_country).text = country
+            itemView.findViewById<TextView>(R.id.tv_travel_status).text = startDay
+
+            val calendar: Calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = (calendar.get(Calendar.MONTH) + 1)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val todayDateText = "$year-${String.format("%02d", month)}-${String.format("%02d", day)}"
+
+            val todayDate = LocalDate.parse(todayDateText, DateTimeFormatter.ISO_DATE)
+            val startDate = LocalDate.parse(startDay, DateTimeFormatter.ISO_DATE)
+            val endDate = LocalDate.parse(endDay, DateTimeFormatter.ISO_DATE)
+
+            if (startDate.isAfter(todayDate)) {
+                itemView.findViewById<TextView>(R.id.tv_travel_status).text = "여행 예정"
+            } else if (todayDate.isEqual(startDate) || (todayDate.isAfter(startDate) && todayDate.isBefore(endDate))) {
+                itemView.findViewById<TextView>(R.id.tv_travel_status).text = "현재 여행 중"
+            } else if (todayDate.isEqual(endDate) || todayDate.isAfter(endDate)) {
+                itemView.findViewById<TextView>(R.id.tv_travel_status).text = "여행 종료"
+            }
 
             Glide.with(context)
                 .load(imageUrl)

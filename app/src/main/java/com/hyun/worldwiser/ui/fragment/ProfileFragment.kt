@@ -68,7 +68,7 @@ class ProfileFragment : Fragment() {
 
                     fragmentProfileBinding.tvTravelCalendar.text = "$startDay ~ $endDay"
 
-                    val travel = Travel(imageUrl, country)
+                    val travel = Travel(imageUrl, country, startDay, endDay)
                     travelList.add(travel)
                 }
 
