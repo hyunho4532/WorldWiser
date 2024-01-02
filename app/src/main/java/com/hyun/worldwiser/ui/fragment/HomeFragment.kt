@@ -13,9 +13,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryRankingAdapter
 import com.hyun.worldwiser.adapter.TravelAdapter
+import com.hyun.worldwiser.adapter.TravelStatusAdapter
 import com.hyun.worldwiser.databinding.FragmentHomeBinding
 import com.hyun.worldwiser.model.CountryRanking
 import com.hyun.worldwiser.model.Travel
+import com.hyun.worldwiser.model.TravelStatus
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -27,6 +29,7 @@ class HomeFragment : Fragment() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     private val countryRankingList = ArrayList<CountryRanking>()
+    private val travelStatusList = ArrayList<TravelStatus>()
 
     private var countryFilterText: String = ""
 
@@ -73,6 +76,13 @@ class HomeFragment : Fragment() {
                 fragmentHomeBinding.rvTravelRanking.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 fragmentHomeBinding.rvTravelRanking.adapter = countryRankingAdapter
             }
+
+        travelStatusList.add(TravelStatus("혼자 여행"))
+
+        val travelStatusAdapter = TravelStatusAdapter(requireContext(), travelStatusList)
+
+        fragmentHomeBinding.rvTravelStatus.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        fragmentHomeBinding.rvTravelStatus.adapter = travelStatusAdapter
 
         return fragmentHomeBinding.root
     }
