@@ -62,10 +62,10 @@ class HomeFragment : Fragment() {
 
                 countryCountMap.forEach { (country, count) ->
                     countryRankingList.add(CountryRanking(country, count))
+                }
 
-                    countryRankingList.sortByDescending {
-                        count
-                    }
+                countryRankingList.sortByDescending {
+                    it.countryRankingCount
                 }
 
                 val countryRankingAdapter = CountryRankingAdapter(requireContext(), countryRankingList)
