@@ -13,9 +13,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryRankingAdapter
 import com.hyun.worldwiser.adapter.TravelAdapter
+import com.hyun.worldwiser.adapter.TravelStatusAdapter
 import com.hyun.worldwiser.databinding.FragmentHomeBinding
 import com.hyun.worldwiser.model.CountryRanking
 import com.hyun.worldwiser.model.Travel
+import com.hyun.worldwiser.model.TravelStatus
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -27,6 +29,7 @@ class HomeFragment : Fragment() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     private val countryRankingList = ArrayList<CountryRanking>()
+    private val travelStatusList = ArrayList<TravelStatus>()
 
     private var countryFilterText: String = ""
 
@@ -72,6 +75,37 @@ class HomeFragment : Fragment() {
 
                 fragmentHomeBinding.rvTravelRanking.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 fragmentHomeBinding.rvTravelRanking.adapter = countryRankingAdapter
+            }
+
+        db.collection("travelInserts")
+            .get()
+            .addOnSuccessListener { querySnapshot  ->
+
+                val travelStatusCountMap = HashMap<String, Int>()
+
+                for (document in querySnapshot.documents) {
+                    val countryStatus = document["countryStatus"].toString()
+
+                    val count = travelStatusCountMap.getOrDefault(countryStatus, 0)
+                    travelStatusCountMap[countryStatus] = count + 1
+
+                    uniqueCountries.add(countryStatus)
+                }
+
+                travelStatusList.clear()
+
+                travelStatusCountMap.forEach { (country, count) ->
+                    travelStatusList.add(TravelStatus(country, count))
+                }
+
+                travelStatusList.sortByDescending {
+                    it.countryStatusCount
+                }
+
+                val travelStatusAdapter = TravelStatusAdapter(requireContext(), travelStatusList)
+
+                fragmentHomeBinding.rvTravelStatus.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                fragmentHomeBinding.rvTravelStatus.adapter = travelStatusAdapter
             }
 
         return fragmentHomeBinding.root
