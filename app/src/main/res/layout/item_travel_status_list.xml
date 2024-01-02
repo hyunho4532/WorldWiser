@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="140dp"
-    android:layout_height="80dp"
+    android:layout_height="120dp"
     android:layout_marginTop="8dp"
-    android:layout_marginStart="8dp"
+    android:layout_marginStart="26dp"
     android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,14 +16,29 @@
             android:id="@+id/tv_travel_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="혼자 여행"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/pb_travel_status_count"
+            android:layout_width="60dp"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="8dp"
+            android:indeterminate="false"
+            android:progress="100"
+            android:progressBackgroundTint="#E8E7E7"
+            android:progressTint="#0288D1"
+            app:layout_constraintEnd_toEndOf="@+id/tv_travel_status"
+            app:layout_constraintStart_toStartOf="@+id/tv_travel_status"
+            app:layout_constraintTop_toBottomOf="@+id/tv_travel_status" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -77,12 +77,36 @@ class HomeFragment : Fragment() {
                 fragmentHomeBinding.rvTravelRanking.adapter = countryRankingAdapter
             }
 
-        travelStatusList.add(TravelStatus("혼자 여행"))
+        db.collection("travelInserts")
+            .get()
+            .addOnSuccessListener { querySnapshot  ->
 
-        val travelStatusAdapter = TravelStatusAdapter(requireContext(), travelStatusList)
+                val travelStatusCountMap = HashMap<String, Int>()
 
-        fragmentHomeBinding.rvTravelStatus.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        fragmentHomeBinding.rvTravelStatus.adapter = travelStatusAdapter
+                for (document in querySnapshot.documents) {
+                    val countryStatus = document["countryStatus"].toString()
+
+                    val count = travelStatusCountMap.getOrDefault(countryStatus, 0)
+                    travelStatusCountMap[countryStatus] = count + 1
+
+                    uniqueCountries.add(countryStatus)
+                }
+
+                travelStatusList.clear()
+
+                travelStatusCountMap.forEach { (country, count) ->
+                    travelStatusList.add(TravelStatus(country, count))
+                }
+
+                travelStatusList.sortByDescending {
+                    it.countryStatusCount
+                }
+
+                val travelStatusAdapter = TravelStatusAdapter(requireContext(), travelStatusList)
+
+                fragmentHomeBinding.rvTravelStatus.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                fragmentHomeBinding.rvTravelStatus.adapter = travelStatusAdapter
+            }
 
         return fragmentHomeBinding.root
     }
