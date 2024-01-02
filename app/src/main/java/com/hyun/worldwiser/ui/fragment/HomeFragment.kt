@@ -28,6 +28,10 @@ class HomeFragment : Fragment() {
 
     private val countryRankingList = ArrayList<CountryRanking>()
 
+    private var countryFilterText: String = ""
+
+    private val uniqueCountries = HashSet<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -39,23 +43,35 @@ class HomeFragment : Fragment() {
 
         fragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
-        db.collection("travelInserts").get()
+        db.collection("travelInserts")
+            .get()
             .addOnSuccessListener { querySnapshot  ->
+
+                val countryCountMap = HashMap<String, Int>()
 
                 for (document in querySnapshot.documents) {
                     val country = document["country"].toString()
 
-                    val countryRanking = CountryRanking(country)
+                    val count = countryCountMap.getOrDefault(country, 0)
+                    countryCountMap[country] = count + 1
 
-                    countryRankingList.add(countryRanking)
-
-                    val countryRankingAdapter = CountryRankingAdapter(requireContext(), countryRankingList)
-
-                    fragmentHomeBinding.rvTravelRanking.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                    fragmentHomeBinding.rvTravelRanking.adapter = countryRankingAdapter
-
-                    countryRankingAdapter.notifyDataSetChanged()
+                    uniqueCountries.add(country)
                 }
+
+                countryRankingList.clear()
+
+                countryCountMap.forEach { (country, count) ->
+                    countryRankingList.add(CountryRanking(country, count))
+
+                    countryRankingList.sortByDescending {
+                        count
+                    }
+                }
+
+                val countryRankingAdapter = CountryRankingAdapter(requireContext(), countryRankingList)
+
+                fragmentHomeBinding.rvTravelRanking.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                fragmentHomeBinding.rvTravelRanking.adapter = countryRankingAdapter
             }
 
         return fragmentHomeBinding.root

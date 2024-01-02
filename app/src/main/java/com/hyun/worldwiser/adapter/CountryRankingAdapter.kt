@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.model.CountryRanking
 
-class CountryRankingAdapter(val context: Context, val countryRankingList : ArrayList<CountryRanking>) : RecyclerView.Adapter<CountryRankingAdapter.ViewHolder>() {
+class CountryRankingAdapter(val context: Context, private val countryRankingList : ArrayList<CountryRanking>) : RecyclerView.Adapter<CountryRankingAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_ranking_list, parent, false)
@@ -27,8 +27,10 @@ class CountryRankingAdapter(val context: Context, val countryRankingList : Array
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(countryRanking: CountryRanking) {
             val countryRankingText = countryRanking.countryRanking
+            val countryRankingCountText = countryRanking.countryRankingCount
 
             itemView.findViewById<TextView>(R.id.tv_country_ranking).text = countryRankingText
+            itemView.findViewById<TextView>(R.id.tv_country_ranking_count).text = countryRankingCountText.toString()
         }
     }
 }
