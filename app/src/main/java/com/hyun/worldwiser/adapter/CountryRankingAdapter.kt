@@ -30,7 +30,7 @@ class CountryRankingAdapter(val context: Context, private val countryRankingList
             val countryRankingCountText = countryRanking.countryRankingCount
 
             itemView.findViewById<TextView>(R.id.tv_country_ranking).text = countryRankingText
-            itemView.findViewById<TextView>(R.id.tv_country_ranking_count).text = countryRankingCountText.toString()
+            itemView.findViewById<TextView>(R.id.tv_country_ranking_count).text = countryRankingCountText.toString() + "개"
         }
     }
 }

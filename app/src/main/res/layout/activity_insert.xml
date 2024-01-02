@@ -189,6 +189,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_travel_theme" />
 
+            <TextView
+                android:id="@+id/tv_travel_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/switcher"
+                app:layout_constraintStart_toEndOf="@+id/switcher"
+                app:layout_constraintTop_toTopOf="@+id/switcher" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
