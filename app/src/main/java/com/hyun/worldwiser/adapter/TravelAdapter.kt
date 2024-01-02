@@ -59,6 +59,12 @@ class TravelAdapter(val context: Context, private val travelList: ArrayList<Trav
             val startDate = LocalDate.parse(startDay, DateTimeFormatter.ISO_DATE)
             val endDate = LocalDate.parse(endDay, DateTimeFormatter.ISO_DATE)
 
+            // isAfter(Date date): 주어진 날짜가, 파라미터로 전달받은 날짜보다 클 경우 true 리턴
+            // isBefore(Date date): 주어진 날짜가, 파라미터로 전달받은 날짜보다 작을 경우 true 리턴
+            // isEqual(Date date): 주어진 날짜가, 파라미터로 전달받은 날짜보다 작을 경우 true 리턴
+
+            // startDate: 시작 날짜
+            // endDate: 끝 날짜
             if (startDate.isAfter(todayDate)) {
                 itemView.findViewById<TextView>(R.id.tv_travel_status).text = "여행 예정"
             } else if (todayDate.isEqual(startDate) || (todayDate.isAfter(startDate) && todayDate.isBefore(endDate))) {
