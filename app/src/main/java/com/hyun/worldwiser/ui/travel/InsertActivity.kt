@@ -82,6 +82,14 @@ class InsertActivity : AppCompatActivity() {
 
         val call = service.getRandomPhotos(UNSPLASH_ACCESS_KEY, 10)
 
+        activityInsertBinding.switcher.setOnCheckedChangedListener { checked ->
+            if (checked) {
+                activityInsertBinding.tvTravelStatus.text = "혼자 여행"
+            } else {
+                activityInsertBinding.tvTravelStatus.text = "동행 여행"
+            }
+        }
+
         unsplashApiInsertViewModel.loadUnsplashAPIEnqueue(call, activityInsertBinding, imageUrls, verificationInsertViewModel) { imageAdapter ->
             activityInsertBinding.rvTravelTheme.adapter = imageAdapter
 

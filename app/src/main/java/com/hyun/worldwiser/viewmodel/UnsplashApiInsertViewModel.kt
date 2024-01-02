@@ -53,6 +53,7 @@ class UnsplashApiInsertViewModel : ViewModel() {
                             "authUid" to auth.currentUser!!.uid,
                             "imageUrl" to imageGetUrl,
                             "country" to activityInsertBinding.etCountryTravel.text.toString(),
+                            "countryStatus" to activityInsertBinding.tvTravelStatus.text.toString(),
                             "startDay" to activityInsertBinding.etTravelCalendarStart.text.toString(),
                             "endDay" to activityInsertBinding.etTravelCalendarEnd.text.toString()
                         )
