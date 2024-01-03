@@ -22,42 +22,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <TimePicker
+        android:id="@+id/tp_travel_schedule"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="start"
+        android:timePickerMode="spinner"
+        app:layout_constraintStart_toStartOf="@+id/tv_nickname_auth_schedule"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nickname_auth_schedule" />
+
     <EditText
         android:id="@+id/et_travel_schedule_todo"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/drawable_schedule_calendar"
         android:hint="할일을 작성해주세요!"
+        android:textSize="16sp"
         android:paddingLeft="8dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_nickname_auth_schedule"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nickname_auth_schedule" />
-
+        app:layout_constraintStart_toStartOf="@+id/tp_travel_schedule"
+        app:layout_constraintTop_toBottomOf="@+id/tp_travel_schedule" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_schedule_datePicker_insert"
         android:layout_width="410dp"
         android:layout_height="75dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/drawable_schedule_insert_button"
         android:paddingBottom="6dp"
         android:text="날짜 등록하기"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_travel_schedule_todo" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_travel_schedule_time" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="380dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_schedule_datePicker_insert" />
+    <TextView
+        android:id="@+id/tv_travel_schedule_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="@+id/et_travel_schedule_todo"
+        app:layout_constraintTop_toBottomOf="@+id/et_travel_schedule_todo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
