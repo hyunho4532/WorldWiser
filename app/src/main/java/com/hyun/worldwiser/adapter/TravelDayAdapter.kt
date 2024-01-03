@@ -28,7 +28,7 @@ class TravelDayAdapter(private val travelList: List<TravelDay>) : RecyclerView.A
 
             val dayDifferenceCount = travelDay.dayDifference
 
-            itemView.findViewById<TextView>(R.id.travel_day_count).text = dayDifferenceCount.toString()
+            itemView.findViewById<TextView>(R.id.travel_day_count).text = dayDifferenceCount.toString() + "일"
         }
     }
 }

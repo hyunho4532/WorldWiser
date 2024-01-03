@@ -26,14 +26,14 @@
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_onboarding.xml" value="0.274609375" />
-        <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_schedule.xml" value="0.25" />
+        <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_schedule.xml" value="0.33" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_travel_schedule.xml" value="0.24340277777777777" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_verification.xml" value="0.1" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_vertification.xml" value="0.22" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/dialog_bottom_sheet_travel_calendar.xml" value="0.18" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/dialog_bottom_sheet_travel_calendar_insert.xml" value="0.24409722222222222" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/dialog_bottom_sheet_travel_country_insert.xml" value="0.24340277777777777" />
-        <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/dialog_bottom_sheet_travel_schedule.xml" value="0.33" />
+        <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/dialog_bottom_sheet_travel_schedule.xml" value="0.25" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/dialog_bottom_sheet_travel_schedule_datepicker.xml" value="0.24409722222222222" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
@@ -44,7 +44,7 @@
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_country_status_list.xml" value="0.24409722222222222" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_country_theme_list.xml" value="0.3333333333333333" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_travel__favorite_list.xml" value="0.24409722222222222" />
-        <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_travel_day_list.xml" value="0.24409722222222222" />
+        <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_travel_day_list.xml" value="0.67" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_travel_favorite_list.xml" value="0.25" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_travel_list.xml" value="0.25" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_travel_rankimg_list.xml" value="0.24409722222222222" />
