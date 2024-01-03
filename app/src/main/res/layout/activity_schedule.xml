@@ -103,4 +103,15 @@
 
     </androidx.appcompat.widget.AppCompatButton>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_schedule_day"
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_schedule_insert" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

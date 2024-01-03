@@ -17,13 +17,16 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.ScheduleAdapter
 import com.hyun.worldwiser.adapter.TravelAdapter
+import com.hyun.worldwiser.adapter.TravelDayAdapter
 import com.hyun.worldwiser.decorator.DayDecorator
 import com.hyun.worldwiser.decorator.SaturdayDecorator
 import com.hyun.worldwiser.decorator.SundayDecorator
 import com.hyun.worldwiser.model.Schedule
+import com.hyun.worldwiser.model.TravelDay
 import com.hyun.worldwiser.util.SnackBarFilter
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import java.lang.NullPointerException
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.getInstance
 import kotlin.collections.ArrayList
@@ -34,6 +37,7 @@ class ScheduleActivity : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
     private lateinit var context: Context
 
+    private var travelDayList = mutableListOf<TravelDay>()
     private var scheduleList: ArrayList<Schedule> = ArrayList()
 
     private val snackBarFilter: SnackBarFilter = SnackBarFilter()
@@ -47,9 +51,7 @@ class ScheduleActivity : AppCompatActivity() {
 
         context = applicationContext
 
-        val dayDecorator = DayDecorator(context)
-        val sunDayDecorator = SundayDecorator()
-        val saturdayDecorator = SaturdayDecorator()
+        val rvScheduleDay : RecyclerView = findViewById(R.id.rv_schedule_day)
 
         val travelCountryIntent = intent.getStringExtra("country")
 
@@ -77,8 +79,18 @@ class ScheduleActivity : AppCompatActivity() {
                     Glide.with(context)
                         .load(imageUrl)
                         .into(findViewById(R.id.iv_travel_schedule_url))
-                }
 
+                    val dayDifference = calculateDayDifference(startDay, endDay)
+
+                    for (dayCount: Int in 1..dayDifference) {
+                        val travelDay = TravelDay(dayCount)
+                        travelDayList.add(travelDay)
+                    }
+
+                    val travelDayAdapter = TravelDayAdapter(travelDayList)
+                    rvScheduleDay.adapter = travelDayAdapter
+                    rvScheduleDay.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                }
             }
 
         db.collection("plans").whereEqualTo("authUid", auth.currentUser!!.uid).whereEqualTo("country", travelCountryIntent).get()
@@ -131,5 +143,15 @@ class ScheduleActivity : AppCompatActivity() {
                     }
                 }
             }
+    }
+
+    private fun calculateDayDifference(startDay: String, endDay: String): Int {
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val calStartDay = getInstance()
+        val calEndDay = getInstance()
+        calStartDay.time = simpleDateFormat.parse(startDay)!!
+        calEndDay.time = simpleDateFormat.parse(endDay)!!
+        val diffInMillis = calEndDay.timeInMillis - calStartDay.timeInMillis
+        return (diffInMillis / (24 * 60 * 60 * 1000)).toInt() + 1
     }
 }
