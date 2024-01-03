@@ -27,8 +27,10 @@ class ScheduleAdapter(val context: Context, private val scheduleList: ArrayList<
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(schedule: Schedule) {
             val todo = schedule.todo
+            val todoDate = schedule.todoDate
 
             itemView.findViewById<TextView>(R.id.tv_travel_schedule_todo).text = todo
+            itemView.findViewById<TextView>(R.id.tv_travel_schedule_todoDate).text = todoDate
         }
     }
 }

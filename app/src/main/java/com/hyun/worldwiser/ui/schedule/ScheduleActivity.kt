@@ -63,6 +63,8 @@ class ScheduleActivity : AppCompatActivity() {
         bottomSheetTravelScheduleDialog.setContentView(bottomSheetTravelScheduleView)
         bottomSheetTravelScheduleDatePickerDialog.setContentView(bottomSheetTravelScheduleDatePickerView)
 
+        val tvTravelScheduleTime = bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_travel_schedule_time)
+
         db.collection("travelInserts").whereEqualTo("authUid", auth.currentUser!!.uid).whereEqualTo("country", travelCountryIntent).get()
             .addOnSuccessListener { querySnapshot ->
 
@@ -96,9 +98,9 @@ class ScheduleActivity : AppCompatActivity() {
             .addOnSuccessListener { querySnapshot ->
 
                 for (document in querySnapshot.documents) {
-                    scheduleList.add(Schedule(document["todo"].toString()))
+                    scheduleList.add(Schedule(document["todo"].toString(), document["todoDate"].toString()))
 
-                    val recyclerView: RecyclerView =findViewById(R.id.rv_schedule_todo)
+                    val recyclerView: RecyclerView = findViewById(R.id.rv_schedule_todo)
 
                     val scheduleAdapter = ScheduleAdapter(context, scheduleList)
 
@@ -110,33 +112,33 @@ class ScheduleActivity : AppCompatActivity() {
 
             }
 
-        bottomSheetTravelScheduleView.findViewById<TimePicker>(R.id.tp_travel_schedule).setOnTimeChangedListener { timePicker, hour, minute ->
-
-            val formattedHour = if (hour >= 12) {
-                // 12시간 형식으로 변환
-                if (hour > 12) hour - 12 else hour
-            } else {
-                // 0시를 12시로 변환
-                if (hour == 0) 12 else hour
-            }
-
-            val formattedMinute = if (minute < 10) {
-                "0$minute"
-            } else {
-                minute.toString()
-            }
-
-            val amPm = if (hour > 12) "오후" else "오전"
-
-            val formattedTime = "$amPm $formattedHour:$formattedMinute" // 시간과 분 합치기
-
-            bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_travel_schedule_time).text = formattedTime
-        }
-
         db.collection("verifications").document(auth.currentUser!!.uid).get()
             .addOnSuccessListener { document ->
 
                 val nickname = document["nickname"].toString()
+
+                bottomSheetTravelScheduleView.findViewById<TimePicker>(R.id.tp_travel_schedule).setOnTimeChangedListener { timePicker, hour, minute ->
+
+                    val formattedHour = if (hour >= 12) {
+                        // 12시간 형식으로 변환
+                        if (hour > 12) hour - 12 else hour
+                    } else {
+                        // 0시를 12시로 변환
+                        if (hour == 0) 12 else hour
+                    }
+
+                    val formattedMinute = if (minute < 10) {
+                        "0$minute"
+                    } else {
+                        minute.toString()
+                    }
+
+                    val amPm = if (hour > 12) "오후" else "오전"
+
+                    val formattedTime = "$amPm $formattedHour:$formattedMinute" // 시간과 분 합치기
+
+                    tvTravelScheduleTime.text = formattedTime
+                }
 
                 findViewById<AppCompatButton>(R.id.btn_schedule_insert).setOnClickListener { view ->
 
@@ -151,7 +153,8 @@ class ScheduleActivity : AppCompatActivity() {
                             val schedule = hashMapOf(
                                 "authUid" to auth.currentUser!!.uid,
                                 "country" to country,
-                                "todo" to bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString()
+                                "todo" to bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString(),
+                                "todoDate" to tvTravelScheduleTime.text.toString()
                             )
 
                             db.collection("plans").add(schedule)
