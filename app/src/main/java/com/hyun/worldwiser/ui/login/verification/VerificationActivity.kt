@@ -34,15 +34,10 @@ class VerificationActivity : AppCompatActivity() {
         val verificationInsertViewModel = ViewModelProvider(this)[VerificationInsertViewModel::class.java]
 
         val recyclerView = activityVerificationBinding.recyclerView
-        val context: Context = applicationContext
 
         val countryAdapter = CountryAdapter(this, countryList)
 
         recyclerView.adapter = countryAdapter
-
-        LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false).also { recyclerView.layoutManager = it }
-
-        recyclerView.setHasFixedSize(true)
 
         activityVerificationBinding.btnCountryInsert.setOnClickListener {
             val countryName = activityVerificationBinding.etCountryTextFormField.text.toString()
@@ -52,7 +47,7 @@ class VerificationActivity : AppCompatActivity() {
             countryAdapter.notifyItemInserted(countryList.size - 1)
         }
 
-        activityVerificationBinding.btnVerificationInsert.setOnClickListener { view ->
+        activityVerificationBinding.btnVerificationInsert.setOnClickListener {
 
             val countriesString = countryList.joinToString(", ") { it.countryFavorite }
 
@@ -69,7 +64,7 @@ class VerificationActivity : AppCompatActivity() {
         verificationInsertViewModel.verificationResults.observe(this) { success ->
             if (success) {
                 snackBarFilter.getEmailInsertSnackBar(activityVerificationBinding.root)
-                intentFilter.getIntent(context, mainActivity)
+                intentFilter.getIntent(applicationContext, mainActivity)
             } else {
                 snackBarFilter.getEmailNotInsertSnackBar(activityVerificationBinding.root)
             }
