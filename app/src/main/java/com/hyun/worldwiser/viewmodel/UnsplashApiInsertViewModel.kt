@@ -46,7 +46,6 @@ class UnsplashApiInsertViewModel : ViewModel() {
                     imageGetUrl = imageUrl
 
                     activityInsertBinding.btnTravelInsert.setOnClickListener {
-                        verificationInsertViewModel.insertVerificationData()
                         val travelUpdate = hashMapOf (
                             "authUid" to auth.currentUser!!.uid,
                             "imageUrl" to imageGetUrl,

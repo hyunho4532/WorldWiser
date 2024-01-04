@@ -8,13 +8,13 @@ class VerificationInsertRepository(private val resultCallback: (Boolean) -> Unit
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    fun insertVerification() {
+    fun insertVerification(verification: HashMap<String, String>) {
         db.collection("verifications").document(auth.currentUser!!.uid).set(verification)
             .addOnSuccessListener {
-                resultCallb
+                resultCallback.invoke(true)
             }
             .addOnFailureListener {
-                snackBarFilter.getVerificationFailureSnackBar(view)
+                resultCallback.invoke(false)
             }
     }
 }
