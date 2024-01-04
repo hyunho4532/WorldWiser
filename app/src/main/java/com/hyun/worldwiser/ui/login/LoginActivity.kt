@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
             val email = loginBinding.etEmailFormField.text.toString()
             val password = loginBinding.etPasswordFormField.text.toString()
 
-            authRegisterViewModel.createUserWithEmailAndPassword(email, password)
+            authRegisterViewModel.registerUsers(email, password)
         }
 
         authRegisterViewModel.loginResult.observe(this) { success ->
