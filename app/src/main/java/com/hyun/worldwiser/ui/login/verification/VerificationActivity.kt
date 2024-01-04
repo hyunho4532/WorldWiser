@@ -26,9 +26,6 @@ class VerificationActivity : AppCompatActivity() {
     private val intentFilter: IntentFilter = IntentFilter()
     private val mainActivity: MainActivity = MainActivity()
 
-    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
