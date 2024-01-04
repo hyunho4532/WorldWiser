@@ -23,7 +23,6 @@ class UnsplashApiInsertViewModel : ViewModel() {
         call: Call<List<UnsplashPhoto>>,
         activityInsertBinding: ActivityInsertBinding,
         imageUrls: MutableList<String>,
-        verificationInsertViewModel: VerificationInsertViewModel,
         listener: (ImageAdapter) -> Unit
     ) {
 

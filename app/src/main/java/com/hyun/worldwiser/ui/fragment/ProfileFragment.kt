@@ -51,6 +51,8 @@ class ProfileFragment : Fragment() {
             intentFilter.getIntent(requireContext(), insertActivity)
         }
 
+
+
         db.collection("travelInserts").whereEqualTo("authUid", auth.currentUser!!.uid).get()
             .addOnSuccessListener { querySnapshot  ->
 
