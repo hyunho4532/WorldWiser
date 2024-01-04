@@ -1,15 +1,20 @@
 package com.hyun.worldwiser.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.hyun.worldwiser.repository.VerificationInsertRepository
 
-class VerificationInsertViewModel : ViewModel() {
+class VerificationInsertViewModel() : ViewModel() {
 
-    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val verificationInsertRepository: VerificationInsertRepository = VerificationInsertRepository { success ->
+        _verificationResults.postValue(success)
+    }
 
-    fun insertVerificationData() {
+    private val _verificationResults = MutableLiveData<Boolean>()
+    val verificationResults: LiveData<Boolean> = _verificationResults
 
+    fun insertVerification(verification: HashMap<String, String>) {
+        verificationInsertRepository.insertVerification(verification)
     }
 }

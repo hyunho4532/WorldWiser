@@ -1,9 +1,7 @@
 package com.hyun.worldwiser.viewmodel
 
 import android.annotation.SuppressLint
-import android.widget.Adapter
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.adapter.ImageAdapter
@@ -48,7 +46,6 @@ class UnsplashApiInsertViewModel : ViewModel() {
                     imageGetUrl = imageUrl
 
                     activityInsertBinding.btnTravelInsert.setOnClickListener {
-                        verificationInsertViewModel.insertVerificationData()
                         val travelUpdate = hashMapOf (
                             "authUid" to auth.currentUser!!.uid,
                             "imageUrl" to imageGetUrl,

@@ -4,9 +4,8 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryAdapter
 import com.hyun.worldwiser.databinding.ActivityVerificationBinding
@@ -15,6 +14,7 @@ import com.hyun.worldwiser.ui.MainActivity
 import com.hyun.worldwiser.util.HashMapOfFilter
 import com.hyun.worldwiser.util.IntentFilter
 import com.hyun.worldwiser.util.SnackBarFilter
+import com.hyun.worldwiser.viewmodel.VerificationInsertViewModel
 
 class VerificationActivity : AppCompatActivity() {
 
@@ -26,25 +26,18 @@ class VerificationActivity : AppCompatActivity() {
     private val intentFilter: IntentFilter = IntentFilter()
     private val mainActivity: MainActivity = MainActivity()
 
-    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         activityVerificationBinding = DataBindingUtil.setContentView(this, R.layout.activity_verification)
 
+        val verificationInsertViewModel = ViewModelProvider(this)[VerificationInsertViewModel::class.java]
+
         val recyclerView = activityVerificationBinding.recyclerView
-        val context: Context = applicationContext
 
         val countryAdapter = CountryAdapter(this, countryList)
 
         recyclerView.adapter = countryAdapter
-
-        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.setHasFixedSize(true)
 
         activityVerificationBinding.btnCountryInsert.setOnClickListener {
             val countryName = activityVerificationBinding.etCountryTextFormField.text.toString()
@@ -54,7 +47,7 @@ class VerificationActivity : AppCompatActivity() {
             countryAdapter.notifyItemInserted(countryList.size - 1)
         }
 
-        activityVerificationBinding.btnVerificationInsert.setOnClickListener { view ->
+        activityVerificationBinding.btnVerificationInsert.setOnClickListener {
 
             val countriesString = countryList.joinToString(", ") { it.countryFavorite }
 
@@ -65,14 +58,16 @@ class VerificationActivity : AppCompatActivity() {
                 activityVerificationBinding.etNicknameTextFormField.text.toString()
             )
 
-            db.collection("verifications").document(auth.currentUser!!.uid).set(verification)
-                .addOnSuccessListener {
-                    snackBarFilter.getVerificationInsertSnackBar(view)
-                    intentFilter.getIntent(context, mainActivity)
-                }
-                .addOnFailureListener {
-                    snackBarFilter.getVerificationFailureSnackBar(view)
-                }
+            verificationInsertViewModel.insertVerification(verification)
+        }
+
+        verificationInsertViewModel.verificationResults.observe(this) { success ->
+            if (success) {
+                snackBarFilter.getEmailInsertSnackBar(activityVerificationBinding.root)
+                intentFilter.getIntent(applicationContext, mainActivity)
+            } else {
+                snackBarFilter.getEmailNotInsertSnackBar(activityVerificationBinding.root)
+            }
         }
     }
 }
