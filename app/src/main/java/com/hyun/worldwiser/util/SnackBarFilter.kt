@@ -52,4 +52,10 @@ class SnackBarFilter {
 
         snackBar.show()
     }
+
+    fun getTravelRemoveSnackBar(view: View) {
+        val snackBar = Snackbar.make(view, "여행 일정이 정상적으로 삭제되었습니다.", Snackbar.LENGTH_SHORT)
+
+        snackBar.show()
+    }
 }

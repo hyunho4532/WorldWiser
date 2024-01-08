@@ -84,7 +84,7 @@ class ProfileFragment : Fragment() {
                     travelList.add(travel)
                 }
 
-                val travelAdapter = TravelAdapter(requireContext(), travelList)
+                val travelAdapter = TravelAdapter(requireContext(), travelList, fireStore = db, auth = auth)
                 val itemTouchHelper = ItemTouchHelper(TravelSwipeToDeleteCallback(travelAdapter))
                 adapterFilter.getAdapter(recyclerView = requireView().findViewById(R.id.travelRecyclerView), travelAdapter = travelAdapter, context = requireContext(), itemTouchHelper = itemTouchHelper)
 
