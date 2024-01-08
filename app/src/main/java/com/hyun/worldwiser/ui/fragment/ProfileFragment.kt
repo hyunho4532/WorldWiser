@@ -36,6 +36,9 @@ class ProfileFragment : Fragment() {
     private val auth = FirebaseAuth.getInstance()
 
     private lateinit var country: String
+    private lateinit var imageUrl: String
+    private lateinit var startDay: String
+    private lateinit var endDay: String
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -66,9 +69,9 @@ class ProfileFragment : Fragment() {
 
                     try {
                         country = document["country"].toString()
-                        val imageUrl = document["imageUrl"].toString()
-                        val startDay = document["startDay"].toString()
-                        val endDay = document["endDay"].toString()
+                        imageUrl = document["imageUrl"].toString()
+                        startDay = document["startDay"].toString()
+                        endDay = document["endDay"].toString()
 
                         Glide.with(requireActivity())
                             .load(imageUrl)
@@ -81,7 +84,8 @@ class ProfileFragment : Fragment() {
                         val travel = Travel(imageUrl, country, startDay, endDay)
                         travelList.add(travel)
 
-                        val travelAdapter = TravelAdapter(requireContext(), travelList, fireStore = db, auth = auth)
+                        val travelAdapter = TravelAdapter(requireContext(), travelList)
+
                         val itemTouchHelper = ItemTouchHelper(TravelSwipeToDeleteCallback(travelAdapter))
                         adapterFilter.getAdapter(recyclerView = requireView().findViewById(R.id.travelRecyclerView), travelAdapter = travelAdapter, context = requireContext(), itemTouchHelper = itemTouchHelper)
 

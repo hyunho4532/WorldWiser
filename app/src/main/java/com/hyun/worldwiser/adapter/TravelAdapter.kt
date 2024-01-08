@@ -6,22 +6,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
+import com.hyun.worldwiser.databinding.FragmentProfileBinding
 import com.hyun.worldwiser.model.Travel
 import com.hyun.worldwiser.ui.schedule.ScheduleActivity
-import com.hyun.worldwiser.util.SnackBarFilter
+import com.hyun.worldwiser.viewmodel.TravelDeleteViewModel
+import com.hyun.worldwiser.viewmodel.TravelStatusViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TravelAdapter(val context: Context, private val travelList: ArrayList<Travel>, private val fireStore: FirebaseFirestore, private val auth: FirebaseAuth) : RecyclerView.Adapter<TravelAdapter.ViewHolder>() {
+class TravelAdapter(
+    val context: Context,
+    private val travelList: ArrayList<Travel>,
+) : RecyclerView.Adapter<TravelAdapter.ViewHolder>() {
 
-    private val snackBarFilter: SnackBarFilter = SnackBarFilter()
+    private val travelDeleteViewModel: TravelDeleteViewModel = TravelDeleteViewModel()
+    private val travelStatusViewModel: TravelStatusViewModel = TravelStatusViewModel()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_travel_list, parent, false)
@@ -46,22 +54,14 @@ class TravelAdapter(val context: Context, private val travelList: ArrayList<Trav
         val removedTravelCountryItem = travelList[position]
         val country = removedTravelCountryItem.country
 
-        val deleteQuery = fireStore.collection("travelInserts").whereEqualTo("country", country).whereEqualTo("authUid", auth.currentUser!!.uid)
-
-        deleteQuery.get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                fireStore.collection("travelInserts").document(document.id).delete()
-                    .addOnSuccessListener {
-                        notifyItemRemoved(position)
-                    }
-                    .addOnFailureListener { error ->
-
-                    }
+        travelDeleteViewModel.travelDeleteViewModel(country) { isSuccess ->
+            if (isSuccess) {
+                travelList.removeAt(position)
+                notifyItemRemoved(position)
+            } else {
+                print("삭제 실패")
             }
         }
-
-        travelList.removeAt(position)
-        notifyItemRemoved(position)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -72,8 +72,8 @@ class TravelAdapter(val context: Context, private val travelList: ArrayList<Trav
             val startDay = travel.startDay
             val endDay = travel.endDay
 
-            itemView.findViewById<TextView>(R.id.tv_travel_country).text = country
-            itemView.findViewById<TextView>(R.id.tv_travel_status).text = startDay
+            itemView.findViewById<TextView>(R.id.tv_travel_country).text = country.toString()
+            itemView.findViewById<TextView>(R.id.tv_travel_status).text = startDay.toString()
 
             val calendar: Calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
@@ -92,13 +92,8 @@ class TravelAdapter(val context: Context, private val travelList: ArrayList<Trav
 
             // startDate: 시작 날짜
             // endDate: 끝 날짜
-            if (startDate.isAfter(todayDate)) {
-                itemView.findViewById<TextView>(R.id.tv_travel_status).text = "여행 예정"
-            } else if (todayDate.isEqual(startDate) || (todayDate.isAfter(startDate) && todayDate.isBefore(endDate))) {
-                itemView.findViewById<TextView>(R.id.tv_travel_status).text = "현재 여행 중"
-            } else if (todayDate.isEqual(endDate) || todayDate.isAfter(endDate)) {
-                itemView.findViewById<TextView>(R.id.tv_travel_status).text = "여행 종료"
-            }
+            travelStatusViewModel.getTravelStatus(todayDate, startDate, endDate)
+            itemView.findViewById<TextView>(R.id.tv_travel_status).text = travelStatusViewModel.travelStatus.toString()
 
             Glide.with(context)
                 .load(imageUrl)
