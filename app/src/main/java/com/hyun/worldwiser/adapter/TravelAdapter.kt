@@ -94,6 +94,7 @@ class TravelAdapter(
             // startDate: 시작 날짜
             // endDate: 끝 날짜
             travelStatusViewModel.getTravelStatus(todayDate, startDate, endDate)
+
             travelStatusViewModel.travelStatus.observe((context as LifecycleOwner)) { status ->
                 itemView.findViewById<TextView>(R.id.tv_travel_status).text = status
             }
