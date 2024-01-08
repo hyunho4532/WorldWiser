@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryRankingAdapter
@@ -27,6 +28,7 @@ class HomeFragment : Fragment() {
     private lateinit var fragmentHomeBinding: FragmentHomeBinding
 
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private val countryRankingList = ArrayList<CountryRanking>()
     private val travelStatusList = ArrayList<TravelStatus>()
@@ -75,6 +77,15 @@ class HomeFragment : Fragment() {
 
                 fragmentHomeBinding.rvTravelRanking.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 fragmentHomeBinding.rvTravelRanking.adapter = countryRankingAdapter
+            }
+
+        db.collection("verifications")
+            .document(auth.currentUser!!.uid)
+            .get()
+            .addOnSuccessListener { document  ->
+                val nickname = document["nickname"].toString()
+
+                fragmentHomeBinding.tvTravelInformationNickname.text = nickname
             }
 
         db.collection("travelInserts")
