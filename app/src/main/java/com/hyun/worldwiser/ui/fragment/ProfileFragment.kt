@@ -22,9 +22,7 @@ import com.hyun.worldwiser.util.AdapterFilter
 import com.hyun.worldwiser.util.DateTimeFormatterFilter
 import com.hyun.worldwiser.util.IntentFilter
 import com.hyun.worldwiser.viewmodel.ProfileSelectViewModel
-import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 
 class ProfileFragment : Fragment() {
 
@@ -94,7 +92,7 @@ class ProfileFragment : Fragment() {
 
                         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
-                        dateTimeFormatterFilter.settingDateTimeFormatter(formatter, startDay, endDay, fragmentProfileBinding)
+                        dateTimeFormatterFilter.settingDateTimeFormatter(formatter, startDay)
 
                     } catch (e: UninitializedPropertyAccessException) {
                         fragmentProfileBinding.tvTravelCalendar.text = ""
