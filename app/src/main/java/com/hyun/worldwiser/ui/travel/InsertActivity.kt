@@ -90,7 +90,7 @@ class InsertActivity : AppCompatActivity() {
             }
         }
 
-        unsplashApiInsertViewModel.loadUnsplashAPIEnqueue(call, activityInsertBinding, imageUrls, verificationInsertViewModel) { imageAdapter ->
+        unsplashApiInsertViewModel.loadUnsplashAPIEnqueue(call, activityInsertBinding, imageUrls) { imageAdapter ->
             activityInsertBinding.rvTravelTheme.adapter = imageAdapter
 
             imageAdapter.notifyDataSetChanged()

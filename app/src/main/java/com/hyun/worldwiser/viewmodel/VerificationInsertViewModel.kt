@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hyun.worldwiser.repository.VerificationInsertRepository
 
-class VerificationInsertViewModel() : ViewModel() {
+class VerificationInsertViewModel : ViewModel() {
 
     private val verificationInsertRepository: VerificationInsertRepository = VerificationInsertRepository { success ->
         _verificationResults.postValue(success)

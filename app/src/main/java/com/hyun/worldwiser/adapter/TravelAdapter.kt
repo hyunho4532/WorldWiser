@@ -8,15 +8,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.model.Travel
 import com.hyun.worldwiser.ui.schedule.ScheduleActivity
+import com.hyun.worldwiser.util.SnackBarFilter
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TravelAdapter(val context: Context, private val travelList: ArrayList<Travel>) : RecyclerView.Adapter<TravelAdapter.ViewHolder>() {
+class TravelAdapter(val context: Context, private val travelList: ArrayList<Travel>, private val fireStore: FirebaseFirestore, private val auth: FirebaseAuth) : RecyclerView.Adapter<TravelAdapter.ViewHolder>() {
+
+    private val snackBarFilter: SnackBarFilter = SnackBarFilter()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_travel_list, parent, false)
@@ -35,6 +40,31 @@ class TravelAdapter(val context: Context, private val travelList: ArrayList<Trav
 
     override fun getItemCount(): Int {
         return travelList.size
+    }
+
+    fun removeItem(position: Int) {
+        val removedTravelCountryItem = travelList[position]
+        val country = removedTravelCountryItem.country
+
+        val deleteQuery = fireStore.collection("travelInserts").whereEqualTo("country", country).whereEqualTo("authUid", auth.currentUser!!.uid)
+
+        deleteQuery.get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                fireStore.collection("travelInserts").document(document.id).delete()
+                    .addOnSuccessListener {
+                        travelList.removeAt(position)
+                        notifyItemRemoved(position)
+
+                        snackBarFilter.getTravelRemoveSnackBar()
+                    }
+                    .addOnFailureListener { error ->
+
+                    }
+            }
+        }
+
+        travelList.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
