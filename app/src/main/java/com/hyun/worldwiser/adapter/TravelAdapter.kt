@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -93,7 +94,9 @@ class TravelAdapter(
             // startDate: 시작 날짜
             // endDate: 끝 날짜
             travelStatusViewModel.getTravelStatus(todayDate, startDate, endDate)
-            itemView.findViewById<TextView>(R.id.tv_travel_status).text = travelStatusViewModel.travelStatus.toString()
+            travelStatusViewModel.travelStatus.observe((context as LifecycleOwner)) { status ->
+                itemView.findViewById<TextView>(R.id.tv_travel_status).text = status
+            }
 
             Glide.with(context)
                 .load(imageUrl)
