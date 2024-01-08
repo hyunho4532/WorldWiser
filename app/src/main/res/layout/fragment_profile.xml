@@ -3,6 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="dateTimeFormatterViewModel"
+            type="com.hyun.worldwiser.viewmodel.DateTimeFormatterViewModel" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -88,6 +94,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
                         android:textSize="13sp"
+                        android:text="@{dateTimeFormatterViewModel.travelStatus}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
