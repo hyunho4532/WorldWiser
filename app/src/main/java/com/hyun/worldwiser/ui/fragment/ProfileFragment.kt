@@ -19,8 +19,8 @@ import com.hyun.worldwiser.databinding.FragmentProfileBinding
 import com.hyun.worldwiser.model.Travel
 import com.hyun.worldwiser.ui.travel.InsertActivity
 import com.hyun.worldwiser.util.AdapterFilter
-import com.hyun.worldwiser.util.DateTimeFormatterFilter
 import com.hyun.worldwiser.util.IntentFilter
+import com.hyun.worldwiser.viewmodel.DateTimeFormatterViewModel
 import com.hyun.worldwiser.viewmodel.ProfileSelectViewModel
 import java.time.format.DateTimeFormatter
 
@@ -30,17 +30,12 @@ class ProfileFragment : Fragment() {
     private val intentFilter: IntentFilter = IntentFilter()
     private val insertActivity: InsertActivity = InsertActivity()
 
-    private val dateTimeFormatterFilter: DateTimeFormatterFilter = DateTimeFormatterFilter()
-
     private val adapterFilter: AdapterFilter = AdapterFilter()
 
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
     private lateinit var country: String
-    private lateinit var imageUrl: String
-    private lateinit var startDay: String
-    private lateinit var endDay: String
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -71,9 +66,9 @@ class ProfileFragment : Fragment() {
 
                     try {
                         country = document["country"].toString()
-                        imageUrl = document["imageUrl"].toString()
-                        startDay = document["startDay"].toString()
-                        endDay = document["endDay"].toString()
+                        val imageUrl = document["imageUrl"].toString()
+                        val startDay = document["startDay"].toString()
+                        val endDay = document["endDay"].toString()
 
                         Glide.with(requireActivity())
                             .load(imageUrl)
@@ -92,7 +87,10 @@ class ProfileFragment : Fragment() {
 
                         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
-                        dateTimeFormatterFilter.settingDateTimeFormatter(formatter, startDay)
+                        val dateTimeFormatterViewModel = ViewModelProvider(this)[DateTimeFormatterViewModel::class.java]
+
+                        dateTimeFormatterViewModel.settingDateTimeFormatter(formatter, startDay)
+                        fragmentProfileBinding.dateTimeFormatterViewModel = dateTimeFormatterViewModel
 
                     } catch (e: UninitializedPropertyAccessException) {
                         fragmentProfileBinding.tvTravelCalendar.text = ""
