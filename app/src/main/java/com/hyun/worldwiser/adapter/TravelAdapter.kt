@@ -37,6 +37,11 @@ class TravelAdapter(val context: Context, private val travelList: ArrayList<Trav
         return travelList.size
     }
 
+    fun removeItem(position: Int) {
+        travelList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(travel: Travel) {
 
