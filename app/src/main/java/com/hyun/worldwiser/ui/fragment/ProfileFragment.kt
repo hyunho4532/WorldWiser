@@ -19,6 +19,7 @@ import com.hyun.worldwiser.databinding.FragmentProfileBinding
 import com.hyun.worldwiser.model.Travel
 import com.hyun.worldwiser.ui.travel.InsertActivity
 import com.hyun.worldwiser.util.AdapterFilter
+import com.hyun.worldwiser.util.DateTimeFormatterFilter
 import com.hyun.worldwiser.util.IntentFilter
 import com.hyun.worldwiser.viewmodel.ProfileSelectViewModel
 import java.time.LocalDate
@@ -30,6 +31,8 @@ class ProfileFragment : Fragment() {
     private lateinit var fragmentProfileBinding: FragmentProfileBinding
     private val intentFilter: IntentFilter = IntentFilter()
     private val insertActivity: InsertActivity = InsertActivity()
+
+    private val dateTimeFormatterFilter: DateTimeFormatterFilter = DateTimeFormatterFilter()
 
     private val adapterFilter: AdapterFilter = AdapterFilter()
 
@@ -91,21 +94,7 @@ class ProfileFragment : Fragment() {
 
                         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
-                        val currentDate = LocalDate.now()
-
-                        val sDay = LocalDate.parse(startDay, formatter)
-                        val eDay = LocalDate.parse(endDay, formatter)
-
-                        val daysUntilStartDay = ChronoUnit.DAYS.between(currentDate, sDay)
-                        val daysUntilEndDay = ChronoUnit.DAYS.between(currentDate, eDay)
-
-                        if (daysUntilStartDay > 0) {
-                            fragmentProfileBinding.tvTravelCalendarDay.text = "여행 시작일이 " + daysUntilStartDay.toString() + "일 남았어요!!"
-                        } else if (daysUntilStartDay == 0L) {
-                            fragmentProfileBinding.tvTravelCalendarDay.text = "여행하고 있어요!"
-                        } else if (daysUntilEndDay < 0) {
-                            fragmentProfileBinding.tvTravelCalendarDay.text = "여행이 끝났어요!"
-                        }
+                        dateTimeFormatterFilter.settingDateTimeFormatter(formatter, startDay, endDay, fragmentProfileBinding)
 
                     } catch (e: UninitializedPropertyAccessException) {
                         fragmentProfileBinding.tvTravelCalendar.text = ""
