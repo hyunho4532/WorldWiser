@@ -52,10 +52,7 @@ class TravelAdapter(val context: Context, private val travelList: ArrayList<Trav
             for (document in documents) {
                 fireStore.collection("travelInserts").document(document.id).delete()
                     .addOnSuccessListener {
-                        travelList.removeAt(position)
                         notifyItemRemoved(position)
-
-                        snackBarFilter.getTravelRemoveSnackBar()
                     }
                     .addOnFailureListener { error ->
 

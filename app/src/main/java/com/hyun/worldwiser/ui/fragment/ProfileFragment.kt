@@ -67,52 +67,50 @@ class ProfileFragment : Fragment() {
             .addOnSuccessListener { querySnapshot  ->
 
                 for (document in querySnapshot.documents) {
-                    country = document["country"].toString()
-                    imageUrl = document["imageUrl"].toString()
-                    startDay = document["startDay"].toString()
-                    endDay = document["endDay"].toString()
 
-                    Glide.with(requireActivity())
-                        .load(imageUrl)
-                        .into(fragmentProfileBinding.imageView)
+                    try {
+                        country = document["country"].toString()
+                        imageUrl = document["imageUrl"].toString()
+                        startDay = document["startDay"].toString()
+                        endDay = document["endDay"].toString()
 
-                    fragmentProfileBinding.tvTravelCountry.text = country
+                        Glide.with(requireActivity())
+                            .load(imageUrl)
+                            .into(fragmentProfileBinding.imageView)
 
-                    fragmentProfileBinding.tvTravelCalendar.text = "$startDay ~ $endDay"
+                        fragmentProfileBinding.tvTravelCountry.text = country
 
-                    val travel = Travel(imageUrl, country, startDay, endDay)
-                    travelList.add(travel)
-                }
+                        fragmentProfileBinding.tvTravelCalendar.text = "$startDay ~ $endDay"
 
-                val travelAdapter = TravelAdapter(requireContext(), travelList, fireStore = db, auth = auth)
-                val itemTouchHelper = ItemTouchHelper(TravelSwipeToDeleteCallback(travelAdapter))
-                adapterFilter.getAdapter(recyclerView = requireView().findViewById(R.id.travelRecyclerView), travelAdapter = travelAdapter, context = requireContext(), itemTouchHelper = itemTouchHelper)
+                        val travel = Travel(imageUrl, country, startDay, endDay)
+                        travelList.add(travel)
 
-                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        val travelAdapter = TravelAdapter(requireContext(), travelList, fireStore = db, auth = auth)
+                        val itemTouchHelper = ItemTouchHelper(TravelSwipeToDeleteCallback(travelAdapter))
+                        adapterFilter.getAdapter(recyclerView = requireView().findViewById(R.id.travelRecyclerView), travelAdapter = travelAdapter, context = requireContext(), itemTouchHelper = itemTouchHelper)
 
-                val currentDate = LocalDate.now()
+                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
-                try {
-                    val sDay = LocalDate.parse(startDay, formatter)
-                    val eDay = LocalDate.parse(endDay, formatter)
+                        val currentDate = LocalDate.now()
 
-                    val daysUntilStartDay = ChronoUnit.DAYS.between(currentDate, sDay)
-                    val daysUntilEndDay = ChronoUnit.DAYS.between(currentDate, eDay)
+                        val sDay = LocalDate.parse(startDay, formatter)
+                        val eDay = LocalDate.parse(endDay, formatter)
 
-                    if (daysUntilStartDay > 0) {
-                        fragmentProfileBinding.tvTravelCalendarDay.text = "여행 시작일이 " + daysUntilStartDay.toString() + "일 남았어요!!"
-                    } else if (daysUntilStartDay == 0L) {
-                        fragmentProfileBinding.tvTravelCalendarDay.text = "여행하고 있어요!"
-                    } else if (daysUntilEndDay < 0) {
-                        fragmentProfileBinding.tvTravelCalendarDay.text = "여행이 끝났어요!"
+                        val daysUntilStartDay = ChronoUnit.DAYS.between(currentDate, sDay)
+                        val daysUntilEndDay = ChronoUnit.DAYS.between(currentDate, eDay)
+
+                        if (daysUntilStartDay > 0) {
+                            fragmentProfileBinding.tvTravelCalendarDay.text = "여행 시작일이 " + daysUntilStartDay.toString() + "일 남았어요!!"
+                        } else if (daysUntilStartDay == 0L) {
+                            fragmentProfileBinding.tvTravelCalendarDay.text = "여행하고 있어요!"
+                        } else if (daysUntilEndDay < 0) {
+                            fragmentProfileBinding.tvTravelCalendarDay.text = "여행이 끝났어요!"
+                        }
+
+                    } catch (e: UninitializedPropertyAccessException) {
+                        fragmentProfileBinding.tvTravelCalendar.text = ""
                     }
-
-                } catch(e: Exception){
-                    print(e.printStackTrace())
                 }
-            }
-            .addOnFailureListener {
-                fragmentProfileBinding.tvTravelCountry.text = "새로운 여행을 등록해보세요!!"
             }
 
 
