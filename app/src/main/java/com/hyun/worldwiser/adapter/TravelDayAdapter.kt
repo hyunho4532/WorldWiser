@@ -27,6 +27,8 @@ class TravelDayAdapter(private val travelList: List<TravelDay>) : RecyclerView.A
         if (position == selectedPosition) {
             holder.itemView.setBackgroundColor(Color.GRAY)
             holder.itemView.findViewById<TextView>(R.id.travel_day_count).setTextColor(Color.BLACK)
+
+
             scheduleDayViewModel.selectedDayItem.value = holder.itemView.findViewById<TextView>(R.id.travel_day_count).text.toString()
 
         } else {

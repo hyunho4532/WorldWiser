@@ -36,7 +36,6 @@ class InsertActivity : AppCompatActivity() {
 
     private val unsplashApiInsertViewModel: UnsplashApiInsertViewModel = UnsplashApiInsertViewModel()
     private val verificationSelectViewModel: VerificationSelectViewModel = VerificationSelectViewModel()
-    private val verificationInsertViewModel: VerificationInsertViewModel = VerificationInsertViewModel()
 
     private lateinit var context: Context
 

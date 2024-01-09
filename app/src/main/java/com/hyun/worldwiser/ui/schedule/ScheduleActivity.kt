@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.ScheduleAdapter
 import com.hyun.worldwiser.adapter.TravelAdapter
 import com.hyun.worldwiser.adapter.TravelDayAdapter
+import com.hyun.worldwiser.databinding.DialogBottomSheetTravelScheduleBinding
 import com.hyun.worldwiser.decorator.DayDecorator
 import com.hyun.worldwiser.decorator.SaturdayDecorator
 import com.hyun.worldwiser.decorator.SundayDecorator
@@ -45,10 +47,14 @@ class ScheduleActivity : AppCompatActivity() {
 
     private lateinit var country: String
 
+    private lateinit var dialogBottomSheetTravelScheduleBinding: DialogBottomSheetTravelScheduleBinding
+
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
+
+        dialogBottomSheetTravelScheduleBinding = DialogBottomSheetTravelScheduleBinding.inflate(layoutInflater)
 
         context = applicationContext
 
@@ -149,10 +155,12 @@ class ScheduleActivity : AppCompatActivity() {
 
                     bottomSheetTravelScheduleDialog.show()
 
+                    dialogBottomSheetTravelScheduleBinding.scheduleDayViewModel?.selectedDayItem?.observe(this) { selectedDay ->
+                        Log.d("ScheduleDayViewModel", "Selected Day: $selectedDay")
+                    }
+
                     bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_nickname_auth_schedule).text = nickname + "님! \n" + country + "의 일정을 작성해주세요"
                     bottomSheetTravelScheduleView.findViewById<AppCompatButton>(R.id.btn_schedule_datePicker_insert).setOnClickListener {
-
-
 
                         if (bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString().isEmpty()) {
                             snackBarFilter.insertTravelScheduleSnackBar(view)

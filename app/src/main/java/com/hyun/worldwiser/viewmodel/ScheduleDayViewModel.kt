@@ -4,5 +4,5 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ScheduleDayViewModel : ViewModel() {
-    val selectedDayItem = MutableLiveData<String>()
+    var selectedDayItem = MutableLiveData<String>()
 }
