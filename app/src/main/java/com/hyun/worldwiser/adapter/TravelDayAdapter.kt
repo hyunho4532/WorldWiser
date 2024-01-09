@@ -10,6 +10,8 @@ import com.hyun.worldwiser.model.TravelDay
 
 class TravelDayAdapter(private val travelList: List<TravelDay>) : RecyclerView.Adapter<TravelDayAdapter.ViewHolder>() {
 
+    private
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_travel_day_list, parent, false)
         return ViewHolder(view)
