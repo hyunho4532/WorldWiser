@@ -1,5 +1,6 @@
 package com.hyun.worldwiser.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import com.hyun.worldwiser.model.TravelDay
 
 class TravelDayAdapter(private val travelList: List<TravelDay>) : RecyclerView.Adapter<TravelDayAdapter.ViewHolder>() {
 
-    private
+    private var selectedPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_travel_day_list, parent, false)
@@ -19,6 +20,13 @@ class TravelDayAdapter(private val travelList: List<TravelDay>) : RecyclerView.A
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(travelList[position])
+
+        if (position == selectedPosition) {
+            holder.itemView.setBackgroundColor(Color.GRAY)
+            holder.itemView.findViewById<TextView>(R.id.travel_day_count).setTextColor(Color.BLACK)
+        } else {
+            holder.itemView.setBackgroundColor(Color.WHITE)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -26,11 +34,25 @@ class TravelDayAdapter(private val travelList: List<TravelDay>) : RecyclerView.A
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         fun bind(travelDay: TravelDay) {
 
             val dayDifferenceCount = travelDay.dayDifference
 
             itemView.findViewById<TextView>(R.id.travel_day_count).text = dayDifferenceCount.toString() + "일"
+        }
+
+        init {
+            itemView.setOnClickListener {
+                val previousSelected = selectedPosition
+                selectedPosition = adapterPosition
+
+                // 이전에 선택된 아이템의 배경 색상 초기화
+                notifyItemChanged(previousSelected)
+
+                // 현재 선택한 아이템의 배경 색상 변경
+                notifyItemChanged(selectedPosition)
+            }
         }
     }
 }
