@@ -12,7 +12,6 @@ class TravelStatusViewModel : ViewModel() {
     var travelStatus: LiveData<String>
         get() = _travelStatus
         set(value) {
-            travelStatus = value
         }
 
     fun getTravelStatus(todayDate: LocalDate, startDate: LocalDate, endDate: LocalDate) {
