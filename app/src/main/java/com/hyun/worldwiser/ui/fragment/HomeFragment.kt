@@ -2,11 +2,14 @@ package com.hyun.worldwiser.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -15,10 +18,12 @@ import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryRankingAdapter
 import com.hyun.worldwiser.adapter.TravelAdapter
 import com.hyun.worldwiser.adapter.TravelStatusAdapter
+import com.hyun.worldwiser.adapter.TravelSwipeToDeleteCallback
 import com.hyun.worldwiser.databinding.FragmentHomeBinding
 import com.hyun.worldwiser.model.CountryRanking
 import com.hyun.worldwiser.model.Travel
 import com.hyun.worldwiser.model.TravelStatus
+import com.hyun.worldwiser.viewmodel.DateTimeFormatterViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -83,14 +88,32 @@ class HomeFragment : Fragment() {
             .document(auth.currentUser!!.uid)
             .get()
             .addOnSuccessListener { document  ->
+
+                val favoriteCountry = document["country_favorite"].toString()
                 val nickname = document["nickname"].toString()
+                val transport = document["transport"].toString()
 
                 fragmentHomeBinding.tvTravelInformationNickname.text = nickname
+                fragmentHomeBinding.tvTravelInformationFavoriteCountry.text = favoriteCountry
+                fragmentHomeBinding.tvTravelInformationPreferenceTransport.text = transport
 
                 (nickname + "의 관한 여행 정보").also { nicknameResult ->
                     fragmentHomeBinding.tvTravelInformation.text = nicknameResult
                 }
             }
+
+        db.collection("travelInserts").whereEqualTo("authUid", auth.currentUser!!.uid).get()
+            .addOnSuccessListener { querySnapshot  ->
+
+                val documentCount = querySnapshot.size()
+
+                for (document in querySnapshot.documents) {
+
+                    (documentCount.toString() + "개").also { documentCountResult ->
+                        fragmentHomeBinding.tvTravelInformationCount.text = documentCountResult }
+                }
+            }
+
 
         db.collection("travelInserts")
             .get()
