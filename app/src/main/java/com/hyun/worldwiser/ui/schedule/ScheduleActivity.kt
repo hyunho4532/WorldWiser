@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -23,6 +24,7 @@ import com.hyun.worldwiser.decorator.SundayDecorator
 import com.hyun.worldwiser.model.Schedule
 import com.hyun.worldwiser.model.TravelDay
 import com.hyun.worldwiser.util.SnackBarFilter
+import com.hyun.worldwiser.viewmodel.ScheduleDayViewModel
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import java.lang.NullPointerException
 import java.text.SimpleDateFormat
@@ -49,6 +51,9 @@ class ScheduleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_schedule)
 
         context = applicationContext
+
+
+        val scheduleDayViewModel: ScheduleDayViewModel = ViewModelProvider(this)[ScheduleDayViewModel::class.java]
 
         val rvScheduleDay : RecyclerView = findViewById(R.id.rv_schedule_day)
 
@@ -146,6 +151,8 @@ class ScheduleActivity : AppCompatActivity() {
 
                     bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_nickname_auth_schedule).text = nickname + "님! \n" + country + "의 일정을 작성해주세요"
                     bottomSheetTravelScheduleView.findViewById<AppCompatButton>(R.id.btn_schedule_datePicker_insert).setOnClickListener {
+
+
 
                         if (bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString().isEmpty()) {
                             snackBarFilter.insertTravelScheduleSnackBar(view)

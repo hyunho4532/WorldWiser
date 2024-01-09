@@ -1,6 +1,7 @@
 package com.hyun.worldwiser.adapter
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.model.TravelDay
+import com.hyun.worldwiser.viewmodel.ScheduleDayViewModel
 
 class TravelDayAdapter(private val travelList: List<TravelDay>) : RecyclerView.Adapter<TravelDayAdapter.ViewHolder>() {
 
+    private val scheduleDayViewModel: ScheduleDayViewModel = ScheduleDayViewModel()
     private var selectedPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,6 +27,8 @@ class TravelDayAdapter(private val travelList: List<TravelDay>) : RecyclerView.A
         if (position == selectedPosition) {
             holder.itemView.setBackgroundColor(Color.GRAY)
             holder.itemView.findViewById<TextView>(R.id.travel_day_count).setTextColor(Color.BLACK)
+            scheduleDayViewModel.selectedDayItem.value = holder.itemView.findViewById<TextView>(R.id.travel_day_count).text.toString()
+
         } else {
             holder.itemView.setBackgroundColor(Color.WHITE)
         }
