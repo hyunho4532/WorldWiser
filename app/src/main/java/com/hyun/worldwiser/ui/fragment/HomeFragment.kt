@@ -86,6 +86,10 @@ class HomeFragment : Fragment() {
                 val nickname = document["nickname"].toString()
 
                 fragmentHomeBinding.tvTravelInformationNickname.text = nickname
+
+                (nickname + "의 관한 여행 정보").also { nicknameResult ->
+                    fragmentHomeBinding.tvTravelInformation.text = nicknameResult
+                }
             }
 
         db.collection("travelInserts")
