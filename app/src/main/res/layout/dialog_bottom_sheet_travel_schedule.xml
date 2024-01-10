@@ -64,7 +64,18 @@
         android:id="@+id/tv_travel_schedule_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/et_travel_schedule_todo"
+        app:layout_constraintTop_toBottomOf="@+id/et_travel_schedule_todo" />
+
+    <TextView
+        android:id="@+id/tv_day_schedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/et_travel_schedule_todo"
         app:layout_constraintTop_toBottomOf="@+id/et_travel_schedule_todo" />
 

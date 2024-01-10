@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="여행 통계"
+            android:text="월드 와이저 여행 통계"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
-            android:text="여행 형태"
+            android:text="월드 와이저 여행 형태"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/rv_travel_ranking"
@@ -63,7 +63,23 @@
             app:layout_constraintStart_toStartOf="@+id/rv_travel_status"
             app:layout_constraintTop_toBottomOf="@+id/rv_travel_status" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_travel_insert"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="-8dp"
+            android:background="@drawable/drawable_schedule_insert_button"
+            android:paddingBottom="6dp"
+            android:text="여행 등록"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_travel_information"
+            app:layout_constraintEnd_toEndOf="@+id/cardView3"
+            app:layout_constraintTop_toTopOf="@+id/tv_travel_information" />
+
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView3"
             android:layout_width="350dp"
             android:layout_height="160dp"
             android:layout_marginTop="12dp"
@@ -80,9 +96,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="@+id/textView15"
                     app:layout_constraintStart_toEndOf="@+id/textView15"
                     app:layout_constraintTop_toTopOf="@+id/textView15" />

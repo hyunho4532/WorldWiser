@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,16 +17,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.ScheduleAdapter
-import com.hyun.worldwiser.adapter.TravelAdapter
 import com.hyun.worldwiser.adapter.TravelDayAdapter
-import com.hyun.worldwiser.decorator.DayDecorator
-import com.hyun.worldwiser.decorator.SaturdayDecorator
-import com.hyun.worldwiser.decorator.SundayDecorator
 import com.hyun.worldwiser.model.Schedule
 import com.hyun.worldwiser.model.TravelDay
 import com.hyun.worldwiser.util.SnackBarFilter
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import java.lang.NullPointerException
+import com.hyun.worldwiser.viewmodel.ScheduleDayViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.getInstance
@@ -49,6 +46,8 @@ class ScheduleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_schedule)
 
         context = applicationContext
+
+        val scheduleDayViewModel: ScheduleDayViewModel = ViewModelProvider(this)[ScheduleDayViewModel::class.java]
 
         val rvScheduleDay : RecyclerView = findViewById(R.id.rv_schedule_day)
 
@@ -88,7 +87,7 @@ class ScheduleActivity : AppCompatActivity() {
                         travelDayList.add(travelDay)
                     }
 
-                    val travelDayAdapter = TravelDayAdapter(travelDayList)
+                    val travelDayAdapter = TravelDayAdapter(travelDayList, scheduleDayViewModel)
                     rvScheduleDay.adapter = travelDayAdapter
                     rvScheduleDay.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                 }
@@ -109,7 +108,6 @@ class ScheduleActivity : AppCompatActivity() {
 
                     scheduleAdapter.notifyDataSetChanged()
                 }
-
             }
 
         db.collection("verifications").document(auth.currentUser!!.uid).get()
@@ -144,7 +142,16 @@ class ScheduleActivity : AppCompatActivity() {
 
                     bottomSheetTravelScheduleDialog.show()
 
+                    scheduleDayViewModel.selectedItem.observe(this) { selectedItem ->
+                        selectedItem?.let {
+                            bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_day_schedule).text = selectedItem
+                        }
+                    }
+
+                    Log.d("ScheduleActivityViewModel", "3")
+
                     bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_nickname_auth_schedule).text = nickname + "님! \n" + country + "의 일정을 작성해주세요"
+
                     bottomSheetTravelScheduleView.findViewById<AppCompatButton>(R.id.btn_schedule_datePicker_insert).setOnClickListener {
 
                         if (bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString().isEmpty()) {
