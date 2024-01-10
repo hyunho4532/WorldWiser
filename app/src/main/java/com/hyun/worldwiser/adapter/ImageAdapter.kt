@@ -1,5 +1,6 @@
 package com.hyun.worldwiser.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +16,7 @@ class ImageAdapter (
     private val eventListener: (String) -> Unit
     ) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
-    private val db = FirebaseFirestore.getInstance()
-    private val auth = FirebaseAuth.getInstance()
+    private var selectedPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_theme_list, parent, false)
@@ -31,8 +31,25 @@ class ImageAdapter (
             .load(imageUrl)
             .into(holder.ivCountryTheme)
 
+
         holder.itemView.setOnClickListener {
             eventListener.invoke(imageUrl)
+
+            Log.d("ImageAdapter", "클릭")
+
+            val previousSelected = selectedPosition
+            selectedPosition = holder.adapterPosition
+
+            notifyItemChanged(previousSelected)
+
+            notifyItemChanged(selectedPosition)
+        }
+
+
+        if (position == selectedPosition) {
+            holder.itemView.findViewById<ImageView>(R.id.iv_country_theme_status).visibility = View.VISIBLE
+        } else {
+            holder.itemView.findViewById<ImageView>(R.id.iv_country_theme_status).visibility = View.INVISIBLE
         }
     }
 
@@ -40,7 +57,7 @@ class ImageAdapter (
         return imageUrls.size
     }
 
-    class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivCountryTheme: ImageView = itemView.findViewById(R.id.iv_country_theme)
     }
 }

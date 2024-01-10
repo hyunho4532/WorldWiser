@@ -34,13 +34,12 @@ class ScheduleActivity : AppCompatActivity() {
     private lateinit var context: Context
 
     private var travelDayList = mutableListOf<TravelDay>()
-    private var scheduleList: ArrayList<Schedule> = ArrayList()
 
     private val snackBarFilter: SnackBarFilter = SnackBarFilter()
 
     private lateinit var country: String
 
-    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged", "CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
@@ -93,22 +92,35 @@ class ScheduleActivity : AppCompatActivity() {
                 }
             }
 
-        db.collection("plans").whereEqualTo("authUid", auth.currentUser!!.uid).whereEqualTo("country", travelCountryIntent).get()
-            .addOnSuccessListener { querySnapshot ->
+        val scheduleList: ArrayList<Schedule> = ArrayList()
+        val recyclerView: RecyclerView = findViewById(R.id.rv_schedule_todo)
 
-                for (document in querySnapshot.documents) {
-                    scheduleList.add(Schedule(document["todo"].toString(), document["todoDate"].toString()))
+        val scheduleAdapter = ScheduleAdapter(context, scheduleList)
 
-                    val recyclerView: RecyclerView = findViewById(R.id.rv_schedule_todo)
+        recyclerView.adapter = scheduleAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-                    val scheduleAdapter = ScheduleAdapter(context, scheduleList)
+        scheduleDayViewModel.selectedItem.observe(this) { selectedDay ->
+            db.collection("plans")
+                .whereEqualTo("authUid", auth.currentUser!!.uid)
+                .whereEqualTo("country", travelCountryIntent)
+                .whereEqualTo("todoDay", selectedDay)
+                .get()
+                .addOnSuccessListener { querySnapshot ->
+                    scheduleList.clear() // 기존 데이터 모두 삭제
 
-                    recyclerView.adapter = scheduleAdapter
-                    recyclerView.layoutManager = LinearLayoutManager(this)
+                    for (document in querySnapshot.documents) {
+                        scheduleList.add(
+                            Schedule(
+                                document["todo"].toString(),
+                                document["todoDate"].toString()
+                            )
+                        )
+                    }
 
-                    scheduleAdapter.notifyDataSetChanged()
+                    scheduleAdapter.notifyDataSetChanged() // 변경된 데이터를 RecyclerView에 반영
                 }
-            }
+        }
 
         db.collection("verifications").document(auth.currentUser!!.uid).get()
             .addOnSuccessListener { document ->
@@ -148,8 +160,6 @@ class ScheduleActivity : AppCompatActivity() {
                         }
                     }
 
-                    Log.d("ScheduleActivityViewModel", "3")
-
                     bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_nickname_auth_schedule).text = nickname + "님! \n" + country + "의 일정을 작성해주세요"
 
                     bottomSheetTravelScheduleView.findViewById<AppCompatButton>(R.id.btn_schedule_datePicker_insert).setOnClickListener {
@@ -161,7 +171,8 @@ class ScheduleActivity : AppCompatActivity() {
                                 "authUid" to auth.currentUser!!.uid,
                                 "country" to country,
                                 "todo" to bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString(),
-                                "todoDate" to tvTravelScheduleTime.text.toString()
+                                "todoDate" to tvTravelScheduleTime.text.toString(),
+                                "todoDay" to bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_day_schedule).text.toString()
                             )
 
                             db.collection("plans").add(schedule)
