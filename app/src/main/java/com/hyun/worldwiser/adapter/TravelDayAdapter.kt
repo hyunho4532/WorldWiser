@@ -11,9 +11,8 @@ import com.hyun.worldwiser.R
 import com.hyun.worldwiser.model.TravelDay
 import com.hyun.worldwiser.viewmodel.ScheduleDayViewModel
 
-class TravelDayAdapter(private val travelList: List<TravelDay>) : RecyclerView.Adapter<TravelDayAdapter.ViewHolder>() {
+class TravelDayAdapter(private val travelList: List<TravelDay>, private val scheduleDayViewModel: ScheduleDayViewModel) : RecyclerView.Adapter<TravelDayAdapter.ViewHolder>() {
 
-    private val scheduleDayViewModel: ScheduleDayViewModel = ScheduleDayViewModel()
     private var selectedPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,8 +27,7 @@ class TravelDayAdapter(private val travelList: List<TravelDay>) : RecyclerView.A
             holder.itemView.setBackgroundColor(Color.GRAY)
             holder.itemView.findViewById<TextView>(R.id.travel_day_count).setTextColor(Color.BLACK)
 
-
-            scheduleDayViewModel.selectedDayItem.value = holder.itemView.findViewById<TextView>(R.id.travel_day_count).text.toString()
+            scheduleDayViewModel.setSelectedItem(holder.itemView.findViewById<TextView>(R.id.travel_day_count).text.toString())
 
         } else {
             holder.itemView.setBackgroundColor(Color.WHITE)
