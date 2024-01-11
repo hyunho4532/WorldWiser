@@ -10,4 +10,13 @@
         <item>기차, 지하철</item>
         <item>버스</item>
     </string-array>
+
+    <string-array name="schedule_todo_status">
+        <item>여행</item>
+        <item>문화</item>
+        <item>음식</item>
+        <item>모험</item>
+        <item>호캉스</item>
+    </string-array>
+
 </resources>
