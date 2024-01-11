@@ -17,8 +17,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:text=""
-        android:textSize="20sp"
+        android:textSize="23sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,39 +46,61 @@
         app:layout_constraintStart_toStartOf="@+id/tp_travel_schedule"
         app:layout_constraintTop_toBottomOf="@+id/tp_travel_schedule" />
 
+    <com.skydoves.powerspinner.PowerSpinnerView
+        android:id="@+id/powerSpinnerView"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_margin="16dp"
+        android:gravity="start"
+        android:hint="선호하는 여행 취향을 선택해주세요!"
+        android:paddingStart="8dp"
+        android:paddingTop="12dp"
+        android:textAppearance="@style/Theme.WorldWiser.VerificationActivity_PowerSpinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_travel_schedule_todo"
+        app:spinner_divider_color="@color/powerSpinnerDividerColor"
+        app:spinner_divider_show="true"
+        app:spinner_divider_size="0.4dp"
+        app:spinner_item_array="@array/travel_preferences"
+        app:spinner_item_height="46dp"
+        app:spinner_popup_animation="dropdown"
+        app:spinner_popup_background="@color/powerSpinnerBackgroundColor"
+        app:spinner_popup_elevation="14dp" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_schedule_datePicker_insert"
-        android:layout_width="410dp"
+        android:layout_width="416dp"
         android:layout_height="75dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
         android:background="@drawable/drawable_schedule_insert_button"
         android:paddingBottom="6dp"
         android:text="날짜 등록하기"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_travel_schedule_time" />
+        app:layout_constraintTop_toBottomOf="@+id/powerSpinnerView" />
 
     <TextView
         android:id="@+id/tv_travel_schedule_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@+id/et_travel_schedule_todo"
-        app:layout_constraintTop_toBottomOf="@+id/et_travel_schedule_todo" />
+        app:layout_constraintStart_toStartOf="@+id/powerSpinnerView"
+        app:layout_constraintTop_toBottomOf="@+id/tv_day_schedule" />
 
     <TextView
         android:id="@+id/tv_day_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/et_travel_schedule_todo"
-        app:layout_constraintTop_toBottomOf="@+id/et_travel_schedule_todo" />
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/powerSpinnerView"
+        app:layout_constraintTop_toBottomOf="@+id/powerSpinnerView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
