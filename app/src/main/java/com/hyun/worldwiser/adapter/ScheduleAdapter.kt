@@ -28,9 +28,11 @@ class ScheduleAdapter(val context: Context, private val scheduleList: ArrayList<
         fun bind(schedule: Schedule) {
             val todo = schedule.todo
             val todoDate = schedule.todoDate
+            val status = schedule.status
 
             itemView.findViewById<TextView>(R.id.tv_travel_schedule_todo).text = todo
             itemView.findViewById<TextView>(R.id.tv_travel_schedule_todoDate).text = todoDate
+            itemView.findViewById<TextView>(R.id.tv_travel_schedule_status).text = status
         }
     }
 }

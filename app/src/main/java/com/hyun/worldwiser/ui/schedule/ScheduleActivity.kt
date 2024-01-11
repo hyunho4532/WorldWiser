@@ -113,7 +113,8 @@ class ScheduleActivity : AppCompatActivity() {
                         scheduleList.add(
                             Schedule(
                                 document["todo"].toString(),
-                                document["todoDate"].toString()
+                                document["todoDate"].toString(),
+                                document["status"].toString()
                             )
                         )
                     }
@@ -172,7 +173,8 @@ class ScheduleActivity : AppCompatActivity() {
                                 "country" to country,
                                 "todo" to bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString(),
                                 "todoDate" to tvTravelScheduleTime.text.toString(),
-                                "todoDay" to bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_day_schedule).text.toString()
+                                "todoDay" to bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_day_schedule).text.toString(),
+                                "status" to "진행 중"
                             )
 
                             db.collection("plans").add(schedule)
