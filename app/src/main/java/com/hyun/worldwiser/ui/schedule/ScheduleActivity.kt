@@ -22,6 +22,7 @@ import com.hyun.worldwiser.model.Schedule
 import com.hyun.worldwiser.model.TravelDay
 import com.hyun.worldwiser.util.SnackBarFilter
 import com.hyun.worldwiser.viewmodel.ScheduleDayViewModel
+import com.skydoves.powerspinner.PowerSpinnerView
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.getInstance
@@ -113,7 +114,9 @@ class ScheduleActivity : AppCompatActivity() {
                         scheduleList.add(
                             Schedule(
                                 document["todo"].toString(),
-                                document["todoDate"].toString()
+                                document["todoDate"].toString(),
+                                document["category"].toString(),
+                                document["status"].toString()
                             )
                         )
                     }
@@ -172,7 +175,9 @@ class ScheduleActivity : AppCompatActivity() {
                                 "country" to country,
                                 "todo" to bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString(),
                                 "todoDate" to tvTravelScheduleTime.text.toString(),
-                                "todoDay" to bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_day_schedule).text.toString()
+                                "todoDay" to bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_day_schedule).text.toString(),
+                                "category" to bottomSheetTravelScheduleView.findViewById<PowerSpinnerView>(R.id.powerSpinnerView).text.toString(),
+                                "status" to "진행 중"
                             )
 
                             db.collection("plans").add(schedule)
