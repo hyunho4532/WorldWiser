@@ -35,8 +35,6 @@ class ImageAdapter (
         holder.itemView.setOnClickListener {
             eventListener.invoke(imageUrl)
 
-            Log.d("ImageAdapter", "클릭")
-
             val previousSelected = selectedPosition
             selectedPosition = holder.adapterPosition
 
