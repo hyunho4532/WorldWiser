@@ -2,6 +2,7 @@ package com.hyun.worldwiser.ui.travel
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -24,6 +25,24 @@ class RecommendActivity : AppCompatActivity() {
 
         verificationSelectViewModel.verificationNicknameSelectData { nickname ->
             activityRecommendBinding.tvNicknameAuthWhoTravelRecommend.setText(nickname + "님의 추천 여행지는?")
+        }
+
+        activityRecommendBinding.switcher.setOnCheckedChangedListener { checked ->
+            if (checked) {
+                activityRecommendBinding.tvTravelWhereTravel.visibility = View.VISIBLE
+                activityRecommendBinding.etTravelFinishCountry.visibility = View.VISIBLE
+                activityRecommendBinding.tvTravelRecommendWhereTravel.visibility = View.INVISIBLE
+                activityRecommendBinding.etTravelRecommendCountry.visibility = View.INVISIBLE
+            } else {
+                activityRecommendBinding.tvTravelRecommendWhereTravel.visibility = View.VISIBLE
+                activityRecommendBinding.etTravelRecommendCountry.visibility = View.VISIBLE
+                activityRecommendBinding.tvTravelWhereTravel.visibility = View.INVISIBLE
+                activityRecommendBinding.etTravelFinishCountry.visibility = View.INVISIBLE
+            }
+        }
+
+        activityRecommendBinding.btnTravelRecommendInsert.setOnClickListener {
+
         }
     }
 }
