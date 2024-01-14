@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_travel_recommend"
         android:layout_width="409dp"
         android:layout_height="821dp"
         app:layout_constraintBottom_toBottomOf="parent"
