@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.databinding.ActivityRecommendBinding
+import com.hyun.worldwiser.model.TravelRecommend
 import com.hyun.worldwiser.viewmodel.VerificationSelectViewModel
 
 class RecommendActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class RecommendActivity : AppCompatActivity() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var activityRecommendBinding: ActivityRecommendBinding
+    private val recommendTravelList: ArrayList<TravelRecommend>  = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +43,34 @@ class RecommendActivity : AppCompatActivity() {
             }
         }
 
+        activityRecommendBinding.switcherTravelRecommendStatusAlone.setOnCheckedChangedListener { checked ->
+            if (checked) {
+                activityRecommendBinding.tvTravelRecommendAloneStatus.text = "혼자 여행"
+            } else {
+                activityRecommendBinding.tvTravelRecommendAloneStatus.text = "동행 여행"
+            }
+        }
+
         activityRecommendBinding.btnTravelRecommendInsert.setOnClickListener {
 
+            val travelRecommendCountry = activityRecommendBinding.etTravelRecommendCountry.text.toString()
+            val travelRecommendImpression = activityRecommendBinding.etTravelRecommendImpression.text.toString()
+            val travelRecommendAloneStatus = activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
+
+            val travelRecommend = hashMapOf (
+                "travelRecommendCountry" to travelRecommendCountry,
+                "travelRecommendImpression" to travelRecommendImpression,
+                "travelRecommendAloneStatus" to travelRecommendAloneStatus,
+            )
+
+            recommendTravelList.add (
+                TravelRecommend(travelRecommendCountry, travelRecommendAloneStatus, travelRecommendImpression)
+            )
+
+            db.collection("travelRecommends").add(travelRecommend)
+                .addOnSuccessListener {
+
+                }
         }
     }
 }
