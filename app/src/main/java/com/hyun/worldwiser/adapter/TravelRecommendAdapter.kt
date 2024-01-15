@@ -9,11 +9,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.model.TravelRecommend
 
 class TravelRecommendAdapter(private val context: Context, private val travelRecommendList: ArrayList<TravelRecommend>) :
     RecyclerView.Adapter<TravelRecommendAdapter.ViewHolder>() {
+
+    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_travel_recommend_list, parent, false)
@@ -33,6 +38,16 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
         fun bind(travelRecommend: TravelRecommend) {
             val travelRecommendCountry = travelRecommend.travelRecommendCountry
             val travelRecommendImageUrl = travelRecommend.travelRecommendImageUrl
+
+            db.collection("verifications")
+                .document(auth.currentUser!!.uid)
+                .get()
+                .addOnSuccessListener { document  ->
+
+                    val nickname = document["nickname"].toString()
+
+                    itemView.findViewById<TextView>(R.id.tv_travel_recommend_nickname).text = nickname
+                }
 
             Glide
                 .with(context)
