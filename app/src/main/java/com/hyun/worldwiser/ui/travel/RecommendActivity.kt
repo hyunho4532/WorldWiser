@@ -31,7 +31,7 @@ class RecommendActivity : AppCompatActivity() {
     private lateinit var selectedImageType: SelectedImageType
     private var bitmap: Bitmap? = null
 
-    val firebaseStorageManager = FirebaseStorageManager()
+    private val firebaseStorageManager = FirebaseStorageManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,34 +86,38 @@ class RecommendActivity : AppCompatActivity() {
 
         activityRecommendBinding.btnTravelRecommendInsert.setOnClickListener {
 
-            if (imageUri != null) {
-                firebaseStorageManager.uploadImage(bitmap) { imageUrl ->
-                    val travelRecommendCountry =
-                        activityRecommendBinding.etTravelRecommendCountry.text.toString()
-                    val travelRecommendImpression =
-                        activityRecommendBinding.etTravelRecommendImpression.text.toString()
-                    val travelRecommendAloneStatus =
-                        activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
+            firebaseStorageManager.uploadImage(bitmap) { travelRecommendImageUrl ->
 
-                    val travelRecommend = hashMapOf(
-                        "travelRecommendCountry" to travelRecommendCountry,
-                        "travelRecommendImpression" to travelRecommendImpression,
-                        "travelRecommendAloneStatus" to travelRecommendAloneStatus,
+                val travelRecommendCountry =
+                    activityRecommendBinding.etTravelRecommendCountry.text.toString()
+                val travelRecommendImpression =
+                    activityRecommendBinding.etTravelRecommendImpression.text.toString()
+                val travelRecommendAloneStatus =
+                    activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
+
+                val travelRecommend = hashMapOf(
+                    "travelRecommendCountry" to travelRecommendCountry,
+                    "travelRecommendImageUrl" to travelRecommendImageUrl,
+                    "travelRecommendImpression" to travelRecommendImpression,
+                    "travelRecommendAloneStatus" to travelRecommendAloneStatus,
+                )
+
+                recommendTravelList.add(
+                    TravelRecommend(
+                        travelRecommendCountry,
+                        travelRecommendImageUrl.toString(),
+                        travelRecommendAloneStatus,
+                        travelRecommendImpression
                     )
+                )
 
-                    recommendTravelList.add(
-                        TravelRecommend(
-                            travelRecommendCountry,
-                            travelRecommendAloneStatus,
-                            travelRecommendImpression
-                        )
-                    )
+                db.collection("travelRecommends").add(travelRecommend)
+                    .addOnSuccessListener {
 
-                    db.collection("travelRecommends").add(travelRecommend)
-                        .addOnSuccessListener {
-
-                        }
-                }
+                    }
+                    .addOnFailureListener {
+                        Log.d("RecommendActivityDBInsert", "등록 실패")
+                    }
             }
         }
     }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,16 +23,14 @@ import com.hyun.worldwiser.model.TravelRecommend
 import com.hyun.worldwiser.ui.travel.RecommendActivity
 import com.hyun.worldwiser.util.AdapterFilter
 import com.hyun.worldwiser.viewmodel.DateTimeFormatterViewModel
+import java.net.URLEncoder
 import java.time.format.DateTimeFormatter
 
 class TravelFragment : Fragment() {
 
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val adapterFilter: AdapterFilter = AdapterFilter()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var travelRecommendAdapter: TravelRecommendAdapter // Declare the adapter at the class level
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,29 +47,34 @@ class TravelFragment : Fragment() {
 
         val rvTravelRecommend = view.findViewById<RecyclerView>(R.id.rv_travel_recommend)
 
+        travelRecommendAdapter = TravelRecommendAdapter(requireContext(), travelRecommendList)
+        rvTravelRecommend.adapter = travelRecommendAdapter
+        rvTravelRecommend.layoutManager = LinearLayoutManager(requireContext())
+
         db.collection("travelRecommends").get()
-            .addOnSuccessListener { querySnapshot  ->
+            .addOnSuccessListener { querySnapshot ->
 
                 for (document in querySnapshot.documents) {
-
                     try {
                         val travelRecommendCountry = document["travelRecommendCountry"].toString()
+                        val travelRecommendImageUrl = document["travelRecommendImageUrl"].toString()
                         val travelRecommendAloneStatus = document["travelRecommendAloneStatus"].toString()
                         val travelRecommendImpression = document["travelRecommendImpression"].toString()
 
-                        val travelRecommend = TravelRecommend(travelRecommendCountry, travelRecommendAloneStatus, travelRecommendImpression)
+                        val travelRecommend =
+                            TravelRecommend(
+                                travelRecommendCountry,
+                                travelRecommendImageUrl,
+                                travelRecommendAloneStatus,
+                                travelRecommendImpression
+                            )
                         travelRecommendList.add(travelRecommend)
-
-                        val travelRecommendAdapter = TravelRecommendAdapter(travelRecommendList)
-
-                        rvTravelRecommend.adapter = travelRecommendAdapter
-                        rvTravelRecommend.layoutManager = LinearLayoutManager(requireContext())
-
-
                     } catch (e: UninitializedPropertyAccessException) {
 
                     }
                 }
+
+                travelRecommendAdapter.notifyDataSetChanged()
             }
 
         return view
