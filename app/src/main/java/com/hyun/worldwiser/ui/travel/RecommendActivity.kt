@@ -1,21 +1,20 @@
 package com.hyun.worldwiser.ui.travel
 
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
-import android.widget.ImageView
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.hyun.worldwiser.Manifest
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.databinding.ActivityRecommendBinding
 import com.hyun.worldwiser.model.TravelRecommend
@@ -24,28 +23,9 @@ import com.hyun.worldwiser.viewmodel.VerificationSelectViewModel
 class RecommendActivity : AppCompatActivity() {
 
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var activityRecommendBinding: ActivityRecommendBinding
     private val recommendTravelList: ArrayList<TravelRecommend>  = ArrayList()
-    private lateinit var imageView: ImageView
     private var imageUri: Uri? = null
-
-    private val requestPermissionLauncher: ActivityResultLauncher<String> =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted)
-                openGallery()
-        }
-
-    private val pickImageLauncher: ActivityResultLauncher<Intent> =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val data: Intent? = result.data
-                data?.data?.let {
-                    imageUri = it
-                    imageView.setImageURI(imageUri)
-                }
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,14 +33,10 @@ class RecommendActivity : AppCompatActivity() {
 
         val verificationSelectViewModel: VerificationSelectViewModel = ViewModelProvider(this)[VerificationSelectViewModel::class.java]
 
-        activityRecommendBinding.ivTravelRecommendGallery.clipToOutline = true
-
-        activityRecommendBinding.ivTravelRecommendGallery.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                openGallery()
-            } else {
-                requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-            }
+        activityRecommendBinding.btnTravelRecommendGalleryInsert.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            startActivityForResult(intent, 200)
         }
 
         verificationSelectViewModel.verificationNicknameSelectData { nickname ->
@@ -109,6 +85,14 @@ class RecommendActivity : AppCompatActivity() {
                 .addOnSuccessListener {
 
                 }
+        }
+    }
+
+    override fun startActivityForResult(intent: Intent, requestCode: Int) {
+        super.startActivityForResult(intent, requestCode)
+
+        if (requestCode == 200 && requestCode == Activity.RESULT_OK) {
+            val selected
         }
     }
 }

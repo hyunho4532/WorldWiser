@@ -61,6 +61,20 @@
                 app:layout_constraintStart_toStartOf="@+id/et_travel_finish_country"
                 app:layout_constraintTop_toBottomOf="@+id/et_travel_finish_country" />
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_travel_recommend_insert"
+                android:layout_width="340dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/drawable_schedule_insert_button"
+                android:text="여행 등록하기"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_travel_recommend_impression" />
+            
             <com.sigma.niceswitch.NiceSwitch
                 android:id="@+id/switcher"
                 android:layout_width="60dp"
@@ -178,19 +192,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_impression" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_travel_recommend_insert"
-                android:layout_width="410dp"
-                android:layout_height="75dp"
-                android:layout_marginTop="60dp"
-                android:layout_marginEnd="1dp"
+                android:id="@+id/btn_travel_recommend_gallery_insert"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/drawable_schedule_insert_button"
                 android:paddingBottom="6dp"
-                android:text="여행 추천 등록하기"
+                android:text="등록"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_travel_recommend_impression" />
+                app:layout_constraintBottom_toBottomOf="@+id/tv_travel_recommend_go2"
+                app:layout_constraintStart_toEndOf="@+id/tv_travel_recommend_go2"
+                app:layout_constraintTop_toTopOf="@+id/tv_travel_recommend_go2" />
 
             <TextView
                 android:id="@+id/tv_travel_recommend_alone_status"
