@@ -37,6 +37,7 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
 
         fun bind(travelRecommend: TravelRecommend) {
             val travelRecommendCountry = travelRecommend.travelRecommendCountry
+            val travelRecommendFavoriteCount = travelRecommend.travelRecommendFavoriteCount
             val travelRecommendImageUrl = travelRecommend.travelRecommendImageUrl
 
             db.collection("verifications")
@@ -49,10 +50,38 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
                     itemView.findViewById<TextView>(R.id.tv_travel_recommend_nickname).text = nickname
                 }
 
+            itemView.findViewById<TextView>(R.id.tv_travel_recommend_favorite_count).setOnClickListener {
+                db.collection("travelRecommends")
+                    .whereEqualTo("travelRecommendImageUrl", travelRecommend.travelRecommendImageUrl)
+                    .whereEqualTo("travelRecommendCountry", travelRecommend.travelRecommendCountry)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        if (documents != null && !documents.isEmpty) {
+                            val document = documents.documents[0]
+                            val currentCount = document.getLong("travelRecommendFavoriteCount") ?: 0
+                            val updatedCount = currentCount.plus(1)
+
+                            itemView.findViewById<TextView>(R.id.tv_travel_recommend_favorite_count).text = currentCount.toString()
+
+                            db.collection("travelRecommends")
+                                .document(document.id)
+                                .update("travelRecommendFavoriteCount", updatedCount)
+                                .addOnSuccessListener {
+                                    itemView.findViewById<TextView>(R.id.tv_travel_recommend_favorite_count).text = currentCount.toString()
+                                }
+                                .addOnFailureListener {
+
+                                }
+                        }
+                    }
+            }
+
             Glide
                 .with(context)
                 .load(travelRecommendImageUrl)
                 .into(itemView.findViewById(R.id.iv_travel_recommend_imageUrl))
+
+            itemView.findViewById<TextView>(R.id.tv_travel_recommend_favorite_count).text = travelRecommendFavoriteCount.toString()
 
             itemView.findViewById<TextView>(R.id.tv_travel_recommend_country).text = travelRecommendCountry
         }

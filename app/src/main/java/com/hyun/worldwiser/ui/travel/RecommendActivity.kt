@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.FirebaseStorageManager
 import com.hyun.worldwiser.R
@@ -32,6 +33,7 @@ class RecommendActivity : AppCompatActivity() {
     private var bitmap: Bitmap? = null
 
     private val firebaseStorageManager = FirebaseStorageManager()
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,7 +88,7 @@ class RecommendActivity : AppCompatActivity() {
 
         activityRecommendBinding.btnTravelRecommendInsert.setOnClickListener {
 
-            firebaseStorageManager.uploadImage(bitmap) { travelRecommendImageUrl ->
+            firebaseStorageManager.uploadImage(bitmap) { travelRecommendImageUrlFirst ->
 
                 val travelRecommendCountry =
                     activityRecommendBinding.etTravelRecommendCountry.text.toString()
@@ -95,19 +97,27 @@ class RecommendActivity : AppCompatActivity() {
                 val travelRecommendAloneStatus =
                     activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
 
-                val travelRecommend = hashMapOf(
+                val travelRecommendAuthUid = auth.currentUser!!.uid
+
+                val travelRecommendFavoriteCount = 0
+
+                val travelRecommend = hashMapOf (
+                    "travelRecommendAuthUid" to travelRecommendAuthUid,
                     "travelRecommendCountry" to travelRecommendCountry,
-                    "travelRecommendImageUrl" to travelRecommendImageUrl,
+                    "travelRecommendImageUrlFirst" to travelRecommendImageUrlFirst,
                     "travelRecommendImpression" to travelRecommendImpression,
                     "travelRecommendAloneStatus" to travelRecommendAloneStatus,
+                    "travelRecommendFavoriteCount" to travelRecommendFavoriteCount
                 )
 
                 recommendTravelList.add(
-                    TravelRecommend(
+                    TravelRecommend (
+                        travelRecommendAuthUid,
                         travelRecommendCountry,
-                        travelRecommendImageUrl.toString(),
+                        travelRecommendImageUrlFirst.toString(),
                         travelRecommendAloneStatus,
-                        travelRecommendImpression
+                        travelRecommendImpression,
+                        travelRecommendFavoriteCount
                     )
                 )
 
