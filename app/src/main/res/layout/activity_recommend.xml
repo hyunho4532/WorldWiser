@@ -151,7 +151,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/et_travel_finish_country"
-                app:layout_constraintTop_toBottomOf="@+id/iv_travel_recommend_gallery" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_travel_recommend_gallery_first" />
 
             <com.sigma.niceswitch.NiceSwitch
                 android:id="@+id/switcher_travel_recommend_status_alone"
@@ -191,20 +191,6 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_impression"
                 app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_impression" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_travel_recommend_gallery_insert"
-                android:layout_width="90dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/drawable_schedule_insert_button"
-                android:paddingBottom="6dp"
-                android:text="등록"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_travel_recommend_go2"
-                app:layout_constraintStart_toEndOf="@+id/tv_travel_recommend_go2"
-                app:layout_constraintTop_toTopOf="@+id/tv_travel_recommend_go2" />
-
             <TextView
                 android:id="@+id/tv_travel_recommend_alone_status"
                 android:layout_width="wrap_content"
@@ -215,13 +201,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_alone" />
 
             <ImageView
-                android:id="@+id/iv_travel_recommend_gallery"
+                android:id="@+id/iv_travel_recommend_gallery_first"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="16dp"
+                android:src="@drawable/drawable_travel_insert_theme_check"
                 app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_go2"
-                app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_go2"
-                tools:srcCompat="@tools:sample/avatars" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_go2" />
+
+            <ImageView
+                android:id="@+id/iv_travel_recommend_gallery_second"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/drawable_travel_insert_theme_check"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_travel_recommend_gallery_first"
+                app:layout_constraintStart_toEndOf="@+id/iv_travel_recommend_gallery_first"
+                app:layout_constraintTop_toTopOf="@+id/iv_travel_recommend_gallery_first" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
