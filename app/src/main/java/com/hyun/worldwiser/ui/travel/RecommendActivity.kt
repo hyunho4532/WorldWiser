@@ -14,6 +14,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.firestore.FirebaseFirestore
+import com.hyun.worldwiser.FirebaseStorageManager
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.databinding.ActivityRecommendBinding
 import com.hyun.worldwiser.model.TravelRecommend
@@ -25,8 +26,12 @@ class RecommendActivity : AppCompatActivity() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private lateinit var activityRecommendBinding: ActivityRecommendBinding
     private val recommendTravelList: ArrayList<TravelRecommend>  = ArrayList()
+
     private var imageUri: Uri? = null
     private lateinit var selectedImageType: SelectedImageType
+    private var bitmap: Bitmap? = null
+
+    val firebaseStorageManager = FirebaseStorageManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,12 +40,19 @@ class RecommendActivity : AppCompatActivity() {
         val verificationSelectViewModel: VerificationSelectViewModel = ViewModelProvider(this)[VerificationSelectViewModel::class.java]
 
         activityRecommendBinding.ivTravelRecommendGalleryFirst.setOnClickListener {
+
+            /** 첫 번째 사진을 선택하였으므로 FirstGalleryChoiceStatus Type 선택 **/
+            selectedImageType = SelectedImageType.FirstGalleryChoiceStatus
+
             val intent = Intent(Intent.ACTION_PICK)
             intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
             startActivityForResult(intent, 200)
         }
 
         activityRecommendBinding.ivTravelRecommendGallerySecond.setOnClickListener {
+            /** 두 번째 사진을 선택하였으므로 SecondGalleryChoiceStatus Type 선택 **/
+            selectedImageType = SelectedImageType.SecondGalleryChoiceStatus
+
             val intent = Intent(Intent.ACTION_PICK)
             intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
             startActivityForResult(intent, 200)
@@ -74,24 +86,35 @@ class RecommendActivity : AppCompatActivity() {
 
         activityRecommendBinding.btnTravelRecommendInsert.setOnClickListener {
 
-            val travelRecommendCountry = activityRecommendBinding.etTravelRecommendCountry.text.toString()
-            val travelRecommendImpression = activityRecommendBinding.etTravelRecommendImpression.text.toString()
-            val travelRecommendAloneStatus = activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
+            if (imageUri != null) {
+                firebaseStorageManager.uploadImage(bitmap) { imageUrl ->
+                    val travelRecommendCountry =
+                        activityRecommendBinding.etTravelRecommendCountry.text.toString()
+                    val travelRecommendImpression =
+                        activityRecommendBinding.etTravelRecommendImpression.text.toString()
+                    val travelRecommendAloneStatus =
+                        activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
 
-            val travelRecommend = hashMapOf (
-                "travelRecommendCountry" to travelRecommendCountry,
-                "travelRecommendImpression" to travelRecommendImpression,
-                "travelRecommendAloneStatus" to travelRecommendAloneStatus,
-            )
+                    val travelRecommend = hashMapOf(
+                        "travelRecommendCountry" to travelRecommendCountry,
+                        "travelRecommendImpression" to travelRecommendImpression,
+                        "travelRecommendAloneStatus" to travelRecommendAloneStatus,
+                    )
 
-            recommendTravelList.add (
-                TravelRecommend(travelRecommendCountry, travelRecommendAloneStatus, travelRecommendImpression)
-            )
+                    recommendTravelList.add(
+                        TravelRecommend(
+                            travelRecommendCountry,
+                            travelRecommendAloneStatus,
+                            travelRecommendImpression
+                        )
+                    )
 
-            db.collection("travelRecommends").add(travelRecommend)
-                .addOnSuccessListener {
+                    db.collection("travelRecommends").add(travelRecommend)
+                        .addOnSuccessListener {
 
+                        }
                 }
+            }
         }
     }
 
@@ -101,10 +124,14 @@ class RecommendActivity : AppCompatActivity() {
         if (requestCode == 200 && resultCode == Activity.RESULT_OK) {
             val selectedImageUri: Uri? = data?.data
 
+            bitmap = getBitmapFromUri(selectedImageUri!!)
+
             Log.d("RecommendActivityImageUri", selectedImageUri.toString())
 
-            if (selectedImageUri != null) {
+            if (selectedImageType == SelectedImageType.FirstGalleryChoiceStatus) {
                 activityRecommendBinding.ivTravelRecommendGalleryFirst.setImageURI(selectedImageUri)
+            } else {
+                activityRecommendBinding.ivTravelRecommendGallerySecond.setImageURI(selectedImageUri)
             }
         }
     }
