@@ -112,12 +112,15 @@ class RecommendActivity : AppCompatActivity() {
                     "travelRecommendFavoriteCount" to travelRecommendFavoriteCount
                 )
 
+                Log.d("RecommendActivityImageUrl", bitmaps.toString())
+
                 recommendTravelList.add(
                     TravelRecommend(
                         travelRecommendAuthUid,
                         travelRecommendAuthNickname,
                         travelRecommendCountry,
                         imageUrls.joinToString(),
+                        "",
                         travelRecommendAloneStatus,
                         travelRecommendImpression,
                         travelRecommendFavoriteCount

@@ -6,7 +6,8 @@ data class TravelRecommend(
     val travelRecommendAuthUid: String,
     val travelRecommendAuthNickname: String,
     val travelRecommendCountry: String,
-    val travelRecommendImageUrl: String?,
+    val travelRecommendImageUrlFirst: String?,
+    val travelRecommendImageUrlSecond: String?,
     val travelAloneStatus: String,
     val travelRecommendImpression: String,
     val travelRecommendFavoriteCount: Int
