@@ -45,7 +45,7 @@ class TravelFragment : Fragment() {
                 for (document in querySnapshot.documents) {
                     try {
                         val travelRecommendAuthUid = document["travelRecommendAuthUid"].toString()
-                        val travelRecommendAuthNickname = document["travelRecommendAuthNickname"].toString()
+                        val travelRecommendAuthNickname = document["travelRecommendNickname"].toString()
                         val travelRecommendCountry = document["travelRecommendCountry"].toString()
                         val imageUrlList = document["travelRecommendImageUrls"] as? List<*>
                         val travelRecommendAloneStatus = document["travelRecommendAloneStatus"].toString()
