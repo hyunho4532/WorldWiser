@@ -3,186 +3,224 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        tools:context=".ui.travel.RecommendActivity">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_nickname_auth_who_travel_recommend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:text="누구님의 새로운 여행!"
-            android:textSize="28sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            tools:context=".ui.travel.RecommendActivity">
 
-        <TextView
-            android:id="@+id/tv_travel_recommend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="다른 사람들에게 추천 여행지를 알려주세요!!"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_nickname_auth_who_travel_recommend"
-            app:layout_constraintTop_toBottomOf="@+id/tv_nickname_auth_who_travel_recommend" />
+            <TextView
+                android:id="@+id/tv_nickname_auth_who_travel_recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="누구님의 새로운 여행!"
+                android:textSize="28sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_travel_recommend_go"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:text="여행은 이미 갔다오셨나요?"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend"
-            app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend" />
+            <TextView
+                android:id="@+id/tv_travel_recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="다른 사람들에게 추천 여행지를 알려주세요!!"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_nickname_auth_who_travel_recommend"
+                app:layout_constraintTop_toBottomOf="@+id/tv_nickname_auth_who_travel_recommend" />
 
-        <com.sigma.niceswitch.NiceSwitch
-            android:id="@+id/switcher"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_travel_recommend_go"
-            app:layout_constraintStart_toEndOf="@+id/tv_travel_recommend_go"
-            app:layout_constraintTop_toTopOf="@+id/tv_travel_recommend_go"
-            app:switcher_icon_color="@color/switcher_icon_color"
-            app:switcher_off_color="@color/switcher_off_color"
-            app:switcher_on_color="@color/switcher_on_color" />
+            <TextView
+                android:id="@+id/tv_travel_recommend_go"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:text="여행은 이미 갔다오셨나요?"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend"
+                app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend" />
 
-        <TextView
-            android:id="@+id/tv_travel_where_travel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:text="@string/activity_travel_where_text"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_go"
-            app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_go" />
+            <TextView
+                android:id="@+id/tv_travel_recommend_go2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:text="갤러리에서 사진을 선택해주세요!"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/et_travel_finish_country"
+                app:layout_constraintTop_toBottomOf="@+id/et_travel_finish_country" />
 
-        <TextView
-            android:id="@+id/tv_travel_recommend_where_travel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:text="@string/activity_travel_recommend_where_text"
-            android:visibility="invisible"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_go"
-            app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_go" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_travel_recommend_insert"
+                android:layout_width="340dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/drawable_schedule_insert_button"
+                android:text="여행 등록하기"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_travel_recommend_impression" />
+            
+            <com.sigma.niceswitch.NiceSwitch
+                android:id="@+id/switcher"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_travel_recommend_go"
+                app:layout_constraintStart_toEndOf="@+id/tv_travel_recommend_go"
+                app:layout_constraintTop_toTopOf="@+id/tv_travel_recommend_go"
+                app:switcher_icon_color="@color/switcher_icon_color"
+                app:switcher_off_color="@color/switcher_off_color"
+                app:switcher_on_color="@color/switcher_on_color" />
 
-        <EditText
-            android:id="@+id/et_travel_finish_country"
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/drawable_login_email_field"
-            android:hint="@string/activity_travel_recommend_goes_text"
-            android:inputType="textPersonName"
-            android:paddingStart="12dp"
-            android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_InputEmail_EditText"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_where_travel"
-            app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_where_travel" />
 
-        <EditText
-            android:id="@+id/et_travel_recommend_country"
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/drawable_login_email_field"
-            android:hint="@string/activity_travel_recommend_text"
-            android:inputType="textPersonName"
-            android:paddingStart="12dp"
-            android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_InputEmail_EditText"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_where_travel"
-            app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_where_travel" />
+            <TextView
+                android:id="@+id/tv_travel_where_travel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:text="@string/activity_travel_where_text"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_go"
+                app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_go" />
 
-        <TextView
-            android:id="@+id/tv_travel_recommend_alone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:text="혼자 여행을 하셨나요"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/et_travel_finish_country"
-            app:layout_constraintTop_toBottomOf="@+id/et_travel_finish_country" />
+            <TextView
+                android:id="@+id/tv_travel_recommend_where_travel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:text="@string/activity_travel_recommend_where_text"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_go"
+                app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_go" />
 
-        <com.sigma.niceswitch.NiceSwitch
-            android:id="@+id/switcher_travel_recommend_status_alone"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_travel_recommend_alone"
-            app:layout_constraintStart_toEndOf="@+id/tv_travel_recommend_alone"
-            app:layout_constraintTop_toTopOf="@+id/tv_travel_recommend_alone"
-            app:switcher_icon_color="@color/switcher_icon_color"
-            app:switcher_off_color="@color/switcher_off_color"
-            app:switcher_on_color="@color/switcher_on_color" />
+            <EditText
+                android:id="@+id/et_travel_finish_country"
+                android:layout_width="320dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/drawable_login_email_field"
+                android:hint="@string/activity_travel_recommend_goes_text"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_InputEmail_EditText"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_where_travel"
+                app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_where_travel" />
 
-        <TextView
-            android:id="@+id/tv_travel_recommend_impression"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:text="간단한 소감 한마디 작성해주세요!!"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_alone"
-            app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_alone" />
+            <EditText
+                android:id="@+id/et_travel_recommend_country"
+                android:layout_width="320dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/drawable_login_email_field"
+                android:hint="@string/activity_travel_recommend_text"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_InputEmail_EditText"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_where_travel"
+                app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_where_travel" />
 
-        <EditText
-            android:id="@+id/et_travel_recommend_impression"
-            android:layout_width="320dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/drawable_login_email_field"
-            android:hint="@string/activity_travel_recommend_goes_text"
-            android:inputType="textPersonName"
-            android:paddingStart="12dp"
-            android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_InputEmail_EditText"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_impression"
-            app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_impression" />
+            <TextView
+                android:id="@+id/tv_travel_recommend_alone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:text="혼자 여행을 하셨나요"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/et_travel_finish_country"
+                app:layout_constraintTop_toBottomOf="@+id/iv_travel_recommend_gallery_first" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_travel_recommend_insert"
-            android:layout_width="410dp"
-            android:layout_height="75dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="1dp"
-            android:background="@drawable/drawable_schedule_insert_button"
-            android:paddingBottom="6dp"
-            android:text="여행 추천 등록하기"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_travel_recommend_impression" />
+            <com.sigma.niceswitch.NiceSwitch
+                android:id="@+id/switcher_travel_recommend_status_alone"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_travel_recommend_alone"
+                app:layout_constraintStart_toEndOf="@+id/tv_travel_recommend_alone"
+                app:layout_constraintTop_toTopOf="@+id/tv_travel_recommend_alone"
+                app:switcher_icon_color="@color/switcher_icon_color"
+                app:switcher_off_color="@color/switcher_off_color"
+                app:switcher_on_color="@color/switcher_on_color" />
 
-        <TextView
-            android:id="@+id/tv_travel_recommend_alone_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text=""
-            app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_alone"
-            app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_alone" />
+            <TextView
+                android:id="@+id/tv_travel_recommend_impression"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="90dp"
+                android:text="간단한 소감 한마디 작성해주세요!!"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_alone"
+                app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_alone" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <EditText
+                android:id="@+id/et_travel_recommend_impression"
+                android:layout_width="320dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/drawable_login_email_field"
+                android:hint="@string/activity_travel_recommend_goes_text"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                android:textAppearance="@style/Theme.WorldWiser.LoginActivity_Login_InputEmail_EditText"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_impression"
+                app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_impression" />
+
+            <TextView
+                android:id="@+id/tv_travel_recommend_alone_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text=""
+                app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_alone"
+                app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_alone" />
+
+            <ImageView
+                android:id="@+id/iv_travel_recommend_gallery_first"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/drawable_travel_insert_theme_check"
+                app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_go2"
+                app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_go2" />
+
+            <ImageView
+                android:id="@+id/iv_travel_recommend_gallery_second"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/drawable_travel_insert_theme_check"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_travel_recommend_gallery_first"
+                app:layout_constraintStart_toEndOf="@+id/iv_travel_recommend_gallery_first"
+                app:layout_constraintTop_toTopOf="@+id/iv_travel_recommend_gallery_first" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 </layout>

@@ -1,23 +1,42 @@
 package com.hyun.worldwiser.ui.travel
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.hyun.worldwiser.FirebaseStorageManager
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.databinding.ActivityRecommendBinding
 import com.hyun.worldwiser.model.TravelRecommend
+import com.hyun.worldwiser.type.SelectedImageType
 import com.hyun.worldwiser.viewmodel.VerificationSelectViewModel
 
 class RecommendActivity : AppCompatActivity() {
 
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var activityRecommendBinding: ActivityRecommendBinding
     private val recommendTravelList: ArrayList<TravelRecommend>  = ArrayList()
+
+    private var imageUri: Uri? = null
+    private lateinit var selectedImageType: SelectedImageType
+
+    private var travelRecommendImageUrlBitmapFirst: Bitmap? = null
+    private var travelRecommendImageUrlBitmapSecond: Bitmap? = null
+    private lateinit var travelRecommendAuthNickname: String
+
+    private val firebaseStorageManager = FirebaseStorageManager()
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +44,28 @@ class RecommendActivity : AppCompatActivity() {
 
         val verificationSelectViewModel: VerificationSelectViewModel = ViewModelProvider(this)[VerificationSelectViewModel::class.java]
 
+        activityRecommendBinding.ivTravelRecommendGalleryFirst.setOnClickListener {
+
+            /** 첫 번째 사진을 선택하였으므로 FirstGalleryChoiceStatus Type 선택 **/
+            selectedImageType = SelectedImageType.FirstGalleryChoiceStatus
+
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            startActivityForResult(intent, 200)
+        }
+
+        activityRecommendBinding.ivTravelRecommendGallerySecond.setOnClickListener {
+            /** 두 번째 사진을 선택하였으므로 SecondGalleryChoiceStatus Type 선택 **/
+            selectedImageType = SelectedImageType.SecondGalleryChoiceStatus
+
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            startActivityForResult(intent, 200)
+        }
+
         verificationSelectViewModel.verificationNicknameSelectData { nickname ->
+            travelRecommendAuthNickname = nickname
+
             activityRecommendBinding.tvNicknameAuthWhoTravelRecommend.setText(nickname + "님의 추천 여행지는?")
         }
 
@@ -53,24 +93,76 @@ class RecommendActivity : AppCompatActivity() {
 
         activityRecommendBinding.btnTravelRecommendInsert.setOnClickListener {
 
-            val travelRecommendCountry = activityRecommendBinding.etTravelRecommendCountry.text.toString()
-            val travelRecommendImpression = activityRecommendBinding.etTravelRecommendImpression.text.toString()
-            val travelRecommendAloneStatus = activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
+            val bitmaps = listOf(travelRecommendImageUrlBitmapFirst, travelRecommendImageUrlBitmapSecond)
 
-            val travelRecommend = hashMapOf (
-                "travelRecommendCountry" to travelRecommendCountry,
-                "travelRecommendImpression" to travelRecommendImpression,
-                "travelRecommendAloneStatus" to travelRecommendAloneStatus,
-            )
+            firebaseStorageManager.uploadImages(bitmaps) { imageUrls ->
+                val travelRecommendCountry = activityRecommendBinding.etTravelRecommendCountry.text.toString()
+                val travelRecommendImpression = activityRecommendBinding.etTravelRecommendImpression.text.toString()
+                val travelRecommendAloneStatus = activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
+                val travelRecommendAuthUid = auth.currentUser!!.uid
+                val travelRecommendFavoriteCount = 0
 
-            recommendTravelList.add (
-                TravelRecommend(travelRecommendCountry, travelRecommendAloneStatus, travelRecommendImpression)
-            )
+                val travelRecommend = hashMapOf(
+                    "travelRecommendAuthUid" to travelRecommendAuthUid,
+                    "travelRecommendNickname" to travelRecommendAuthNickname,
+                    "travelRecommendCountry" to travelRecommendCountry,
+                    "travelRecommendImageUrls" to imageUrls.map { it.toString() },
+                    "travelRecommendImpression" to travelRecommendImpression,
+                    "travelRecommendAloneStatus" to travelRecommendAloneStatus,
+                    "travelRecommendFavoriteCount" to travelRecommendFavoriteCount
+                )
 
-            db.collection("travelRecommends").add(travelRecommend)
-                .addOnSuccessListener {
+                recommendTravelList.add(
+                    TravelRecommend(
+                        travelRecommendAuthUid,
+                        travelRecommendAuthNickname,
+                        travelRecommendCountry,
+                        imageUrls.joinToString(),
+                        travelRecommendAloneStatus,
+                        travelRecommendImpression,
+                        travelRecommendFavoriteCount
+                    )
+                )
 
-                }
+                db.collection("travelRecommends").add(travelRecommend)
+                    .addOnSuccessListener {
+                        // 성공적으로 추가됨
+                    }
+                    .addOnFailureListener {
+                        Log.d("RecommendActivityDBInsert", "등록 실패")
+                    }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 200 && resultCode == Activity.RESULT_OK) {
+            val selectedImageUri: Uri? = data?.data
+
+            if (selectedImageType == SelectedImageType.FirstGalleryChoiceStatus) {
+                travelRecommendImageUrlBitmapFirst = getBitmapFromUri(selectedImageUri!!)
+            } else {
+                travelRecommendImageUrlBitmapSecond = getBitmapFromUri(selectedImageUri!!)
+            }
+
+            Log.d("RecommendActivityImageUri", selectedImageUri.toString())
+
+            if (selectedImageType == SelectedImageType.FirstGalleryChoiceStatus) {
+                activityRecommendBinding.ivTravelRecommendGalleryFirst.setImageURI(selectedImageUri)
+            } else {
+                activityRecommendBinding.ivTravelRecommendGallerySecond.setImageURI(selectedImageUri)
+            }
+        }
+    }
+
+    private fun getBitmapFromUri(uri: Uri): Bitmap {
+        return if (Build.VERSION.SDK_INT < 28) {
+            MediaStore.Images.Media.getBitmap(contentResolver, uri)
+        } else {
+            val source = ImageDecoder.createSource(contentResolver, uri)
+            ImageDecoder.decodeBitmap(source)
         }
     }
 }
