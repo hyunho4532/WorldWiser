@@ -30,7 +30,10 @@ class RecommendActivity : AppCompatActivity() {
 
     private var imageUri: Uri? = null
     private lateinit var selectedImageType: SelectedImageType
-    private var bitmap: Bitmap? = null
+
+    private var travelRecommendImageUrlBitmapFirst: Bitmap? = null
+    private var travelRecommendImageUrlBitmapSecond: Bitmap? = null
+    private lateinit var travelRecommendAuthNickname: String
 
     private val firebaseStorageManager = FirebaseStorageManager()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -61,6 +64,8 @@ class RecommendActivity : AppCompatActivity() {
         }
 
         verificationSelectViewModel.verificationNicknameSelectData { nickname ->
+            travelRecommendAuthNickname = nickname
+
             activityRecommendBinding.tvNicknameAuthWhoTravelRecommend.setText(nickname + "님의 추천 여행지는?")
         }
 
@@ -88,33 +93,31 @@ class RecommendActivity : AppCompatActivity() {
 
         activityRecommendBinding.btnTravelRecommendInsert.setOnClickListener {
 
-            firebaseStorageManager.uploadImage(bitmap) { travelRecommendImageUrlFirst ->
+            val bitmaps = listOf(travelRecommendImageUrlBitmapFirst, travelRecommendImageUrlBitmapSecond)
 
-                val travelRecommendCountry =
-                    activityRecommendBinding.etTravelRecommendCountry.text.toString()
-                val travelRecommendImpression =
-                    activityRecommendBinding.etTravelRecommendImpression.text.toString()
-                val travelRecommendAloneStatus =
-                    activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
-
+            firebaseStorageManager.uploadImages(bitmaps) { imageUrls ->
+                val travelRecommendCountry = activityRecommendBinding.etTravelRecommendCountry.text.toString()
+                val travelRecommendImpression = activityRecommendBinding.etTravelRecommendImpression.text.toString()
+                val travelRecommendAloneStatus = activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
                 val travelRecommendAuthUid = auth.currentUser!!.uid
-
                 val travelRecommendFavoriteCount = 0
 
-                val travelRecommend = hashMapOf (
+                val travelRecommend = hashMapOf(
                     "travelRecommendAuthUid" to travelRecommendAuthUid,
+                    "travelRecommendNickname" to travelRecommendAuthNickname,
                     "travelRecommendCountry" to travelRecommendCountry,
-                    "travelRecommendImageUrlFirst" to travelRecommendImageUrlFirst,
+                    "travelRecommendImageUrls" to imageUrls.map { it.toString() },
                     "travelRecommendImpression" to travelRecommendImpression,
                     "travelRecommendAloneStatus" to travelRecommendAloneStatus,
                     "travelRecommendFavoriteCount" to travelRecommendFavoriteCount
                 )
 
                 recommendTravelList.add(
-                    TravelRecommend (
+                    TravelRecommend(
                         travelRecommendAuthUid,
+                        travelRecommendAuthNickname,
                         travelRecommendCountry,
-                        travelRecommendImageUrlFirst.toString(),
+                        imageUrls.joinToString(),
                         travelRecommendAloneStatus,
                         travelRecommendImpression,
                         travelRecommendFavoriteCount
@@ -123,7 +126,7 @@ class RecommendActivity : AppCompatActivity() {
 
                 db.collection("travelRecommends").add(travelRecommend)
                     .addOnSuccessListener {
-
+                        // 성공적으로 추가됨
                     }
                     .addOnFailureListener {
                         Log.d("RecommendActivityDBInsert", "등록 실패")
@@ -138,7 +141,11 @@ class RecommendActivity : AppCompatActivity() {
         if (requestCode == 200 && resultCode == Activity.RESULT_OK) {
             val selectedImageUri: Uri? = data?.data
 
-            bitmap = getBitmapFromUri(selectedImageUri!!)
+            if (selectedImageType == SelectedImageType.FirstGalleryChoiceStatus) {
+                travelRecommendImageUrlBitmapFirst = getBitmapFromUri(selectedImageUri!!)
+            } else {
+                travelRecommendImageUrlBitmapSecond = getBitmapFromUri(selectedImageUri!!)
+            }
 
             Log.d("RecommendActivityImageUri", selectedImageUri.toString())
 

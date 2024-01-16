@@ -36,23 +36,13 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(travelRecommend: TravelRecommend) {
+            val travelRecommendAuthNickname = travelRecommend.travelRecommendAuthNickname
             val travelRecommendCountry = travelRecommend.travelRecommendCountry
             val travelRecommendFavoriteCount = travelRecommend.travelRecommendFavoriteCount
             val travelRecommendImageUrl = travelRecommend.travelRecommendImageUrl
 
-            db.collection("verifications")
-                .document(auth.currentUser!!.uid)
-                .get()
-                .addOnSuccessListener { document  ->
-
-                    val nickname = document["nickname"].toString()
-
-                    itemView.findViewById<TextView>(R.id.tv_travel_recommend_nickname).text = nickname
-                }
-
             itemView.findViewById<TextView>(R.id.tv_travel_recommend_favorite_count).setOnClickListener {
                 db.collection("travelRecommends")
-                    .whereEqualTo("travelRecommendImageUrl", travelRecommend.travelRecommendImageUrl)
                     .whereEqualTo("travelRecommendCountry", travelRecommend.travelRecommendCountry)
                     .get()
                     .addOnSuccessListener { documents ->
@@ -75,6 +65,8 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
                         }
                     }
             }
+
+            itemView.findViewById<TextView>(R.id.tv_travel_recommend_nickname).text = travelRecommendAuthNickname
 
             Glide
                 .with(context)

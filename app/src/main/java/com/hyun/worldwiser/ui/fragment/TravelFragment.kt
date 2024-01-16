@@ -45,8 +45,9 @@ class TravelFragment : Fragment() {
                 for (document in querySnapshot.documents) {
                     try {
                         val travelRecommendAuthUid = document["travelRecommendAuthUid"].toString()
+                        val travelRecommendAuthNickname = document["travelRecommendAuthNickname"].toString()
                         val travelRecommendCountry = document["travelRecommendCountry"].toString()
-                        val travelRecommendImageUrl = document["travelRecommendImageUrl"].toString()
+                        val imageUrlList = document["travelRecommendImageUrls"] as? List<*>
                         val travelRecommendAloneStatus = document["travelRecommendAloneStatus"].toString()
                         val travelRecommendImpression = document["travelRecommendImpression"].toString()
                         val travelRecommendFavoriteCount = Integer.parseInt(document["travelRecommendFavoriteCount"].toString())
@@ -54,8 +55,9 @@ class TravelFragment : Fragment() {
                         val travelRecommend =
                             TravelRecommend(
                                 travelRecommendAuthUid,
+                                travelRecommendAuthNickname,
                                 travelRecommendCountry,
-                                travelRecommendImageUrl,
+                                imageUrlList!![0].toString(),
                                 travelRecommendAloneStatus,
                                 travelRecommendImpression,
                                 travelRecommendFavoriteCount
