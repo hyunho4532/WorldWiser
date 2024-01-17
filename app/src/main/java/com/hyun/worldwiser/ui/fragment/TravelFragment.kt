@@ -48,18 +48,25 @@ class TravelFragment : Fragment() {
                         val travelRecommendAuthUid = document["travelRecommendAuthUid"].toString()
                         val travelRecommendAuthNickname = document["travelRecommendNickname"].toString()
                         val travelRecommendCountry = document["travelRecommendCountry"].toString()
-                        val imageUrlList = document["travelRecommendImageUrls"] as? List<*>
+                        val imageUrlsList = document["travelRecommendImageUrls"] as? List<*>
+                        val imageUrlList = document["travelRecommendImageUrl"].toString()
                         val travelRecommendAloneStatus = document["travelRecommendAloneStatus"].toString()
                         val travelRecommendImpression = document["travelRecommendImpression"].toString()
                         val travelRecommendFavoriteCount = Integer.parseInt(document["travelRecommendFavoriteCount"].toString())
+
+                        val imageUrlNullCheck = when {
+                            imageUrlsList == null || imageUrlsList.isEmpty() -> imageUrlList
+                            imageUrlsList.size >= 2 -> imageUrlsList[1].toString()
+                            else -> imageUrlsList[0].toString()
+                        }
 
                         val travelRecommend =
                             TravelRecommend(
                                 travelRecommendAuthUid,
                                 travelRecommendAuthNickname,
                                 travelRecommendCountry,
-                                imageUrlList!![0].toString(),
-                                imageUrlList[1].toString(),
+                                imageUrlNullCheck,
+                                imageUrlNullCheck,
                                 travelRecommendAloneStatus,
                                 travelRecommendImpression,
                                 travelRecommendFavoriteCount
