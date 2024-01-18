@@ -2,6 +2,7 @@ package com.hyun.worldwiser.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,24 +46,34 @@ class TravelFragment : Fragment() {
                 for (document in querySnapshot.documents) {
                     try {
                         val travelRecommendAuthUid = document["travelRecommendAuthUid"].toString()
-                        val travelRecommendAuthNickname = document["travelRecommendAuthNickname"].toString()
+                        val travelRecommendAuthNickname = document["travelRecommendNickname"].toString()
                         val travelRecommendCountry = document["travelRecommendCountry"].toString()
-                        val imageUrlList = document["travelRecommendImageUrls"] as? List<*>
+                        val imageUrlsList = document["travelRecommendImageUrls"] as? List<*>
+                        val imageUrlList = document["travelRecommendImageUrl"].toString()
                         val travelRecommendAloneStatus = document["travelRecommendAloneStatus"].toString()
                         val travelRecommendImpression = document["travelRecommendImpression"].toString()
                         val travelRecommendFavoriteCount = Integer.parseInt(document["travelRecommendFavoriteCount"].toString())
+
+                        val imageUrlNullCheck = when {
+                            imageUrlsList == null || imageUrlsList.isEmpty() -> imageUrlList
+                            imageUrlsList.size >= 2 -> imageUrlsList[1].toString()
+                            else -> imageUrlsList[0].toString()
+                        }
 
                         val travelRecommend =
                             TravelRecommend(
                                 travelRecommendAuthUid,
                                 travelRecommendAuthNickname,
                                 travelRecommendCountry,
-                                imageUrlList!![0].toString(),
+                                imageUrlNullCheck,
+                                imageUrlNullCheck,
                                 travelRecommendAloneStatus,
                                 travelRecommendImpression,
                                 travelRecommendFavoriteCount
                             )
+
                         travelRecommendList.add(travelRecommend)
+
                     } catch (e: UninitializedPropertyAccessException) {
 
                     }

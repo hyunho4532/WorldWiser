@@ -1,6 +1,7 @@
 package com.hyun.worldwiser.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +14,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.model.TravelRecommend
+import com.hyun.worldwiser.ui.travel.RecommendDetailActivity
 
 class TravelRecommendAdapter(private val context: Context, private val travelRecommendList: ArrayList<TravelRecommend>) :
     RecyclerView.Adapter<TravelRecommendAdapter.ViewHolder>() {
 
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_travel_recommend_list, parent, false)
@@ -39,7 +40,8 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
             val travelRecommendAuthNickname = travelRecommend.travelRecommendAuthNickname
             val travelRecommendCountry = travelRecommend.travelRecommendCountry
             val travelRecommendFavoriteCount = travelRecommend.travelRecommendFavoriteCount
-            val travelRecommendImageUrl = travelRecommend.travelRecommendImageUrl
+            val travelRecommendImageUrlFirst = travelRecommend.travelRecommendImageUrlFirst!!
+            val travelRecommendImageUrlSecond = travelRecommend.travelRecommendImageUrlSecond!!
 
             itemView.findViewById<TextView>(R.id.tv_travel_recommend_favorite_count).setOnClickListener {
                 db.collection("travelRecommends")
@@ -70,8 +72,20 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
 
             Glide
                 .with(context)
-                .load(travelRecommendImageUrl)
-                .into(itemView.findViewById(R.id.iv_travel_recommend_imageUrl))
+                .load(travelRecommendImageUrlFirst)
+                .into(itemView.findViewById(R.id.iv_travel_recommend_imageUrl_First))
+
+            Glide
+                .with(context)
+                .load(travelRecommendImageUrlSecond)
+                .into(itemView.findViewById(R.id.iv_travel_recommend_imageUrl_Second))
+
+            itemView.setOnClickListener {
+                val intent = Intent(context, RecommendDetailActivity::class.java)
+                intent.putExtra("travelRecommendImageUrlFirst", travelRecommendImageUrlFirst)
+                intent.putExtra("travelRecommendImageUrlSecond", travelRecommendImageUrlSecond)
+                context.startActivity(intent)
+            }
 
             itemView.findViewById<TextView>(R.id.tv_travel_recommend_favorite_count).text = travelRecommendFavoriteCount.toString()
 
