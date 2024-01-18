@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="email_text_form_field_width">310dp</dimen>
+    <dimen name="password_text_form_field_width">310dp</dimen>
+</resources>

@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android/WorldWiser/app/src/main/res/drawable/drawable_login_email_field.xml" value="0.1955" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/drawable/drawable_login_email_field2.xml" value="0.1945" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_insert.xml" value="0.1875" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_intro.xml" value="0.1875" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_schedule.xml" value="0.1875" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_travel_schedule.xml" value="0.1875" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_verification.xml" value="0.5" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/activity_login_input_email_background.xml" value="0.261" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/activity_login_main_image.xml" value="0.261" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/calendar_circle_gray.xml" value="0.26" />
@@ -27,7 +35,6 @@
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_onboarding.xml" value="0.274609375" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_recommend.xml" value="0.2" />
-        <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_recommend_detail.xml" value="0.24409722222222222" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_schedule.xml" value="0.16" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_travel_schedule.xml" value="0.24340277777777777" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/activity_verification.xml" value="0.25" />
@@ -50,7 +57,6 @@
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_travel_favorite_list.xml" value="0.25" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_travel_list.xml" value="0.33" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_travel_rankimg_list.xml" value="0.24409722222222222" />
-        <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_travel_recommend_detail.xml" value="0.24340277777777777" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_travel_recommend_list.xml" value="0.33" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_travel_schedule.xml" value="0.12361111111111112" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/layout/item_travel_schedule_list.xml" value="0.33" />
