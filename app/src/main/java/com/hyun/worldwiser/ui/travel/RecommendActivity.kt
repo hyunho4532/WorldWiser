@@ -112,7 +112,8 @@ class RecommendActivity : AppCompatActivity() {
 
                     "travelRecommendImageUrls" to when (imageUrls.size) {
                         1 -> imageUrls[0].toString().trim()
-                        else -> imageUrls.map { it.toString() }
+                        2 -> imageUrls.map { it.toString() }
+                        else -> ""
                     },
 
                     "travelRecommendAloneStatus" to travelRecommendAloneStatus,
@@ -126,7 +127,7 @@ class RecommendActivity : AppCompatActivity() {
                         travelRecommendAuthUid,
                         travelRecommendAuthNickname,
                         travelRecommendCountry,
-                        imageUrls.joinToString(),
+                        imageUrls.toString(),
                         travelRecommendAloneStatus,
                         travelRecommendImpression,
                         travelRecommendFavoriteCount

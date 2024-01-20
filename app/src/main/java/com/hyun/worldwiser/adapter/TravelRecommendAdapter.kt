@@ -37,6 +37,7 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(travelRecommend: TravelRecommend) {
+            val travelRecommendAuthUid = travelRecommend.travelRecommendAuthUid
             val travelRecommendAuthNickname = travelRecommend.travelRecommendAuthNickname
             val travelRecommendCountry = travelRecommend.travelRecommendCountry
             val travelRecommendFavoriteCount = travelRecommend.travelRecommendFavoriteCount
@@ -67,6 +68,12 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
                                 }
                         }
                     }
+            }
+
+            Log.d("travelRecommendAuthUid", travelRecommendAuthUid)
+
+            "@user-$travelRecommendAuthUid".also { authUid ->
+                itemView.findViewById<TextView>(R.id.tv_travel_recommend_auth_uid).text = authUid
             }
 
             itemView.findViewById<TextView>(R.id.tv_travel_recommend_nickname).text = travelRecommendAuthNickname
