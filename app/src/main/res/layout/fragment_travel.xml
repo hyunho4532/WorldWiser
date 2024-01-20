@@ -15,13 +15,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageView
         android:id="@+id/fBtn_travel_recommend_insert"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="80dp"
-        android:src="@drawable/drawable_travel_insert_theme_check"
+        android:src="@drawable/drawable_travel_recommend_insert_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
