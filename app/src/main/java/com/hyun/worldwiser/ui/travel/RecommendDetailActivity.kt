@@ -23,7 +23,8 @@ class RecommendDetailActivity : AppCompatActivity() {
             travelRecommendImageUrlSecond,
         )
 
-        Log.d("RecommendDetailActivityImageUrl", travelRecommendImageUrlFirst.toString())
+        Log.d("RecommendDetailActivityFirstImageUrl", travelRecommendImageUrlFirst.toString())
+        Log.d("RecommendDetailActivitySecondImageUrl", travelRecommendImageUrlSecond.toString())
 
         slideViewPager = findViewById(R.id.vp_travel_recommend_imageUrl)
 

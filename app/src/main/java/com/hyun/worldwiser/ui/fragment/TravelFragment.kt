@@ -54,11 +54,23 @@ class TravelFragment : Fragment() {
                         val travelRecommendImpression = document["travelRecommendImpression"].toString()
                         val travelRecommendFavoriteCount = Integer.parseInt(document["travelRecommendFavoriteCount"].toString())
 
+                        Log.d("TravelFragmentImageUrlCheck", imageUrlsList!!.size.toString())
+
                         val imageUrlNullCheck = when {
                             imageUrlsList == null || imageUrlsList.isEmpty() -> imageUrlList
-                            imageUrlsList.size >= 2 -> imageUrlsList[1].toString()
+                            imageUrlsList.size >= 2 -> {
+                                val imageFirstUrl = imageUrlsList[0].toString()
+                                val imageSecondUrl = imageUrlsList[1].toString()
+
+                                Log.d("TravelFragmentImageUrl", imageFirstUrl)
+                                Log.d("TravelFragmentImageUrl", imageSecondUrl)
+
+                                "$imageFirstUrl, $imageSecondUrl"
+                            }
                             else -> imageUrlsList[0].toString()
                         }
+
+                        Log.d("TravelFragmentUrlNullCheck", imageUrlNullCheck)
 
                         val travelRecommend =
                             TravelRecommend(
