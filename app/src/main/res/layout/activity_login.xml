@@ -37,7 +37,7 @@
 
         <EditText
             android:id="@+id/et_email_form_field"
-            android:layout_width="360dp"
+            android:layout_width="@dimen/email_text_form_field_width"
             android:layout_height="50dp"
             android:layout_margin="60dp"
             android:layout_marginTop="108dp"
@@ -52,7 +52,7 @@
 
         <EditText
             android:id="@+id/et_password_form_field"
-            android:layout_width="360dp"
+            android:layout_width="@dimen/password_text_form_field_width"
             android:layout_height="50dp"
             android:layout_marginTop="50dp"
             android:background="@drawable/drawable_login_email_field"

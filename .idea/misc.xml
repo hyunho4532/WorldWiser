@@ -3,6 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android/WorldWiser/app/src/main/res/drawable/drawable_login_email_field.xml" value="0.1955" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/drawable/drawable_login_email_field2.xml" value="0.1945" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_insert.xml" value="0.1875" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_intro.xml" value="0.1875" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_recommend_detail.xml" value="0.19427083333333334" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_schedule.xml" value="0.1875" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_travel_schedule.xml" value="0.1875" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_verification.xml" value="0.30716723549488056" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/fragment_travel.xml" value="0.19427083333333334" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/item_travel_recommend_detail_list.xml" value="0.19427083333333334" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/item_travel_recommend_list.xml" value="0.25" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/activity_login_input_email_background.xml" value="0.261" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/activity_login_main_image.xml" value="0.261" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/calendar_circle_gray.xml" value="0.26" />

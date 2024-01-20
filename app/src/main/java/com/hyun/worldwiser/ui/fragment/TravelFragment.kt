@@ -2,6 +2,7 @@ package com.hyun.worldwiser.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,8 @@ import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.TravelRecommendAdapter
 import com.hyun.worldwiser.model.TravelRecommend
 import com.hyun.worldwiser.ui.travel.RecommendActivity
+import java.lang.IndexOutOfBoundsException
+import java.lang.NullPointerException
 
 class TravelFragment : Fragment() {
 
@@ -45,24 +48,58 @@ class TravelFragment : Fragment() {
                 for (document in querySnapshot.documents) {
                     try {
                         val travelRecommendAuthUid = document["travelRecommendAuthUid"].toString()
-                        val travelRecommendAuthNickname = document["travelRecommendAuthNickname"].toString()
+                        val travelRecommendAuthNickname = document["travelRecommendNickname"].toString()
                         val travelRecommendCountry = document["travelRecommendCountry"].toString()
-                        val imageUrlList = document["travelRecommendImageUrls"] as? List<*>
+                        val imageUrlsList = document["travelRecommendImageUrls"] as? List<*>
+
+                        val imageUrlList = document["travelRecommendImageUrls"].toString()
                         val travelRecommendAloneStatus = document["travelRecommendAloneStatus"].toString()
                         val travelRecommendImpression = document["travelRecommendImpression"].toString()
                         val travelRecommendFavoriteCount = Integer.parseInt(document["travelRecommendFavoriteCount"].toString())
 
-                        val travelRecommend =
-                            TravelRecommend(
-                                travelRecommendAuthUid,
-                                travelRecommendAuthNickname,
-                                travelRecommendCountry,
-                                imageUrlList!![0].toString(),
-                                travelRecommendAloneStatus,
-                                travelRecommendImpression,
-                                travelRecommendFavoriteCount
-                            )
-                        travelRecommendList.add(travelRecommend)
+                        try {
+
+                            val travelRecommendImageUrlNullCheck: String
+
+                            if (imageUrlsList != null) {
+                                travelRecommendImageUrlNullCheck = when {
+
+                                    imageUrlsList.isEmpty() -> ""
+
+                                    imageUrlsList.size >= 2 -> {
+                                        val imageFirstUrl = imageUrlsList[0].toString()
+                                        val imageSecondUrl = imageUrlsList[1].toString()
+
+                                        "$imageFirstUrl, $imageSecondUrl"
+                                    }
+
+                                    else -> imageUrlList[0].toString()
+                                }
+                            } else {
+                                travelRecommendImageUrlNullCheck = document["travelRecommendImageUrls"].toString()
+                            }
+
+                            Log.d("stringImageUrlList", imageUrlList)
+
+                            Log.d("travelRecommendImageUrlNullCheck", travelRecommendImageUrlNullCheck)
+
+                            val travelRecommend =
+                                TravelRecommend(
+                                    travelRecommendAuthUid,
+                                    travelRecommendAuthNickname,
+                                    travelRecommendCountry,
+                                    travelRecommendImageUrlNullCheck,
+                                    travelRecommendAloneStatus,
+                                    travelRecommendImpression,
+                                    travelRecommendFavoriteCount
+                                )
+
+                            travelRecommendList.add(travelRecommend)
+
+                        } catch (e: NullPointerException) {
+
+                        }
+
                     } catch (e: UninitializedPropertyAccessException) {
 
                     }

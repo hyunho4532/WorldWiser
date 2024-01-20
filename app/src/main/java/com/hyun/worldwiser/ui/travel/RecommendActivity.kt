@@ -102,15 +102,24 @@ class RecommendActivity : AppCompatActivity() {
                 val travelRecommendAuthUid = auth.currentUser!!.uid
                 val travelRecommendFavoriteCount = 0
 
+                Log.d("travelRecommendImageUrls", imageUrls.size.toString())
+
                 val travelRecommend = hashMapOf(
                     "travelRecommendAuthUid" to travelRecommendAuthUid,
                     "travelRecommendNickname" to travelRecommendAuthNickname,
                     "travelRecommendCountry" to travelRecommendCountry,
-                    "travelRecommendImageUrls" to imageUrls.map { it.toString() },
                     "travelRecommendImpression" to travelRecommendImpression,
+
+                    "travelRecommendImageUrls" to when (imageUrls.size) {
+                        1 -> imageUrls[0].toString().trim()
+                        else -> imageUrls.map { it.toString() }
+                    },
+
                     "travelRecommendAloneStatus" to travelRecommendAloneStatus,
                     "travelRecommendFavoriteCount" to travelRecommendFavoriteCount
                 )
+
+                Log.d("RecommendActivityImageUrl", imageUrls.toString())
 
                 recommendTravelList.add(
                     TravelRecommend(
@@ -126,10 +135,10 @@ class RecommendActivity : AppCompatActivity() {
 
                 db.collection("travelRecommends").add(travelRecommend)
                     .addOnSuccessListener {
-                        // 성공적으로 추가됨
+                        // Successfully added
                     }
                     .addOnFailureListener {
-                        Log.d("RecommendActivityDBInsert", "등록 실패")
+                        Log.d("RecommendActivityDBInsert", "Failed to register")
                     }
             }
         }
