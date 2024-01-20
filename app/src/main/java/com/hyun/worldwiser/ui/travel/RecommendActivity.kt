@@ -127,7 +127,6 @@ class RecommendActivity : AppCompatActivity() {
                         travelRecommendAuthNickname,
                         travelRecommendCountry,
                         imageUrls.joinToString(),
-                        imageUrls.toString(),
                         travelRecommendAloneStatus,
                         travelRecommendImpression,
                         travelRecommendFavoriteCount

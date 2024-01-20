@@ -78,7 +78,6 @@ class TravelFragment : Fragment() {
                                 travelRecommendAuthNickname,
                                 travelRecommendCountry,
                                 imageUrlNullCheck,
-                                imageUrlNullCheck,
                                 travelRecommendAloneStatus,
                                 travelRecommendImpression,
                                 travelRecommendFavoriteCount

@@ -1,6 +1,7 @@
 package com.hyun.worldwiser.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,9 @@ class TravelRecommendDetailImageSlideAdapter(val context: Context, private val s
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindSliderImage(sliderImage[position])
+
+        Log.d("TravelRecommendDetailImageSlideAdapter", sliderImage[position]!!.trim())
+
     }
 
     override fun getItemCount(): Int {
@@ -25,12 +29,26 @@ class TravelRecommendDetailImageSlideAdapter(val context: Context, private val s
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageSlider: ImageView = itemView.findViewById(R.id.imageSlider)
 
-        fun bindSliderImage(imageUrl: String?) {
-            Glide.with(context)
-                .load(imageUrl)
-                .into(imageSlider)
+        private val imageSlider: ImageView = itemView.findViewById(R.id.imageSlider)
+
+        fun bindSliderImage(imageUrls: String?) {
+
+            val imageUrlArray = imageUrls?.split(",")?.toTypedArray()
+
+            if (!imageUrlArray.isNullOrEmpty()) {
+
+                Log.d("imageUrlArraySize", imageUrlArray.size.toString())
+
+                for (i in 0..imageUrlArray.size) {
+
+                    Log.d("imageUrlForArraySize")
+
+                    Glide.with(context)
+                        .load(imageUrlArray[i].trim())
+                        .into(imageSlider)
+                }
+            }
         }
     }
 }

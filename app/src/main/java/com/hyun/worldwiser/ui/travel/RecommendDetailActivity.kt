@@ -15,21 +15,19 @@ class RecommendDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recommend_detail)
 
-        val travelRecommendImageUrlFirst = intent.getStringExtra("travelRecommendImageUrlFirst")
-        val travelRecommendImageUrlSecond = intent.getStringExtra("travelRecommendImageUrlSecond")
+        val travelRecommendImageUrl = intent.getStringExtra("travelRecommendImageUrl")
 
-        val images: Array<String?> = arrayOf (
-            travelRecommendImageUrlFirst,
-            travelRecommendImageUrlSecond,
+        Log.d("travelRecommendImageUrl", travelRecommendImageUrl.toString())
+
+        val travelRecommendImages = arrayOf (
+            travelRecommendImageUrl
         )
 
-        Log.d("RecommendDetailActivityFirstImageUrl", travelRecommendImageUrlFirst.toString())
-        Log.d("RecommendDetailActivitySecondImageUrl", travelRecommendImageUrlSecond.toString())
 
         slideViewPager = findViewById(R.id.vp_travel_recommend_imageUrl)
 
         slideViewPager.offscreenPageLimit = 1
-        val travelRecommendDetailImageSlideAdapter = TravelRecommendDetailImageSlideAdapter(this, images)
+        val travelRecommendDetailImageSlideAdapter = TravelRecommendDetailImageSlideAdapter(this, travelRecommendImages)
         slideViewPager.adapter = travelRecommendDetailImageSlideAdapter
     }
 }

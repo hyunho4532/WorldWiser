@@ -40,8 +40,7 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
             val travelRecommendAuthNickname = travelRecommend.travelRecommendAuthNickname
             val travelRecommendCountry = travelRecommend.travelRecommendCountry
             val travelRecommendFavoriteCount = travelRecommend.travelRecommendFavoriteCount
-            val travelRecommendImageUrlFirst = travelRecommend.travelRecommendImageUrlFirst!!
-            val travelRecommendImageUrlSecond = travelRecommend.travelRecommendImageUrlSecond!!
+            val travelRecommendImageUrl = travelRecommend.travelRecommendImageUrl!!
 
             itemView.findViewById<TextView>(R.id.tv_travel_recommend_favorite_count).setOnClickListener {
                 db.collection("travelRecommends")
@@ -72,21 +71,19 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
 
             Glide
                 .with(context)
-                .load(travelRecommendImageUrlFirst)
+                .load(travelRecommendImageUrl)
                 .into(itemView.findViewById(R.id.iv_travel_recommend_imageUrl_First))
 
             Glide
                 .with(context)
-                .load(travelRecommendImageUrlSecond)
+                .load(travelRecommendImageUrl)
                 .into(itemView.findViewById(R.id.iv_travel_recommend_imageUrl_Second))
 
-            Log.d("TravelRecommendAdapter", travelRecommendImageUrlFirst)
-            Log.d("TravelRecommendAdapter", travelRecommendImageUrlSecond)
+            Log.d("TravelRecommendAdapter", travelRecommendImageUrl)
 
             itemView.setOnClickListener {
                 val intent = Intent(context, RecommendDetailActivity::class.java)
-                intent.putExtra("travelRecommendImageUrlFirst", travelRecommendImageUrlFirst)
-                intent.putExtra("travelRecommendImageUrlSecond", travelRecommendImageUrlSecond)
+                intent.putExtra("travelRecommendImageUrl", travelRecommendImageUrl)
                 context.startActivity(intent)
             }
 
