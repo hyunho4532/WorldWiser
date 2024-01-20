@@ -111,7 +111,7 @@ class RecommendActivity : AppCompatActivity() {
                     "travelRecommendImpression" to travelRecommendImpression,
 
                     "travelRecommendImageUrls" to when (imageUrls.size) {
-                        1 -> null
+                        1 -> imageUrls[0].toString().trim()
                         else -> imageUrls.map { it.toString() }
                     },
 

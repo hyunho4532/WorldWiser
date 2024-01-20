@@ -38,10 +38,7 @@ class FirebaseStorageManager {
                     imageRef.downloadUrl
                 }.addOnSuccessListener { uri ->
                     imageUrls.add(uri)
-
-                    if (imageUrls.size == bitmaps.size) {
-                        onComplete(imageUrls)
-                    }
+                    onComplete(imageUrls)
                 }
             }
         }
