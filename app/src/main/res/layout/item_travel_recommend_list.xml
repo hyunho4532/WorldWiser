@@ -47,7 +47,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_nickname" />
 
             <ImageView
-                android:id="@+id/imageView11"
+                android:id="@+id/iv_travel_recommend_delete"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="4dp"
