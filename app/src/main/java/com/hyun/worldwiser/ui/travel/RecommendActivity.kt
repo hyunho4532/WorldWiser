@@ -21,6 +21,7 @@ import com.hyun.worldwiser.databinding.ActivityRecommendBinding
 import com.hyun.worldwiser.model.TravelRecommend
 import com.hyun.worldwiser.type.SelectedImageType
 import com.hyun.worldwiser.viewmodel.VerificationSelectViewModel
+import java.security.PrivateKey
 
 class RecommendActivity : AppCompatActivity() {
 
@@ -93,12 +94,25 @@ class RecommendActivity : AppCompatActivity() {
 
         activityRecommendBinding.btnTravelRecommendInsert.setOnClickListener {
 
-            val bitmaps = listOf(travelRecommendImageUrlBitmapFirst, travelRecommendImageUrlBitmapSecond)
+            val bitmaps = mutableListOf<Bitmap?>()
+
+            if (travelRecommendImageUrlBitmapFirst != null && travelRecommendImageUrlBitmapSecond == null) {
+                bitmaps.add(travelRecommendImageUrlBitmapFirst)
+            }
+
+            if (travelRecommendImageUrlBitmapFirst != null && travelRecommendImageUrlBitmapSecond != null) {
+                bitmaps.add(travelRecommendImageUrlBitmapFirst)
+                bitmaps.add(travelRecommendImageUrlBitmapSecond)
+            }
 
             firebaseStorageManager.uploadImages(bitmaps) { imageUrls ->
-                val travelRecommendCountry = activityRecommendBinding.etTravelRecommendCountry.text.toString()
-                val travelRecommendImpression = activityRecommendBinding.etTravelRecommendImpression.text.toString()
-                val travelRecommendAloneStatus = activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
+                // 이미지 업로드 작업 완료될 때 실행되는 부분
+                val travelRecommendCountry =
+                    activityRecommendBinding.etTravelRecommendCountry.text.toString()
+                val travelRecommendImpression =
+                    activityRecommendBinding.etTravelRecommendImpression.text.toString()
+                val travelRecommendAloneStatus =
+                    activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
                 val travelRecommendAuthUid = auth.currentUser!!.uid
                 val travelRecommendFavoriteCount = 0
 
@@ -124,7 +138,6 @@ class RecommendActivity : AppCompatActivity() {
 
                 db.collection("travelRecommends").add(travelRecommend)
                     .addOnSuccessListener {
-                        travelRecommend.clear()
                         Log.d("RecommendActivityDBInsert", "Success to register")
                     }
                     .addOnFailureListener {
