@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,7 +32,7 @@ class TravelFragment : Fragment() {
 
         val travelRecommendList = ArrayList<TravelRecommend>()
 
-        view.findViewById<FloatingActionButton>(R.id.fBtn_travel_recommend_insert).setOnClickListener {
+        view.findViewById<ImageView>(R.id.fBtn_travel_recommend_insert).setOnClickListener {
             val intent = Intent(requireActivity(), RecommendActivity::class.java)
             startActivity(intent)
         }

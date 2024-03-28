@@ -66,7 +66,7 @@ class RecommendActivity : AppCompatActivity() {
         verificationSelectViewModel.verificationNicknameSelectData { nickname ->
             travelRecommendAuthNickname = nickname
 
-            activityRecommendBinding.tvNicknameAuthWhoTravelRecommend.setText(nickname + "님의 추천 여행지는?")
+            activityRecommendBinding.tvNicknameAuthWhoTravelRecommend.text = nickname + "님의 추천 여행지는?"
         }
 
         activityRecommendBinding.switcher.setOnCheckedChangedListener { checked ->
@@ -122,21 +122,10 @@ class RecommendActivity : AppCompatActivity() {
 
                 Log.d("RecommendActivityImageUrl", imageUrls.toString())
 
-                recommendTravelList.add(
-                    TravelRecommend(
-                        travelRecommendAuthUid,
-                        travelRecommendAuthNickname,
-                        travelRecommendCountry,
-                        imageUrls.toString(),
-                        travelRecommendAloneStatus,
-                        travelRecommendImpression,
-                        travelRecommendFavoriteCount
-                    )
-                )
-
                 db.collection("travelRecommends").add(travelRecommend)
                     .addOnSuccessListener {
-                        // Successfully added
+                        travelRecommend.clear()
+                        Log.d("RecommendActivityDBInsert", "Success to register")
                     }
                     .addOnFailureListener {
                         Log.d("RecommendActivityDBInsert", "Failed to register")

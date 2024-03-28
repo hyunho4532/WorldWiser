@@ -2,6 +2,7 @@ package com.hyun.worldwiser
 
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.storage.OnObbStateChangeListener
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.storage.FirebaseStorage
@@ -42,8 +43,7 @@ class FirebaseStorageManager {
                     if (imageUrls.size == bitmaps.size) {
                         onComplete(imageUrls)
                     }
-
-                    else if (imageUrls.size != bitmaps.size) {
+                    else if (imageUrls.size == 1) {
                         onComplete(imageUrls)
                     }
                 }
