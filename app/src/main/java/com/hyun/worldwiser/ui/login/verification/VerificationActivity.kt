@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryAdapter
 import com.hyun.worldwiser.databinding.ActivityVerificationBinding
@@ -17,6 +18,8 @@ import com.hyun.worldwiser.util.SnackBarFilter
 import com.hyun.worldwiser.viewmodel.VerificationInsertViewModel
 
 class VerificationActivity : AppCompatActivity() {
+
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private var countryList = arrayListOf<Country>()
     private lateinit var activityVerificationBinding: ActivityVerificationBinding
@@ -52,6 +55,7 @@ class VerificationActivity : AppCompatActivity() {
             val countriesString = countryList.joinToString(", ") { it.countryFavorite }
 
             val verification = hashMapOf.insertVerificationDataFromMap (
+                auth.currentUser!!.uid,
                 countriesString,
                 activityVerificationBinding.powerSpinnerView.text.toString(),
                 activityVerificationBinding.powerSpinnerView2.text.toString(),

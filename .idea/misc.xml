@@ -3,8 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android/WorldWiser/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2385" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/drawable/calendar_circle_gray.xml" value="0.2385" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/drawable/calendar_selector.xml" value="0.2385" />
         <entry key="..\:/android/WorldWiser/app/src/main/res/drawable/drawable_login_email_field.xml" value="0.1955" />
         <entry key="..\:/android/WorldWiser/app/src/main/res/drawable/drawable_login_email_field2.xml" value="0.1945" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/drawable/drawable_login_instagram_icon.xml" value="0.2535" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/drawable/drawable_schedule_calendar.xml" value="0.2535" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/drawable/drawable_schedule_insert_button.xml" value="0.2535" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/drawable/transparent_calendar_element.xml" value="0.2385" />
         <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_insert.xml" value="0.1875" />
         <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_intro.xml" value="0.1875" />
         <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_login.xml" value="0.33" />
@@ -12,9 +19,11 @@
         <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_schedule.xml" value="0.1875" />
         <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_travel_schedule.xml" value="0.1875" />
         <entry key="..\:/android/WorldWiser/app/src/main/res/layout/activity_verification.xml" value="0.30716723549488056" />
-        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/fragment_travel.xml" value="0.19427083333333334" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/dialog_bottom_sheet_travel_calendar_insert.xml" value="0.36614583333333334" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/fragment_travel.xml" value="0.33" />
         <entry key="..\:/android/WorldWiser/app/src/main/res/layout/item_travel_recommend_detail_list.xml" value="0.19427083333333334" />
-        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/item_travel_recommend_list.xml" value="0.25" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/layout/item_travel_recommend_list.xml" value="0.67" />
+        <entry key="..\:/android/WorldWiser/app/src/main/res/menu/bottom_navi_menu.xml" value="0.3828125" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/activity_login_input_email_background.xml" value="0.261" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/activity_login_main_image.xml" value="0.261" />
         <entry key="..\:/flutter_project/Worldwiser/app/src/main/res/drawable/calendar_circle_gray.xml" value="0.26" />
@@ -69,7 +78,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

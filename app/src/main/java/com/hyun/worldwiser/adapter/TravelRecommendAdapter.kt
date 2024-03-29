@@ -20,6 +20,7 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
     RecyclerView.Adapter<TravelRecommendAdapter.ViewHolder>() {
 
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_travel_recommend_list, parent, false)
@@ -37,6 +38,7 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(travelRecommend: TravelRecommend) {
+            val travelRecommendAuthUid = travelRecommend.travelRecommendAuthUid
             val travelRecommendAuthNickname = travelRecommend.travelRecommendAuthNickname
             val travelRecommendCountry = travelRecommend.travelRecommendCountry
             val travelRecommendFavoriteCount = travelRecommend.travelRecommendFavoriteCount
@@ -69,7 +71,22 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
                     }
             }
 
+            Log.d("travelRecommendAuthUid", travelRecommendAuthUid)
+
+            "@user-$travelRecommendAuthUid".also { authUid ->
+                itemView.findViewById<TextView>(R.id.tv_travel_recommend_auth_uid).text = authUid
+            }
+
             itemView.findViewById<TextView>(R.id.tv_travel_recommend_nickname).text = travelRecommendAuthNickname
+
+            Log.d("@userRecommendAuthUid", "@user-$travelRecommendAuthUid")
+            Log.d("@userAuthUid", "@user-${auth.currentUser!!.uid}")
+
+            if ("@user-$travelRecommendAuthUid" == "@user-${auth.currentUser!!.uid}") {
+                itemView.findViewById<ImageView>(R.id.iv_travel_recommend_delete).visibility = View.VISIBLE
+            } else {
+                itemView.findViewById<ImageView>(R.id.iv_travel_recommend_delete).visibility = View.INVISIBLE
+            }
 
             val imageUrlSpilt = travelRecommendImageUrl.split(",")
 

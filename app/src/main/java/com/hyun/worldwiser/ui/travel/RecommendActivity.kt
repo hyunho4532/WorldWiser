@@ -21,6 +21,7 @@ import com.hyun.worldwiser.databinding.ActivityRecommendBinding
 import com.hyun.worldwiser.model.TravelRecommend
 import com.hyun.worldwiser.type.SelectedImageType
 import com.hyun.worldwiser.viewmodel.VerificationSelectViewModel
+import java.security.PrivateKey
 
 class RecommendActivity : AppCompatActivity() {
 
@@ -66,7 +67,7 @@ class RecommendActivity : AppCompatActivity() {
         verificationSelectViewModel.verificationNicknameSelectData { nickname ->
             travelRecommendAuthNickname = nickname
 
-            activityRecommendBinding.tvNicknameAuthWhoTravelRecommend.setText(nickname + "님의 추천 여행지는?")
+            activityRecommendBinding.tvNicknameAuthWhoTravelRecommend.text = nickname + "님의 추천 여행지는?"
         }
 
         activityRecommendBinding.switcher.setOnCheckedChangedListener { checked ->
@@ -93,12 +94,25 @@ class RecommendActivity : AppCompatActivity() {
 
         activityRecommendBinding.btnTravelRecommendInsert.setOnClickListener {
 
-            val bitmaps = listOf(travelRecommendImageUrlBitmapFirst, travelRecommendImageUrlBitmapSecond)
+            val bitmaps = mutableListOf<Bitmap?>()
+
+            if (travelRecommendImageUrlBitmapFirst != null && travelRecommendImageUrlBitmapSecond == null) {
+                bitmaps.add(travelRecommendImageUrlBitmapFirst)
+            }
+
+            if (travelRecommendImageUrlBitmapFirst != null && travelRecommendImageUrlBitmapSecond != null) {
+                bitmaps.add(travelRecommendImageUrlBitmapFirst)
+                bitmaps.add(travelRecommendImageUrlBitmapSecond)
+            }
 
             firebaseStorageManager.uploadImages(bitmaps) { imageUrls ->
-                val travelRecommendCountry = activityRecommendBinding.etTravelRecommendCountry.text.toString()
-                val travelRecommendImpression = activityRecommendBinding.etTravelRecommendImpression.text.toString()
-                val travelRecommendAloneStatus = activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
+                // 이미지 업로드 작업 완료될 때 실행되는 부분
+                val travelRecommendCountry =
+                    activityRecommendBinding.etTravelRecommendCountry.text.toString()
+                val travelRecommendImpression =
+                    activityRecommendBinding.etTravelRecommendImpression.text.toString()
+                val travelRecommendAloneStatus =
+                    activityRecommendBinding.tvTravelRecommendAloneStatus.text.toString()
                 val travelRecommendAuthUid = auth.currentUser!!.uid
                 val travelRecommendFavoriteCount = 0
 
@@ -112,7 +126,8 @@ class RecommendActivity : AppCompatActivity() {
 
                     "travelRecommendImageUrls" to when (imageUrls.size) {
                         1 -> imageUrls[0].toString().trim()
-                        else -> imageUrls.map { it.toString() }
+                        2 -> imageUrls.map { it.toString() }
+                        else -> ""
                     },
 
                     "travelRecommendAloneStatus" to travelRecommendAloneStatus,
@@ -121,21 +136,9 @@ class RecommendActivity : AppCompatActivity() {
 
                 Log.d("RecommendActivityImageUrl", imageUrls.toString())
 
-                recommendTravelList.add(
-                    TravelRecommend(
-                        travelRecommendAuthUid,
-                        travelRecommendAuthNickname,
-                        travelRecommendCountry,
-                        imageUrls.joinToString(),
-                        travelRecommendAloneStatus,
-                        travelRecommendImpression,
-                        travelRecommendFavoriteCount
-                    )
-                )
-
                 db.collection("travelRecommends").add(travelRecommend)
                     .addOnSuccessListener {
-                        // Successfully added
+                        Log.d("RecommendActivityDBInsert", "Success to register")
                     }
                     .addOnFailureListener {
                         Log.d("RecommendActivityDBInsert", "Failed to register")

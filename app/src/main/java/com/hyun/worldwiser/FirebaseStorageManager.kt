@@ -2,6 +2,7 @@ package com.hyun.worldwiser
 
 import android.graphics.Bitmap
 import android.net.Uri
+import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.storage.FirebaseStorage
@@ -16,6 +17,8 @@ class FirebaseStorageManager {
         val imageUrls = mutableListOf<Uri>()
 
         val uploadTasks = mutableListOf<Task<*>>()
+
+        var completedUploadCount = 0;
 
         for ((index, bitmap) in bitmaps.withIndex()) {
             if (bitmap != null) {
@@ -38,7 +41,17 @@ class FirebaseStorageManager {
                     imageRef.downloadUrl
                 }.addOnSuccessListener { uri ->
                     imageUrls.add(uri)
-                    onComplete(imageUrls)
+
+                    completedUploadCount++
+
+                    Log.d("completedUploadCount", completedUploadCount.toString())
+
+                    Log.d("BitmapSize", bitmaps.size.toString())
+
+                    // 모든 이미지 업로드가 완료되었을 때만 onComplete 호출
+                    if (completedUploadCount == bitmaps.size) {
+                        onComplete(imageUrls)
+                    }
                 }
             }
         }

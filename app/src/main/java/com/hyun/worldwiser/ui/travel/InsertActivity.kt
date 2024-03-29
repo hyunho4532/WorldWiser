@@ -44,9 +44,7 @@ class InsertActivity : AppCompatActivity() {
     val db = FirebaseFirestore.getInstance()
     val auth = FirebaseAuth.getInstance()
 
-    private lateinit var imageAdapter: ImageAdapter
     private val imageUrls = mutableListOf<String>()
-    private lateinit var imageGetUrl: String
 
     private val UNSPLASH_ACCESS_KEY = "PoIXl8gzJfzjf6uBVST58qmwx74fCQdE-gvu8fnE9uQ"
 

@@ -2,6 +2,7 @@ package com.hyun.worldwiser.util
 
 class HashMapOfFilter {
     fun insertVerificationDataFromMap (
+        authUid: String,
         countryFavorite: String,
         travelPreferences: String,
         transport: String,
@@ -9,6 +10,7 @@ class HashMapOfFilter {
     ): HashMap<String, String> {
 
         return hashMapOf(
+            "authUid" to authUid,
             "country_favorite" to countryFavorite,
             "travel_preferences" to travelPreferences,
             "transport" to transport,

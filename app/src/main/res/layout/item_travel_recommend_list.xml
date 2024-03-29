@@ -11,13 +11,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="360dp"
-        android:layout_height="300dp"
+        android:layout_height="320dp"
         android:layout_margin="24dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
             android:layout_width="0dp"
-            android:layout_height="46dp"
+            android:layout_height="62dp"
             android:background="#F3F3F3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,12 +28,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/taebeak_bold"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_travel_recommend_auth_uid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_travel_recommend_nickname"
+                app:layout_constraintTop_toBottomOf="@+id/tv_travel_recommend_nickname" />
+
+            <ImageView
+                android:id="@+id/iv_travel_recommend_delete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/drawable_travel_recommend_delete_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
