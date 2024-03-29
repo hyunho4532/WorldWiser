@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryRankingAdapter
+import com.hyun.worldwiser.adapter.HomeTravelRecommendAdapter
 import com.hyun.worldwiser.adapter.TravelAdapter
 import com.hyun.worldwiser.adapter.TravelStatusAdapter
 import com.hyun.worldwiser.adapter.TravelSwipeToDeleteCallback
@@ -26,6 +27,7 @@ import com.hyun.worldwiser.model.Travel
 import com.hyun.worldwiser.model.TravelStatus
 import com.hyun.worldwiser.ui.travel.InsertActivity
 import com.hyun.worldwiser.viewmodel.DateTimeFormatterViewModel
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -40,7 +42,7 @@ class HomeFragment : Fragment() {
     private val countryRankingList = ArrayList<CountryRanking>()
     private val travelStatusList = ArrayList<TravelStatus>()
 
-    private var countryFilterText: String = ""
+    private val homeTravelRecommendAdapter: HomeTravelRecommendAdapter = HomeTravelRecommendAdapter()
 
     private val uniqueCountries = HashSet<String>()
 
@@ -59,6 +61,9 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireActivity(), InsertActivity::class.java)
             startActivity(intent)
         }
+
+        fragmentHomeBinding.rvRecommendStatus.adapter = homeTravelRecommendAdapter
+        fragmentHomeBinding.rvRecommendStatus.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         db.collection("travelInserts")
             .get()
