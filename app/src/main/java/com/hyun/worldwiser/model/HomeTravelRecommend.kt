@@ -1,4 +1,6 @@
 package com.hyun.worldwiser.model
 
-class HomeTravelRecommend {
-}
+data class HomeTravelRecommend (
+    val travelRecommendCountry: String,
+    val travelRecommendNickname: String,
+)

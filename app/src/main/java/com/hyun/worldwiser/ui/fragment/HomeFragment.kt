@@ -23,6 +23,7 @@ import com.hyun.worldwiser.adapter.TravelStatusAdapter
 import com.hyun.worldwiser.adapter.TravelSwipeToDeleteCallback
 import com.hyun.worldwiser.databinding.FragmentHomeBinding
 import com.hyun.worldwiser.model.CountryRanking
+import com.hyun.worldwiser.model.HomeTravelRecommend
 import com.hyun.worldwiser.model.Travel
 import com.hyun.worldwiser.model.TravelStatus
 import com.hyun.worldwiser.ui.travel.InsertActivity
@@ -41,8 +42,7 @@ class HomeFragment : Fragment() {
 
     private val countryRankingList = ArrayList<CountryRanking>()
     private val travelStatusList = ArrayList<TravelStatus>()
-
-    private val homeTravelRecommendAdapter: HomeTravelRecommendAdapter = HomeTravelRecommendAdapter()
+    private val travelRecommendList = ArrayList<HomeTravelRecommend>()
 
     private val uniqueCountries = HashSet<String>()
 
@@ -62,8 +62,25 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        fragmentHomeBinding.rvRecommendStatus.adapter = homeTravelRecommendAdapter
-        fragmentHomeBinding.rvRecommendStatus.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        db.collection("travelRecommends")
+            .get()
+            .addOnSuccessListener { querySnapshot  ->
+
+                for (document in querySnapshot.documents) {
+                    val travelRecommendCountry = document["travelRecommendCountry"].toString()
+                    val travelRecommendNickname = document["travelRecommendNickname"].toString()
+
+                    if (travelRecommendCountry.isNotEmpty()) {
+
+                        travelRecommendList.add(HomeTravelRecommend(travelRecommendCountry, travelRecommendNickname))
+                    }
+                }
+
+                val homeTravelRecommendAdapter = HomeTravelRecommendAdapter(requireContext(), travelRecommendList)
+
+                fragmentHomeBinding.rvRecommendStatus.adapter = homeTravelRecommendAdapter
+                fragmentHomeBinding.rvRecommendStatus.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            }
 
         db.collection("travelInserts")
             .get()
@@ -159,5 +176,11 @@ class HomeFragment : Fragment() {
             }
 
         return fragmentHomeBinding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        travelRecommendList.clear()
     }
 }
