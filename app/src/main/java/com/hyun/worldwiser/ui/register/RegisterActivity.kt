@@ -1,21 +1,20 @@
-package com.hyun.worldwiser.ui.login
+package com.hyun.worldwiser.ui.register
 
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
 import com.hyun.worldwiser.R
-import com.hyun.worldwiser.databinding.ActivityLoginBinding
-import com.hyun.worldwiser.ui.login.verification.VerificationActivity
+import com.hyun.worldwiser.databinding.ActivityRegisterBinding
+import com.hyun.worldwiser.ui.register.verification.VerificationActivity
 import com.hyun.worldwiser.util.IntentFilter
 import com.hyun.worldwiser.util.SnackBarFilter
 import com.hyun.worldwiser.viewmodel.AuthRegisterViewModel
 
-class LoginActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var loginBinding: ActivityLoginBinding
+    private lateinit var loginBinding: ActivityRegisterBinding
 
     private val intentFilter: IntentFilter = IntentFilter()
     private val snackBarFilter: SnackBarFilter = SnackBarFilter()
@@ -28,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        loginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        loginBinding = DataBindingUtil.setContentView(this, R.layout.activity_register)
 
         authRegisterViewModel = ViewModelProvider(this)[AuthRegisterViewModel::class.java]
 

@@ -43,7 +43,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
                 android:layout_width="340dp"
-                android:layout_height="160dp"
+                android:layout_height="260dp"
                 android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/cardView"
                 app:layout_constraintStart_toStartOf="@+id/cardView"
@@ -69,10 +69,21 @@
                         android:layout_width="340dp"
                         android:layout_height="70dp"
                         android:layout_marginBottom="8dp"
+                        android:background="@drawable/drawable_schedule_insert_button"
                         android:text="여행 등록하기"
                         android:textColor="@color/white"
-                        android:background="@drawable/drawable_schedule_insert_button"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_user_logout"
+                        android:layout_width="340dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/drawable_logout_button"
+                        android:text="로그아웃"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toTopOf="@+id/btn_travel_insert"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
@@ -81,9 +92,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="20dp"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toTopOf="@+id/btn_travel_insert"
+                        app:layout_constraintBottom_toTopOf="@+id/btn_user_logout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_travel_country" />
 
@@ -93,8 +104,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
-                        android:textSize="13sp"
                         android:text="@{dateTimeFormatterViewModel.travelStatus}"
+                        android:textSize="13sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 

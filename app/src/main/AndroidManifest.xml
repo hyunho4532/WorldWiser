@@ -15,8 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Worldwiser"
-        tools:targetApi="31"
         >
+        <activity
+            android:name=".ui.l;.RegisterActivity"
+            android:exported="false"
+            />
         <activity
             android:name=".ui.travel.RecommendDetailActivity"
             android:exported="false"
@@ -38,12 +41,12 @@
             android:theme="@style/Theme.WorldWiser"
             />
         <activity
-            android:name=".ui.login.verification.VerificationActivity"
+            android:name=".ui.register.verification.VerificationActivity"
             android:exported="true"
             android:theme="@style/Theme.WorldWiser"
             />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.register.RegisterActivity"
             android:exported="true"
             android:theme="@style/Theme.WorldWiser"
             />
