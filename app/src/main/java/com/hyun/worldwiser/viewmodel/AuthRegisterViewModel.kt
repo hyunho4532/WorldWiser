@@ -8,11 +8,11 @@ import com.hyun.worldwiser.repository.AuthRegisterRepository
 class AuthRegisterViewModel : ViewModel() {
 
     private val authRegisterRepository = AuthRegisterRepository() { isSuccess ->
-        _loginResult.postValue(isSuccess)
+        _registerResult.postValue(isSuccess)
     }
 
-    private val _loginResult = MutableLiveData<Boolean>()
-    val loginResult: LiveData<Boolean> = _loginResult
+    private val _registerResult = MutableLiveData<Boolean>()
+    val registerResult: LiveData<Boolean> = _registerResult
 
     fun registerUsers(email: String, password: String) {
         authRegisterRepository.createUserWithEmailAndPassword(email, password)

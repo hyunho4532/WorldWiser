@@ -17,8 +17,9 @@
         android:theme="@style/Theme.Worldwiser"
         >
         <activity
-            android:name=".ui.l;.RegisterActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="false"
+            android:theme="@style/Theme.WorldWiser"
             />
         <activity
             android:name=".ui.travel.RecommendDetailActivity"

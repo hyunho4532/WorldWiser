@@ -24,6 +24,8 @@
     <string name="iv_intro_airplane">3D 비행기</string>
 
     <string name="activity_login_forget_password_text">비밀번호를 잊어버리셨나요?</string>
+    <string name="activity_not_find_email_text">이메일이 없으신가요?</string>
+    <string name="activity_find_email_text">이메일이 있으신가요?</string>
 
     <string name="activity_login_simple_login_detail_needed">월드와이저를 이용하기 위해 정보 입력해주세요.</string>
     <!-- TODO: Remove or change this placeholder text -->
