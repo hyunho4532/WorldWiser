@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryRankingAdapter
 import com.hyun.worldwiser.adapter.HomeTravelRecommendAdapter
+import com.hyun.worldwiser.adapter.TourSpotAdapter
 import com.hyun.worldwiser.adapter.TravelAdapter
 import com.hyun.worldwiser.adapter.TravelStatusAdapter
 import com.hyun.worldwiser.adapter.TravelSwipeToDeleteCallback
@@ -45,6 +46,8 @@ class HomeFragment : Fragment() {
     private val travelRecommendList = ArrayList<HomeTravelRecommend>()
 
     private val uniqueCountries = HashSet<String>()
+
+    private lateinit var tourSpotAdapter: TourSpotAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
