@@ -11,7 +11,7 @@ android {
         applicationId "com.hyun.worldwiser"
         minSdk 32
         targetSdk 34
-        versionCode 2
+        versionCode 3
         versionName "1.5.30"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
