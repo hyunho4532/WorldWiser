@@ -1,10 +1,11 @@
-import com.hyun.worldwiser.model.spots.TourSpotResponse
+import com.hyun.worldwiser.model.spots.Root
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface TourApiService {
-    @GET("searchKeyword1")
-    suspend fun getTourSpots(
+    @GET("/B551011/KorService1/searchKeyword1")
+    fun getTourSpots(
         @Query("serviceKey") serviceKey: String,
         @Query("numOfRows") numOfRows: Int,
         @Query("pageNo") pageNo: Int,
@@ -15,5 +16,5 @@ interface TourApiService {
         @Query("arrange") arrange: String,
         @Query("keyword") keyword: String,
         @Query("contentTypeId") contentTypeId: Int
-    ): TourSpotResponse
+    ): Call<Root>
 }

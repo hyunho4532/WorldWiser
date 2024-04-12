@@ -12,23 +12,23 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.GsonBuilder
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryRankingAdapter
 import com.hyun.worldwiser.adapter.HomeTravelRecommendAdapter
-import com.hyun.worldwiser.adapter.TourSpotAdapter
 import com.hyun.worldwiser.adapter.TravelStatusAdapter
 import com.hyun.worldwiser.databinding.FragmentHomeBinding
 import com.hyun.worldwiser.model.CountryRanking
 import com.hyun.worldwiser.model.HomeTravelRecommend
 import com.hyun.worldwiser.model.TravelStatus
-import com.hyun.worldwiser.model.spots.fetchTourSpots
+import com.hyun.worldwiser.model.spots.Root
+import com.hyun.worldwiser.model.spots.SpotsItem
 import com.hyun.worldwiser.ui.travel.InsertActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 
 class HomeFragment : Fragment() {
 
@@ -43,7 +43,16 @@ class HomeFragment : Fragment() {
 
     private val uniqueCountries = HashSet<String>()
 
-    private lateinit var tourSpotAdapter: TourSpotAdapter
+    val gson = GsonBuilder()
+        .setLenient()
+        .create()
+
+    val retrofit = Retrofit.Builder()
+        .baseUrl("https://apis.data.go.kr/")
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build()
+
+    val tourApiService = retrofit.create(TourApiService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +64,6 @@ class HomeFragment : Fragment() {
     ): View {
 
         fragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-
-        tourSpotAdapter = TourSpotAdapter()
 
         fragmentHomeBinding.btnTravelInsert.setOnClickListener {
             val intent = Intent(requireActivity(), InsertActivity::class.java)
@@ -176,21 +183,22 @@ class HomeFragment : Fragment() {
                 fragmentHomeBinding.rvTravelStatus.adapter = travelStatusAdapter
             }
 
-        fragmentHomeBinding.rvRecommendSpot.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = tourSpotAdapter
-        }
+        tourApiService.getTourSpots (
+            serviceKey = "KmXwF4GXnRJiiNY68ky5tSl88Zi3IsotZW3VlDC%2BEGf472pLAf%2FgWmsnJDq9d22bOLATJFTTixhypw6BuSDJug%3D%3D", numOfRows = 10,
+            pageNo = 1, mobileOS = "ETC",
+            mobileApp = "AppTest", listYN = "Y",
+            arrange = "A", keyword = "강원", contentTypeId = 12).enqueue(object: Callback<Root> {
 
-        GlobalScope.launch {
-            try {
-                val tourSpotResponse = fetchTourSpots()
+                override fun onResponse(call: Call<Root>, response: Response<Root>) {
+                    response.body()?.let {
+                        Log.d("HomeFragment", it.toString())
+                    }
+                }
 
-                Log.d("HomeFragment", tourSpotResponse!!.firstImage.toString())
-            } catch (e: Exception) {
-                Log.e("HomeFragment", e.message.toString())
-            }
-
-        }
+                override fun onFailure(call: Call<Root>, t: Throwable) {
+                    Log.d("ERROR", t.message.toString())
+                }
+        })
 
         return fragmentHomeBinding.root
     }
