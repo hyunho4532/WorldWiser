@@ -3,15 +3,14 @@ package com.hyun.worldwiser.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hyun.worldwiser.R
-import com.hyun.worldwiser.model.TourSpot
+import com.hyun.worldwiser.model.spots.TourSpotResponse
 
 class TourSpotAdapter : RecyclerView.Adapter<TourSpotAdapter.ViewHolder>() {
 
-    private var tourSpots: List<TourSpot> = listOf()
+    private var tourSpots: List<TourSpotResponse> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TourSpotAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_home_travel_spot_list, parent, false)
@@ -27,16 +26,11 @@ class TourSpotAdapter : RecyclerView.Adapter<TourSpotAdapter.ViewHolder>() {
         return tourSpots.size
     }
 
-    fun setData(tourSpots: List<TourSpot>) {
-        this.tourSpots = tourSpots
-        notifyDataSetChanged()
-    }
-
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(tourSpot: TourSpot) {
+        fun bind(tourSpot: TourSpotResponse) {
             itemView.apply {
                 Glide.with(itemView.context)
-                    .load(tourSpot.imageUrl)
+                    .load(tourSpot.firstImage)
                     .into(itemView.findViewById(R.id.iv_travel_spot_imageUrl))
             }
         }

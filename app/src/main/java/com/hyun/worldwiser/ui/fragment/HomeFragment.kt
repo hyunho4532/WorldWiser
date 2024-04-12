@@ -1,6 +1,6 @@
 package com.hyun.worldwiser.ui.fragment
 
-import android.content.Context
+import TourApiService
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,30 +9,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryRankingAdapter
 import com.hyun.worldwiser.adapter.HomeTravelRecommendAdapter
 import com.hyun.worldwiser.adapter.TourSpotAdapter
-import com.hyun.worldwiser.adapter.TravelAdapter
 import com.hyun.worldwiser.adapter.TravelStatusAdapter
-import com.hyun.worldwiser.adapter.TravelSwipeToDeleteCallback
 import com.hyun.worldwiser.databinding.FragmentHomeBinding
 import com.hyun.worldwiser.model.CountryRanking
 import com.hyun.worldwiser.model.HomeTravelRecommend
-import com.hyun.worldwiser.model.Travel
 import com.hyun.worldwiser.model.TravelStatus
+import com.hyun.worldwiser.model.spots.fetchTourSpots
 import com.hyun.worldwiser.ui.travel.InsertActivity
-import com.hyun.worldwiser.viewmodel.DateTimeFormatterViewModel
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.Exception
 
 class HomeFragment : Fragment() {
 
@@ -59,6 +55,8 @@ class HomeFragment : Fragment() {
     ): View {
 
         fragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+
+        tourSpotAdapter = TourSpotAdapter()
 
         fragmentHomeBinding.btnTravelInsert.setOnClickListener {
             val intent = Intent(requireActivity(), InsertActivity::class.java)
@@ -177,6 +175,22 @@ class HomeFragment : Fragment() {
                 fragmentHomeBinding.rvTravelStatus.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 fragmentHomeBinding.rvTravelStatus.adapter = travelStatusAdapter
             }
+
+        fragmentHomeBinding.rvRecommendSpot.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = tourSpotAdapter
+        }
+
+        GlobalScope.launch {
+            try {
+                val tourSpotResponse = fetchTourSpots()
+
+                Log.d("HomeFragment", tourSpotResponse!!.firstImage.toString())
+            } catch (e: Exception) {
+                Log.e("HomeFragment", e.message.toString())
+            }
+
+        }
 
         return fragmentHomeBinding.root
     }
