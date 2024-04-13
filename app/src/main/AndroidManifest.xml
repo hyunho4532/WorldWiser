@@ -18,6 +18,11 @@
         android:usesCleartextTraffic="true"
         >
         <activity
+            android:name=".ui.trend.TrendAnalysisActivity"
+            android:exported="false"
+            android:theme="@style/Theme.WorldWiser"
+            />
+        <activity
             android:name=".ui.spots.SpotsDetailActivity"
             android:exported="false"
             android:theme="@style/Theme.WorldWiser"

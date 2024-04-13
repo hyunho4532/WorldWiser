@@ -25,6 +25,7 @@ import com.hyun.worldwiser.model.HomeTravelRecommend
 import com.hyun.worldwiser.model.TravelStatus
 import com.hyun.worldwiser.model.spots.Root
 import com.hyun.worldwiser.ui.travel.InsertActivity
+import com.hyun.worldwiser.ui.trend.TrendAnalysisActivity
 import com.hyun.worldwiser.util.HomeFragmentTitleFilter
 import retrofit2.Call
 import retrofit2.Callback
@@ -210,6 +211,11 @@ class HomeFragment : Fragment() {
                 Log.d("ERROR", t.message.toString())
             }
         })
+
+        fragmentHomeBinding.tvOutlookAnalysis.setOnClickListener {
+            val intent = Intent(context, TrendAnalysisActivity::class.java)
+            startActivity(intent)
+        }
 
         return fragmentHomeBinding.root
     }
