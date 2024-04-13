@@ -160,7 +160,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_travel_theme"
-                android:layout_width="385dp"
+                android:layout_width="336dp"
                 android:layout_height="130dp"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
@@ -181,12 +181,13 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_travel_insert"
-                android:layout_width="320dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="336dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/drawable_login_button5"
+                android:gravity="center"
+                android:text="등록 완료!"
+                app:layout_constraintStart_toStartOf="@+id/rv_travel_theme"
                 app:layout_constraintTop_toBottomOf="@+id/rv_travel_theme" />
 
             <TextView
