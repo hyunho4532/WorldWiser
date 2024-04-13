@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.hyun.worldwiser.R
+import com.hyun.worldwiser.adapter.TrendAnalysisAdapter
 
 class TrendAnalysisActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +16,7 @@ class TrendAnalysisActivity : AppCompatActivity() {
         setContentView(R.layout.activity_trend_analysis)
 
         val viewPager = findViewById<ViewPager2>(R.id.trendAnalysisViewPager)
-        val adapter = Trend
+        val trendAnalysisAdapter = TrendAnalysisAdapter(supportFragmentManager, lifecycle)
+        viewPager.adapter = trendAnalysisAdapter
     }
 }
