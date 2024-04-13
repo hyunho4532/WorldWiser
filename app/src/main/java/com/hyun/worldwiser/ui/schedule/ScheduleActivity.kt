@@ -160,6 +160,7 @@ class ScheduleActivity : AppCompatActivity() {
                     Log.d("ScheduleActivityViewModel", scheduleStatusViewModel.registerResult.value.toString())
 
                     if (scheduleStatusViewModel.registerResult.value.toString().equals("true")) {
+
                         bottomSheetTravelScheduleDialog.show()
 
                         scheduleDayViewModel.selectedItem.observe(this) { selectedItem ->
@@ -171,6 +172,8 @@ class ScheduleActivity : AppCompatActivity() {
                         bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_nickname_auth_schedule).text = nickname + "님! \n" + country + "의 일정을 작성해주세요"
 
                         bottomSheetTravelScheduleView.findViewById<AppCompatButton>(R.id.btn_schedule_datePicker_insert).setOnClickListener {
+
+                            bottomSheetTravelScheduleDialog.dismiss()
 
                             if (bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString().isEmpty()) {
                                 snackBarFilter.insertTravelScheduleSnackBar(view)
