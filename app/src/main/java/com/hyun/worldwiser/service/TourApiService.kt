@@ -3,6 +3,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+
 interface TourApiService {
     @GET("/B551011/KorService1/searchKeyword1")
     fun getTourSpots(

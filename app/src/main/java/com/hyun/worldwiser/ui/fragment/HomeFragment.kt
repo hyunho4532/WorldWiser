@@ -10,19 +10,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.api.Distribution.BucketOptions.Linear
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.GsonBuilder
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryRankingAdapter
 import com.hyun.worldwiser.adapter.HomeTravelRecommendAdapter
+import com.hyun.worldwiser.adapter.TourSpotsAdapter
 import com.hyun.worldwiser.adapter.TravelStatusAdapter
 import com.hyun.worldwiser.databinding.FragmentHomeBinding
 import com.hyun.worldwiser.model.CountryRanking
 import com.hyun.worldwiser.model.HomeTravelRecommend
 import com.hyun.worldwiser.model.TravelStatus
 import com.hyun.worldwiser.model.spots.Root
-import com.hyun.worldwiser.model.spots.SpotsItem
 import com.hyun.worldwiser.ui.travel.InsertActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -189,15 +190,21 @@ class HomeFragment : Fragment() {
             mobileApp = "AppTest", listYN = "Y",
             arrange = "A", keyword = "강원", contentTypeId = 12).enqueue(object: Callback<Root> {
 
-                override fun onResponse(call: Call<Root>, response: Response<Root>) {
-                    response.body()?.let {
-                        Log.d("HomeFragment", it.toString())
-                    }
-                }
+            override fun onResponse(call: Call<Root>, response: Response<Root>) {
+                if (response.isSuccessful) {
+                    val items = response.body()?.response!!.body.items.item
 
-                override fun onFailure(call: Call<Root>, t: Throwable) {
-                    Log.d("ERROR", t.message.toString())
+                    val adapter = TourSpotsAdapter(requireContext(), items)
+
+                    fragmentHomeBinding.rvRecommendSpot.adapter = adapter
+                    fragmentHomeBinding.rvRecommendSpot.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
                 }
+            }
+
+            override fun onFailure(call: Call<Root>, t: Throwable) {
+                Log.d("ERROR", t.message.toString())
+            }
         })
 
         return fragmentHomeBinding.root
