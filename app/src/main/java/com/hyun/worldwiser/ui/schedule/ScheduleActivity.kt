@@ -22,6 +22,7 @@ import com.hyun.worldwiser.model.Schedule
 import com.hyun.worldwiser.model.TravelDay
 import com.hyun.worldwiser.util.SnackBarFilter
 import com.hyun.worldwiser.viewmodel.ScheduleDayViewModel
+import com.hyun.worldwiser.viewmodel.ScheduleStatusViewModel
 import com.skydoves.powerspinner.PowerSpinnerView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -48,6 +49,7 @@ class ScheduleActivity : AppCompatActivity() {
         context = applicationContext
 
         val scheduleDayViewModel: ScheduleDayViewModel = ViewModelProvider(this)[ScheduleDayViewModel::class.java]
+        val scheduleStatusViewModel: ScheduleStatusViewModel = ViewModelProvider(this)[ScheduleStatusViewModel::class.java]
 
         val rvScheduleDay : RecyclerView = findViewById(R.id.rv_schedule_day)
 
@@ -87,7 +89,7 @@ class ScheduleActivity : AppCompatActivity() {
                         travelDayList.add(travelDay)
                     }
 
-                    val travelDayAdapter = TravelDayAdapter(travelDayList, scheduleDayViewModel)
+                    val travelDayAdapter = TravelDayAdapter(travelDayList, scheduleDayViewModel, scheduleStatusViewModel)
                     rvScheduleDay.adapter = travelDayAdapter
                     rvScheduleDay.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                 }
@@ -155,39 +157,45 @@ class ScheduleActivity : AppCompatActivity() {
 
                 findViewById<AppCompatButton>(R.id.btn_schedule_insert).setOnClickListener { view ->
 
-                    bottomSheetTravelScheduleDialog.show()
+                    Log.d("ScheduleActivityViewModel", scheduleStatusViewModel.registerResult.value.toString())
 
-                    scheduleDayViewModel.selectedItem.observe(this) { selectedItem ->
-                        selectedItem?.let {
-                            bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_day_schedule).text = selectedItem
+                    if (scheduleStatusViewModel.registerResult.value.toString().equals("true")) {
+                        bottomSheetTravelScheduleDialog.show()
+
+                        scheduleDayViewModel.selectedItem.observe(this) { selectedItem ->
+                            selectedItem?.let {
+                                bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_day_schedule).text = selectedItem
+                            }
                         }
-                    }
 
-                    bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_nickname_auth_schedule).text = nickname + "님! \n" + country + "의 일정을 작성해주세요"
+                        bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_nickname_auth_schedule).text = nickname + "님! \n" + country + "의 일정을 작성해주세요"
 
-                    bottomSheetTravelScheduleView.findViewById<AppCompatButton>(R.id.btn_schedule_datePicker_insert).setOnClickListener {
+                        bottomSheetTravelScheduleView.findViewById<AppCompatButton>(R.id.btn_schedule_datePicker_insert).setOnClickListener {
 
-                        if (bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString().isEmpty()) {
-                            snackBarFilter.insertTravelScheduleSnackBar(view)
-                        } else {
-                            val schedule = hashMapOf(
-                                "authUid" to auth.currentUser!!.uid,
-                                "country" to country,
-                                "todo" to bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString(),
-                                "todoDate" to tvTravelScheduleTime.text.toString(),
-                                "todoDay" to bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_day_schedule).text.toString(),
-                                "category" to bottomSheetTravelScheduleView.findViewById<PowerSpinnerView>(R.id.powerSpinnerView).text.toString(),
-                                "status" to "진행 중"
-                            )
+                            if (bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString().isEmpty()) {
+                                snackBarFilter.insertTravelScheduleSnackBar(view)
+                            } else {
+                                val schedule = hashMapOf(
+                                    "authUid" to auth.currentUser!!.uid,
+                                    "country" to country,
+                                    "todo" to bottomSheetTravelScheduleView.findViewById<EditText>(R.id.et_travel_schedule_todo).text.toString(),
+                                    "todoDate" to tvTravelScheduleTime.text.toString(),
+                                    "todoDay" to bottomSheetTravelScheduleView.findViewById<TextView>(R.id.tv_day_schedule).text.toString(),
+                                    "category" to bottomSheetTravelScheduleView.findViewById<PowerSpinnerView>(R.id.powerSpinnerView).text.toString(),
+                                    "status" to "진행 중"
+                                )
 
-                            db.collection("plans").add(schedule)
-                                .addOnSuccessListener {
+                                db.collection("plans").add(schedule)
+                                    .addOnSuccessListener {
 
-                                }
-                                .addOnFailureListener {
+                                    }
+                                    .addOnFailureListener {
 
-                                }
+                                    }
+                            }
                         }
+                    } else {
+                        Toast.makeText(this, "Day를 클릭하고 일정을 등록해주세요!", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

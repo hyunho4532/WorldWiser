@@ -1,17 +1,24 @@
 package com.hyun.worldwiser.adapter
 
+import android.content.Context
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.model.TravelDay
 import com.hyun.worldwiser.viewmodel.ScheduleDayViewModel
+import com.hyun.worldwiser.viewmodel.ScheduleStatusViewModel
 
-class TravelDayAdapter(private val travelList: List<TravelDay>, private val scheduleDayViewModel: ScheduleDayViewModel) : RecyclerView.Adapter<TravelDayAdapter.ViewHolder>() {
+class TravelDayAdapter (
+    private val travelList: List<TravelDay>,
+    private val scheduleDayViewModel: ScheduleDayViewModel,
+    private val scheduleStatusViewModel: ScheduleStatusViewModel,
+) : RecyclerView.Adapter<TravelDayAdapter.ViewHolder>() {
 
     private var selectedPosition = RecyclerView.NO_POSITION
 
@@ -49,6 +56,9 @@ class TravelDayAdapter(private val travelList: List<TravelDay>, private val sche
 
         init {
             itemView.setOnClickListener {
+
+                scheduleStatusViewModel.registerStatus(true)
+
                 val previousSelected = selectedPosition
                 selectedPosition = adapterPosition
 
