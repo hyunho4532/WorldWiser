@@ -2,6 +2,7 @@ package com.hyun.worldwiser.ui.register
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -40,7 +41,11 @@ class RegisterActivity : AppCompatActivity() {
             val email = registerBinding.etEmailFormField.text.toString()
             val password = registerBinding.etPasswordFormField.text.toString()
 
-            authRegisterViewModel.registerUsers(email, password)
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "이메일 또는 패스워드를 입력해주세요", Toast.LENGTH_SHORT).show()
+            } else {
+                authRegisterViewModel.registerUsers(email, password)
+            }
         }
 
         registerBinding.loginToMove.setOnClickListener {
