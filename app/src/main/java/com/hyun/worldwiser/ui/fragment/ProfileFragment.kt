@@ -1,6 +1,7 @@
 package com.hyun.worldwiser.ui.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.hyun.worldwiser.adapter.TravelAdapter
 import com.hyun.worldwiser.adapter.TravelSwipeToDeleteCallback
 import com.hyun.worldwiser.databinding.FragmentProfileBinding
 import com.hyun.worldwiser.model.Travel
+import com.hyun.worldwiser.ui.register.RegisterActivity
 import com.hyun.worldwiser.ui.travel.InsertActivity
 import com.hyun.worldwiser.util.AdapterFilter
 import com.hyun.worldwiser.util.IntentFilter
@@ -101,6 +103,13 @@ class ProfileFragment : Fragment() {
                     }
                 }
             }
+
+        fragmentProfileBinding.btnUserLogout.setOnClickListener {
+            auth.signOut()
+
+            val intent = Intent(requireContext(), RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
 
         return fragmentProfileBinding.root

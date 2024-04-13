@@ -61,8 +61,19 @@
                 android:id="@+id/tv_travel_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="48dp"
                 android:text="여행 정보"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/rv_recommend_status"
+                app:layout_constraintTop_toBottomOf="@+id/rv_recommend_spot" />
+
+            <TextView
+                android:id="@+id/tv_travel_information1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:text="이런 여행지는 어떠신가요?"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/rv_recommend_status"
@@ -217,6 +228,14 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="@+id/textView19"
                 app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recommend_spot"
+                android:layout_width="380dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_travel_information1"
+                app:layout_constraintTop_toBottomOf="@+id/tv_travel_information1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

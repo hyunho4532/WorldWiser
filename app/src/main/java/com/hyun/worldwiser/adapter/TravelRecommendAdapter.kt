@@ -1,5 +1,6 @@
 package com.hyun.worldwiser.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -7,7 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintSet.Constraint
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -37,6 +41,7 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        @SuppressLint("CutPasteId")
         fun bind(travelRecommend: TravelRecommend) {
             val travelRecommendAuthUid = travelRecommend.travelRecommendAuthUid
             val travelRecommendAuthNickname = travelRecommend.travelRecommendAuthNickname
@@ -114,12 +119,39 @@ class TravelRecommendAdapter(private val context: Context, private val travelRec
                     .load(secondImageUrl)
                     .into(itemView.findViewById(R.id.iv_travel_recommend_imageUrl_Second))
 
-                itemView.setOnClickListener {
+                itemView.findViewById<LinearLayout>(R.id.linear_layout).setOnClickListener {
                     val intent = Intent(context, RecommendDetailActivity::class.java)
                     intent.putExtra("travelRecommendFirstImageUrl", firstImageUrl)
                     intent.putExtra("travelRecommendSecondImageUrl", secondImageUrl)
                     context.startActivity(intent)
                 }
+
+                itemView.findViewById<ImageView>(R.id.iv_travel_recommend_delete).setOnClickListener {
+
+                    val countryTextView = itemView.findViewById<TextView>(R.id.tv_travel_recommend_country)
+                    val country = countryTextView.text.toString()
+
+                    db.collection("travelRecommends")
+                        .whereEqualTo("travelRecommendAuthUid", auth.uid)
+                        .whereEqualTo("travelRecommendCountry", country)
+                        .get()
+                        .addOnSuccessListener { querySnapshot ->
+                            for (document in querySnapshot.documents) {
+                                document.reference.delete()
+                                    .addOnSuccessListener {
+                                        Toast.makeText(context, "정상적으로 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Toast.makeText(context, "삭제가 안됩니다.", Toast.LENGTH_SHORT).show()
+                                    }
+                            }
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("TravelRecommendAdapter", "Error querying documents", e)
+                            // 추가적인 작업 수행
+                        }
+                }
+
             } else {
                 val imageUrl: String = if (imageUrlSpilt.isNotEmpty()) {
                     imageUrlSpilt.toString().trim()

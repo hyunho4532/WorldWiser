@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.databinding.ActivityIntroBinding
 import com.hyun.worldwiser.type.AuthType
-import com.hyun.worldwiser.ui.login.LoginActivity
+import com.hyun.worldwiser.ui.register.RegisterActivity
 import com.hyun.worldwiser.util.IntentFilter
 import kotlinx.coroutines.*
 
@@ -25,7 +25,7 @@ class IntroActivity : AppCompatActivity() {
 
     private lateinit var startContext: Context
 
-    private val loginActivity: LoginActivity = LoginActivity()
+    private val registerActivity: RegisterActivity = RegisterActivity()
     private val mainActivity: MainActivity = MainActivity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +53,7 @@ class IntroActivity : AppCompatActivity() {
 
     private fun moveToLogin() {
         activityIntroBinding.tvIntroStatus.text = "로그인 페이지로 이동 중"
-        delayAndMoveToActivity(loginActivity)
+        delayAndMoveToActivity(registerActivity)
     }
 
     private suspend fun loadingToAccount() {

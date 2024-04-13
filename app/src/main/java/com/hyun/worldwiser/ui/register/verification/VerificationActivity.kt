@@ -1,11 +1,9 @@
-package com.hyun.worldwiser.ui.login.verification
+package com.hyun.worldwiser.ui.register.verification
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.hyun.worldwiser.R
 import com.hyun.worldwiser.adapter.CountryAdapter
