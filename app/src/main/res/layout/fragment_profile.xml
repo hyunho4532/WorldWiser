@@ -127,12 +127,12 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="40dp"
                 android:text="현호님에 관한 여행 정보"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/cardView2"
-                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+                app:layout_constraintStart_toStartOf="@+id/cardView6"
+                app:layout_constraintTop_toBottomOf="@+id/cardView6" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -144,6 +144,15 @@
                 app:layout_constraintEnd_toEndOf="@+id/travelRecyclerView"
                 app:layout_constraintStart_toStartOf="@+id/travelRecyclerView"
                 app:layout_constraintTop_toBottomOf="@+id/travelRecyclerView" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView6"
+                android:layout_width="340dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardView2"
+                app:layout_constraintStart_toStartOf="@+id/cardView2"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

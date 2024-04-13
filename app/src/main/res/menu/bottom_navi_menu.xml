@@ -11,6 +11,11 @@
         android:icon="@drawable/drawable_travel_menu" />
 
     <item
+        android:id="@+id/travel_group"
+        android:title="여행 모집"
+        android:icon="@drawable/drawable_travel_group_menu" />
+
+    <item
         android:id="@+id/profile"
         android:title="프로필"
         android:icon="@drawable/drawable_profile_menu" />
