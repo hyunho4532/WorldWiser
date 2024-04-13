@@ -210,6 +210,7 @@ class HomeFragment : Fragment() {
         return fragmentHomeBinding.root
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
 

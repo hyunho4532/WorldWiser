@@ -1,6 +1,7 @@
 package com.hyun.worldwiser.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.hyun.worldwiser.R
 import com.hyun.worldwiser.model.spots.Items
 import com.hyun.worldwiser.model.spots.Root
 import com.hyun.worldwiser.model.spots.SpotsItem
+import com.hyun.worldwiser.ui.spots.SpotsDetailActivity
 
 class TourSpotsAdapter(
     private val context: Context,
@@ -30,6 +32,11 @@ class TourSpotsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val spotsItem = spotsList[position]
         holder.bind(spotsItem)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, SpotsDetailActivity::class.java)
+            context.startActivity(intent)
+        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -37,7 +44,7 @@ class TourSpotsAdapter(
 
             Glide.with(itemView.context)
                 .load(spotsItem.firstimage)
-                .override(700, 500)
+                .override(700, 490)
                 .into(itemView.findViewById(R.id.iv_travel_spot_imageUrl))
 
             Log.d("TourSpotsAdapter", spotsItem.firstimage)
