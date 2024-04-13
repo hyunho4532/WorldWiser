@@ -25,6 +25,7 @@ import com.hyun.worldwiser.model.HomeTravelRecommend
 import com.hyun.worldwiser.model.TravelStatus
 import com.hyun.worldwiser.model.spots.Root
 import com.hyun.worldwiser.ui.travel.InsertActivity
+import com.hyun.worldwiser.util.HomeFragmentTitleFilter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -70,6 +71,9 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireActivity(), InsertActivity::class.java)
             startActivity(intent)
         }
+
+        val homeFragmentTitleFilter: HomeFragmentTitleFilter = HomeFragmentTitleFilter(fragmentHomeBinding)
+        homeFragmentTitleFilter.homeFragmentTitleSettings()
 
         db.collection("travelRecommends")
             .get()

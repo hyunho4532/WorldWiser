@@ -1,5 +1,6 @@
 package com.hyun.worldwiser.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -26,11 +27,17 @@ class TravelStatusAdapter(val context: Context, private val travelStatusList: Ar
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        @SuppressLint("SetTextI18n")
         fun bind(travelStatus: TravelStatus) {
             val countryStatusText = travelStatus.countryStatus
             val countryStatusCountText = travelStatus.countryStatusCount
 
-            itemView.findViewById<TextView>(R.id.tv_travel_status).text = countryStatusText
+            if (countryStatusText == "혼자 여행") {
+                itemView.findViewById<TextView>(R.id.tv_travel_status).text = "$countryStatusText 🤗"
+            } else {
+                itemView.findViewById<TextView>(R.id.tv_travel_status).text = "$countryStatusText 😎"
+            }
+
             itemView.findViewById<ProgressBar>(R.id.pb_travel_status_count).progress = countryStatusCountText
         }
     }
